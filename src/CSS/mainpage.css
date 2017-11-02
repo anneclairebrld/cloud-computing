@@ -1,0 +1,7 @@
+/*Styling for the first page*/
+h1 {
+	text-align: center;
+	text-transform: capitalize;
+	letter-spacing: 3px;
+	font-family: Impact;
+}
