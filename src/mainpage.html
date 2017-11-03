@@ -11,7 +11,6 @@
 		        <AllowedHeader></AllowedHeader>
 		    </CORSRule>
 		</CORSConfiguration>
-		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 
 	<body>
@@ -21,23 +20,20 @@
 			
 			<div class="buttons">
 				<!-- <button type="submit" id="myImage" class="myImage">Upload Image</button>
-				<button class="otherswork">See others work</button>	 -->
+				 -->
 				<form>
 					<label for="myImage" class="custom-file-upload">
 					    <i class="fa fa-cloud-upload"></i> Upload Image
 					</label> 
-					<input name="myImage" class="myImage" id="myImage" type="file" name="pic" accept="image/*">
-					<label for="otherswork" class="custom-otherswork"> See Others Work</label>
-					<input type="file" id="otherswork">
-					  <!-- <input type="submit"> -->
-				  
+					<input name="myImage" class="myImage" id="myImage" type="file" name="pic" accept="image/*">  	  
 				</form>	
 			</div>	
+			<a href="peoplesimages.html"><button class="otherswork">See others work</button></a>	
 		</div>
 		<canvas id="canvas" width="500" height="400"></canvas>
 <br>
 <input id="blocks" type="range" min="1" max="50" value="0">
 <input id="animate" type="button" value="Animate">
-<script src="app.js"></script>
+<script src="./js/app.js"></script>
 	</body>
 </hmtl>

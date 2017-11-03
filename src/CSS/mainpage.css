@@ -29,6 +29,20 @@ div.buttons{
 	left:15%;
 }
 
+button.otherswork{
+    background-color: #d95326; 
+    border: none;
+    color: white;       
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    position:absolute;
+    top:70%;
+    left:50%;
+}
+
 text.welcometext{
 	color:white;
 	position:absolute;
@@ -60,13 +74,3 @@ input[type="file"] {
     font-size: 16px;
 }*/
 
-.custom-otherswork{
-	background-color: #d95326; 
-    border: none;
-    color: white;		
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
