@@ -4,6 +4,14 @@
 		<meta charset="UTF-8">
 		<title>mainpage</title>		
 		<link rel="stylesheet" href="CSS/mainpage.css">
+		<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+		    <CORSRule>
+		        <AllowedOrigin></AllowedOrigin>
+		        <AllowedMethod></AllowedMethod>
+		        <AllowedHeader></AllowedHeader>
+		    </CORSRule>
+		</CORSConfiguration>
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 
 	<body>
@@ -12,9 +20,24 @@
 			<text class ="welcometext"> Welcome, upload your first image and get colouring!!</text>
 			
 			<div class="buttons">
-				<button class="imageupload">Upload Image</button>
-				<button class="otherswork">See others work</button>		
+				<!-- <button type="submit" id="myImage" class="myImage">Upload Image</button>
+				<button class="otherswork">See others work</button>	 -->
+				<form>
+					<label for="myImage" class="custom-file-upload">
+					    <i class="fa fa-cloud-upload"></i> Upload Image
+					</label> 
+					<input name="myImage" class="myImage" id="myImage" type="file" name="pic" accept="image/*">
+					<label for="otherswork" class="custom-otherswork"> See Others Work</label>
+					<input type="file" id="otherswork">
+					  <!-- <input type="submit"> -->
+				  
+				</form>	
 			</div>	
 		</div>
+		<canvas id="canvas" width="500" height="400"></canvas>
+<br>
+<input id="blocks" type="range" min="1" max="50" value="0">
+<input id="animate" type="button" value="Animate">
+<script src="app.js"></script>
 	</body>
 </hmtl>
