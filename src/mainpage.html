@@ -4,6 +4,8 @@
 		<meta charset="UTF-8">
 		<title>mainpage</title>		
 		<link rel="stylesheet" href="CSS/mainpage.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> <!-- jquery -->
+		<script src="js/mainpage.js"></script>
 		<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
 		    <CORSRule>
 		        <AllowedOrigin></AllowedOrigin>
@@ -19,21 +21,14 @@
 			<text class ="welcometext"> Welcome, upload your first image and get colouring!!</text>
 			
 			<div class="buttons">
-				<!-- <button type="submit" id="myImage" class="myImage">Upload Image</button>
-				 -->
 				<form>
 					<label for="myImage" class="custom-file-upload">
 					    <i class="fa fa-cloud-upload"></i> Upload Image
 					</label> 
-					<input name="myImage" class="myImage" id="myImage" type="file" name="pic" accept="image/*">  	  
+					<input name="myImage" class="myImage" id="myImage" type="file"  accept="image/*">  	  
 				</form>	
 			</div>	
 			<a href="peoplesimages.html"><button class="otherswork">See others work</button></a>	
 		</div>
-		<canvas id="canvas" width="500" height="400"></canvas>
-<br>
-<input id="blocks" type="range" min="1" max="50" value="0">
-<input id="animate" type="button" value="Animate">
-<script src="./js/app.js"></script>
 	</body>
 </hmtl>
