@@ -4,9 +4,33 @@ h1 {
 	text-transform: capitalize;
 	letter-spacing: 3px;
 	font-family: Impact;
+	color:white;
 }
 
 body{
 	background-image: url("./../images/fox.png");
 	/*Possible to add background color but will need alphaon other images*/
+}
+
+div.box{
+	width:500px;
+	height:250px;
+	background-color: rgba(1,0,0,0.7);
+	position: absolute;
+	top: 25%;
+	left: 30%;
+
+}
+
+/*Check out the alginments, must be a better way to do this*/
+div.buttons{
+	position:inherit;
+	top:70%;
+	left:30%;
+}
+
+text.welcometext{
+	color:white;
+	position:absolute;
+	left:15%;
 }
