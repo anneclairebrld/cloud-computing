@@ -26,11 +26,33 @@ div.box{
 div.buttons{
 	position:inherit;
 	top:70%;
-	left:30%;
+	left:15%;
 }
 
 text.welcometext{
 	color:white;
 	position:absolute;
 	left:15%;
+}
+
+button.imageupload{
+	background-color:#ff8000; 
+    border: none;
+    color: white;		
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+button.otherswork{
+	background-color: #d95326; 
+    border: none;
+    color: white;		
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
