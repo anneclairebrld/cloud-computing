@@ -5,3 +5,8 @@ h1 {
 	letter-spacing: 3px;
 	font-family: Impact;
 }
+
+body{
+	background-image: url("./../images/fox.png");
+	/*Possible to add background color but will need alphaon other images*/
+}
