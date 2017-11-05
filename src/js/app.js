@@ -15,7 +15,7 @@ $(document).ready(function(){
     // wait until image is actually available
     img.onload = pixelate;
 
-    img.src =  localStorage.imageurl;
+    img.src =  localStorage.getItem(imageurl);
     // some image, we are not struck with CORS restrictions as we
     // do not use pixel buffer to pixelate, so any image will do
     // document.getElementById('myImage').onchange = function(e) {
