@@ -9,6 +9,9 @@ h1 {
 
 body{
 	background-image: url("./../images/fox.png");
+    text-align: center;
+    text-decoration: none;   
+    display: inline-block;
 	/*Possible to add background color but will need alphaon other images*/
 }
 
@@ -19,7 +22,6 @@ div.box{
 	position: absolute;
 	top: 25%;
 	left: 30%;
-
 }
 
 /*Check out the alginments, must be a better way to do this*/
@@ -34,13 +36,8 @@ button.otherswork{
     border: none;
     color: white;       
     padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    position:absolute;
-    top:70%;
-    left:50%;
+    display: inline-block;
 }
 
 p.welcometext{
@@ -58,9 +55,6 @@ input[type="file"] {
     border: none;
     color: white;		
     padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
 }
 /*input[type=file].myImage{
