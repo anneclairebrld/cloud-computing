@@ -13,9 +13,9 @@ $(document).ready(function(){
     ctx.imageSmoothingEnabled = false;
 
     // wait until image is actually available
-    img.onload = pixelate;
+    img.src =  localStorage.getItem('imageurl');
 
-    img.src =  localStorage.getItem(imageurl);
+    img.onload = pixelate;
     // some image, we are not struck with CORS restrictions as we
     // do not use pixel buffer to pixelate, so any image will do
     // document.getElementById('myImage').onchange = function(e) {

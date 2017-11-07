@@ -1,8 +1,11 @@
 $(document).ready(function(){
 	$('.myImage').change(function(){
 		var imageFile = this.files[0];
+		console.log("imageFile: " + imageFile);
 		var url = window.URL.createObjectURL(imageFile);
+		console.log("url: " + url);
 		localStorage.setItem('imageurl', url);
+		//console.log("imageurl: " + imageurl);
 		console.log('go to here');
 		window.location = "imagePixelation.html";
 	});

@@ -1,3 +1,11 @@
 input[type="file"] {
     display: none;
 }
+
+body{
+	background-image: url("./../images/fox.png");
+    text-align: center;
+    text-decoration: none;   
+    display: inline-block;
+	/*Possible to add background color but will need alphaon other images*/
+}
