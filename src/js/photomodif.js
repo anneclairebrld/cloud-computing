@@ -13,19 +13,19 @@ $(document).ready(function(){
     ctx.imageSmoothingEnabled = false;
 
     // wait until image is actually available
-    img.src =  localStorage.getItem('imageurl');
+    //img.src =  localStorage.getItem('imageurl');
 
     img.onload = pixelate;
     // some image, we are not struck with CORS restrictions as we
     // do not use pixel buffer to pixelate, so any image will do
-    // document.getElementById('myImage').onchange = function(e) {
-    //     // Get the first file in the FileList object
-    //     var imageFile = this.files[0];
-    //     // get a local URL representation of the image blob
-    //     var url = window.URL.createObjectURL(imageFile);
-    //     // Now use your newly created URL!
-    //     img.src = url;
-    // }
+    document.getElementById('myImage').onchange = function(e) {
+        // Get the first file in the FileList object
+        var imageFile = this.files[0];
+        // get a local URL representation of the image blob
+        var url = window.URL.createObjectURL(imageFile);
+        // Now use your newly created URL!
+        img.src = url;
+    }
 
     //img.src = 'http://i.imgur.com/w1yg6qo.jpg';
     img.crossOrigin = "Anonymous";

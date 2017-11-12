@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('.myImage').change(function(){
+	/*$('.myImage').change(function(){
 		var imageFile = this.files[0];
 		console.log("imageFile: " + imageFile);
 		var url = window.URL.createObjectURL(imageFile);
@@ -8,7 +8,7 @@ $(document).ready(function(){
 		//console.log("imageurl: " + imageurl);
 		console.log('go to here');
 		window.location = "imagePixelation.html";
-	});
+	});*/
 
 	//This is how we make buttons do cool stuff using css
 	$('.custom-file-upload').on({

@@ -25,7 +25,7 @@
 					<label for="myImage" class="custom-file-upload">
 					    <i class="fa fa-cloud-upload"></i> Upload Image
 					</label> 
-					<input name="myImage" class="myImage" id="myImage" type="file" name="pic" accept="image/*">
+					<input name="myImage" class="myImage" id="myImage" type="file" accept="image/*">
 					<!--  <form action="color.html">
 				  		<label for="start" class="color"> Start Coloring</label>
 					    <input id="start" type="submit"/>
@@ -34,6 +34,10 @@
 				<a href="peoplesimages.html"><button class="otherswork">See others work</button></a>	
 			</div>
 		</div>
-
+		<canvas id="canvas" width="500" height="400"></canvas>
+		<br>
+		<input id="blocks" type="range" min="1" max="50" value="0">
+		<input id="animate" type="button" value="Animate">
+		<script src="js/photomodif.js"></script>
 	</body>
 </html>
