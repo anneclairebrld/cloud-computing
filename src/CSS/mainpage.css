@@ -15,6 +15,16 @@ body{
 	/*Possible to add background color but will need alphaon other images*/
 }
 
+p.welcometext{
+	color:white;
+	left:15%;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
 div.box{
 	width:500px;
 	height:250px;
@@ -26,34 +36,26 @@ div.box{
 
 /*Check out the alginments, must be a better way to do this*/
 div.buttons{
-	position:inherit;
-	top:70%;
-	left:15%;
+	text-align:center;
+    margin:auto;
 }
 
-button.otherswork{
-    background-color: #d95326; 
+.otherswork{
+    text-align: center;
+    position:inherit;
+    background-color: #d95326;
     border: none;
     color: white;       
     padding: 15px 32px;
     font-size: 16px;
-    display: inline-block;
-}
-
-p.welcometext{
-	color:white;
-	position:absolute;
-	left:15%;
-}
-
-input[type="file"] {
-    display: none;
 }
 
 .custom-file-upload {
-    background-color:#ff8000; 
+    text-align: center;
+    position:inherit;
+    background-color:#ff8000;
     border: none;
-    color: white;		
+    color: white;
     padding: 15px 32px;
     font-size: 16px;
 }
