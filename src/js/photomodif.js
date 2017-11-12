@@ -47,6 +47,8 @@ $(document).ready(function(){
 
         // then draw that scaled image thumb back to fill canvas
         // As smoothing is off the result will be pixelated
+
+        //Orsi, this is where the pixel rgb's are calculated, you can console out and see
         ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
         //var i = 1;
         /*for (var x1 = 0; x1<w*1/size; x1+=1/size){
