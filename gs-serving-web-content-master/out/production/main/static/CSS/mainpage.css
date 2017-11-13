@@ -1,0 +1,72 @@
+/*Styling for the first page*/
+h1 {
+	text-align: center;
+	text-transform: capitalize;
+	letter-spacing: 3px;
+	font-family: Impact;
+	color:white;
+}
+
+body{
+	background-image: url("./../images/fox.png");
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	/*Possible to add background color but will need alphaon other images*/
+}
+
+p.welcometext{
+	color:white;
+	left:15%;
+}
+
+input[type="file"] {
+	display: none;
+}
+
+
+div.box{
+	width:500px;
+	height:250px;
+	background-color: rgba(1,0,0,0.7);
+	position: absolute;
+	top: 25%;
+	left: 30%;
+}
+
+/*Check out the alginments, must be a better way to do this*/
+div.buttons{
+	text-align:center;
+	margin:auto;
+}
+
+.otherswork{
+	text-align: center;
+	position:inherit;
+	background-color: #d95326;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	font-size: 16px;
+}
+
+.custom-file-upload {
+	text-align: center;
+	position:inherit;
+	background-color:#ff8000;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	font-size: 16px;
+}
+/*input[type=file].myImage{
+	background-color:#ff8000; 
+    border: none;
+    color: white;		
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}*/
+
