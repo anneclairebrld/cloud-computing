@@ -20,20 +20,20 @@ $(document).ready(function() {
     document.getElementById('myImage').onchange = function(e) {
         // Get the first file in the FileList object
         var imageFile = this.files[0];
+        //console.log(imageFile.type);
         // get a local URL representation of the image blob
         var url = window.URL.createObjectURL(imageFile);
         // Now use your newly created URL!
         img.src = url;
+
     }
 
-    //img.src = 'http://i.imgur.com/w1yg6qo.jpg';
     img.crossOrigin = "Anonymous";
-    // MAIN function
+
     function pixelate(lev) {
 
         // find which button was pressed
         if (lev == "e") {
-//            size = 0.06
             size = 0.01
         } else if (lev == "m") {
             size = 0.15
@@ -47,7 +47,8 @@ $(document).ready(function() {
 
         // draw original image to the scaled size
         ctx.drawImage(img, 0, 0, w, h);
-
+        //console.log(ctx.getImageData(0, 0, w, h));
+        //console.log(canvas.toDataURL());
         // then draw that scaled image thumb back to fill canvas
         // As smoothing is off the result will be pixelated
 
@@ -67,19 +68,31 @@ $(document).ready(function() {
 
     }
 
-    // This runs the demo animation to give an impression of
-    // performance.
-    // event listeneners for buttons
+    function saveImage() {
+        var imageData = canvas.toDataURL();
+
+        $.ajax({
+            url:'/images',
+            data:{imageBase64: imageData},
+            type: 'post',
+            timeout: 10000,
+            async: true,
+            error: function(error){
+                console.log("Error: " + error);
+            },
+            success: function(res){
+                if(res === "success"){
+                    console.log("SUCCESS");
+                }else{
+                    console.log("FAIL : " + res);
+                }
+            }
+        });
+    }
 
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
+    startColoring.addEventListener('click', function() { saveImage() }, false);
 
-    // poly-fill for requestAnmationFrame with fallback for older
-    // browsers which do not support rAF.
-    window.requestAnimationFrame = (function() {
-        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(callback) {
-            window.setTimeout(callback, 1000 / 60);
-        };
-    })();
 });
