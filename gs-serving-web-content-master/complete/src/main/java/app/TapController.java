@@ -1,5 +1,6 @@
 package app;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +21,14 @@ public class TapController {
     }
 
     @RequestMapping(value = "images", method = RequestMethod.POST)
-    public @ResponseBody String saveImage(@RequestBody String image64) {
-        System.out.println(image64);
+    public @ResponseBody Response saveImage(@RequestBody Picture image64) {
+        System.out.println(image64.getImageData());
         System.out.println("Got a post request to the server");
-        return "success";
+        //byte[] data = Base64.decodeBase64(image64);
+        //String s = new String(data);
+        //System.out.println(s);
+        Response success = new Response("success", image64);
+        return success;
     }
 
 }

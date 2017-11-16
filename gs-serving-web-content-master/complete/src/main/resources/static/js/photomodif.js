@@ -70,10 +70,16 @@ $(document).ready(function() {
 
     function saveImage() {
         var imageData = canvas.toDataURL();
-
+        var image = {
+            imageData: imageData,
+            width: w,
+            height: h
+        }
         $.ajax({
             url:'/images',
-            data:{imageBase64: imageData},
+            data:JSON.stringify(image),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
             type: 'post',
             timeout: 10000,
             async: true,
@@ -81,7 +87,7 @@ $(document).ready(function() {
                 console.log("Error: " + error);
             },
             success: function(res){
-                if(res === "success"){
+                if(res.status === "success"){
                     console.log("SUCCESS");
                 }else{
                     console.log("FAIL : " + res);
