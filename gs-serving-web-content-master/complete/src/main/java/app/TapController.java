@@ -22,8 +22,10 @@ public class TapController {
 
     @RequestMapping(value = "images", method = RequestMethod.POST)
     public @ResponseBody Response saveImage(@RequestBody Picture image64) {
-        System.out.println(image64.getImageData());
         System.out.println("Got a post request to the server");
+        System.out.println("base64 String: " + image64.getImageData());
+        System.out.println("Image Width: " + image64.getWidth());
+        System.out.println("Image Height: " + image64.getHeight());
         //byte[] data = Base64.decodeBase64(image64);
         //String s = new String(data);
         //System.out.println(s);
