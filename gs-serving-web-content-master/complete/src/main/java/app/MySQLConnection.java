@@ -55,4 +55,12 @@ public class MySQLConnection {
         }
     }
 
+    public void getImage(String imageId) throws Exception{
+        try{
+            //get the precise image asked
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
 }
