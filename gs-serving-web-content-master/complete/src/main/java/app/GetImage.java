@@ -11,12 +11,12 @@ import javax.imageio.ImageIO;
 
 public class GetImage {
 
-// tokenize the data
+        // tokenize the data
         public GetImage(String sourceData) throws IOException {
             String[] parts = sourceData.split(",");
             String imageString = parts[1];
 
-    // create a buffered image
+            // create a buffered image
             BufferedImage image = null;
             byte[] imageByte;
 
@@ -25,10 +25,10 @@ public class GetImage {
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
             bis.close();
-
-    // write the image to a file
-            File outputfile = new File("image.png");
-            ImageIO.write(image, "png", outputfile);
+            //System.out.println(image.getColorModel());
+            // write the image to a file
+            //File outputfile = new File("image.png");
+            //ImageIO.write(image, "png", outputfile);
 
         }
 }
