@@ -15,19 +15,27 @@ public class ReduceColors {
 
     private Picture pic;
 
+    // ReduceColros gets image from Server
     public ReduceColors(Picture image) throws IOException {
         //System.out.println(image.getHeight());
         this.pic = image;
-        generateColorPalette(5);
+        String[] parts = pic.getImageData().split(",");
+        String imString = parts[1];
+        int difficulty = pic.getDifficulty();
+
+        System.out.println("difficulty" + difficulty);
+
+        generateColorPalette(imString,difficulty);
     }
 
-    public void generateColorPalette(int numColors) throws IOException {
+    public void generateColorPalette(String imageString, int numColors) throws IOException {
         List<Color> colors = new ArrayList<Color>();
         Random r = new Random();
         //int height = pic.getHeight();
         //int width = pic.getWidth();
-        String[] parts = pic.getImageData().split(",");
-        String imageString = parts[1];
+
+//        String[] parts = pic.getImageData().split(",");
+//        String imageString = parts[1];
 
         // create a buffered image
         BufferedImage image = null;
