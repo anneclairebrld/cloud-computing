@@ -14,7 +14,7 @@ import java.io.IOException;
 
 
 @Controller
-public class TapController {
+public class Server {
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
