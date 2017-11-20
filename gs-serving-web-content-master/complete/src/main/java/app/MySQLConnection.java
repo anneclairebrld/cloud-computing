@@ -1,11 +1,13 @@
 package app;
-import java.lang.reflect.Executable;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MySQLConnection {
     private Connection connection = null;
     private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     private String instanceConnectionName = null;
     private String username = null;
@@ -14,21 +16,21 @@ public class MySQLConnection {
 
     public void MySQLConnection(){
         this.instanceConnectionName = "tap-estry-186513:europe-west1:back-end";
-        this.username = "root";
-        this.password = "finalyear4us3";
+        this.username = "annie_test";
+        this.password = "deletefile69";
         this.databaseName =  "images";
     }
 
     public void connectToDataBase() throws Exception, SQLException{
         System.out.println("got to the connectToDataBase function");
-        String jdbcURl = String.format(
-
+        String jdbcUrl = String.format(
                 "jdbc:mysql://google/%s?cloudSqlInstance=%s&"
                         + "socketFactory=com.google.cloud.sql.mysql.SocketFactory",
                 databaseName,
                 instanceConnectionName);
+        System.out.println("created a jdbcUrl");
+        connection = DriverManager.getConnection(jdbcUrl, username, password);
 
-        connection = DriverManager.getConnection(jdbcURl, username, password);
         System.out.println("blehhh to database");
         try (Statement statement = connection.createStatement()) {
             System.out.println("tconnected to database");
