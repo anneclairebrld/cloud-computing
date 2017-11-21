@@ -14,11 +14,11 @@ public class MySQLConnection {
     private String password= null;
     private String databaseName = null;
 
-    public void MySQLConnection(){
-        this.instanceConnectionName = "tap-estry-186513:europe-west1:back-end";
-        this.username = "annie_test";
-        this.password = "deletefile69";
-        this.databaseName =  "images";
+    public MySQLConnection(){
+        instanceConnectionName = "tap-estry-186513:europe-west1:back-end";
+        username = "annie_test";
+        password = "deletefile69";
+        databaseName =  "images";
     }
 
     public void connectToDataBase() throws Exception, SQLException{
