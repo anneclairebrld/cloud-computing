@@ -9,8 +9,8 @@ public class MySQLConnection {
     private ResultSet resultSet;
     private PreparedStatement preparedStatement;
 
-    private String username= "annie_test";
-    private String password= "deletefile69";
+    private String username= "annie_test2";
+    private String password= "finalyear4us3";
     enum TestTableColumns{
         id,TEXT;
     }
