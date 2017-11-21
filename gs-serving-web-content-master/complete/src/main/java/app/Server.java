@@ -37,11 +37,7 @@ public class Server {
         System.out.println("Testing to see if the database was connected to ");
         String databaseName = "images" ;
         String instanceConnectionName = "tap-estry-186513:europe-west1:back-end";
-        String jdbcUrl = String.format(
-                "jdbc:mysql://google/%s?cloudSqlInstance=%s&"
-                        + "socketFactory=com.google.cloud.sql.mysql.SocketFactory",
-                databaseName,
-                instanceConnectionName);
+        String jdbcUrl ="jdbc:mysql://35.195.54.162:3306/images";
         try {
             MySQLConnection mySQLConnection =  new MySQLConnection(jdbcUrl);
             mySQLConnection.readData();
