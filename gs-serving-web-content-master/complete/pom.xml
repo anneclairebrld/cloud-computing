@@ -37,7 +37,7 @@
 
         <dependency>
             <groupId>com.google.cloud.sql</groupId>
-            <artifactId>jdbc-socket-factory-core</artifactId>
+            <artifactId>mysql-socket-factory</artifactId>
             <version>1.0.4</version>
         </dependency>
     </dependencies>

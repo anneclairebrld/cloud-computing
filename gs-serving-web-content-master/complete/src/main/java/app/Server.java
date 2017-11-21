@@ -35,8 +35,15 @@ public class Server {
         //GetImage image = new GetImage(image64.getImageData());
 
         System.out.println("Testing to see if the database was connected to ");
+        String databaseName = "images" ;
+        String instanceConnectionName = "tap-estry-186513:europe-west1:back-end";
+        String jdbcUrl = String.format(
+                "jdbc:mysql://google/%s?cloudSqlInstance=%s&"
+                        + "socketFactory=com.google.cloud.sql.mysql.SocketFactory",
+                databaseName,
+                instanceConnectionName);
         try {
-            MySQLConnection mySQLConnection =  new MySQLConnection(MYSQL_URL);
+            MySQLConnection mySQLConnection =  new MySQLConnection(jdbcUrl);
             mySQLConnection.readData();
         }catch (Exception e) {
             e.printStackTrace();
