@@ -15,7 +15,6 @@ import java.io.IOException;
 
 @Controller
 public class Server {
-    public static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
     public static final String MYSQL_URL = "jdbc:mysql://google/images?cloudSqlInstance=tap-estry-186513:europe-west1:back-end&socketFactory=com.google.cloud.sql.mysql.SocketFactory";
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
@@ -37,7 +36,7 @@ public class Server {
 
         System.out.println("Testing to see if the database was connected to ");
         try {
-            MySQLConnection mySQLConnection =  new MySQLConnection(MYSQL_DRIVER, MYSQL_URL);
+            MySQLConnection mySQLConnection =  new MySQLConnection(MYSQL_URL);
             mySQLConnection.readData();
         }catch (Exception e) {
             e.printStackTrace();

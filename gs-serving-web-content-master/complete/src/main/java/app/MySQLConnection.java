@@ -2,7 +2,6 @@ package app;
 import java.sql.*;
 
 public class MySQLConnection {
-    private final String jdbcDriverStr;
     private final String jdbcURL;
 
     private Connection connection;
@@ -16,14 +15,12 @@ public class MySQLConnection {
         id,TEXT;
     }
 
-    public MySQLConnection(String jdbcDriverStr, String jdbcURL){
-        this.jdbcDriverStr = jdbcDriverStr;
+    public MySQLConnection(String jdbcURL){
         this.jdbcURL = jdbcURL;
     }
 
     public void readData() throws Exception {
         try {
-            Class.forName(jdbcDriverStr);
             connection = DriverManager.getConnection(jdbcURL, username, password);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from javaTestDB.test_table;");
