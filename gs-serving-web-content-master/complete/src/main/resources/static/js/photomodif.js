@@ -34,14 +34,14 @@ $(document).ready(function() {
 
         // find which button was pressed
         if (lev == "e") {
-            size = 0.05;
-            difficulty = 5;
-        } else if (lev == "m") {
-            size = 0.1;
+            size = 0.06;
             difficulty = 10;
-        } else {
-            size = 0.15;
+        } else if (lev == "m") {
+            size = 0.03;
             difficulty = 15;
+        } else {
+            size = 0.01;
+            difficulty = 20;
         }
 
         // cache scaled width and height
@@ -49,17 +49,19 @@ $(document).ready(function() {
             h = canvas.height * size;
 
         // draw original image to the scaled size
-        ctx.drawImage(img, 0, 0, w, h);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         // then draw that scaled image thumb back to fill canvas
         // As smoothing is off the result will be pixelated
 
-        ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+        //ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
     }
 
     function saveImage() {
         var imageData = canvas.toDataURL();
         var image = {
             imageData: imageData,
+            width: canvas.width,
+            hwight: canvas.height,
             pixelWidth: canvas.width/w,
             pixelHeight: canvas.height/h,
             difficulty: difficulty

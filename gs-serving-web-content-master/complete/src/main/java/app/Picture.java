@@ -5,16 +5,29 @@ public class Picture {
     private Integer pixelHeight;
     private Integer difficulty;
     private String imageData;
+    private Integer width;
+    private Integer height;
 
     public Picture(){}
 
-    public Picture(Integer width, Integer height, String imageData, Integer difficulty){
-        this.pixelWidth = width;
-        this.pixelHeight = height;
+    public Picture(Integer width, Integer height, Integer pixelWidth, Integer pixelHeight, String imageData, Integer difficulty){
+        this.width = width;
+        this.height = height;
+        this.pixelWidth = pixelWidth;
+        this.pixelHeight = pixelHeight;
         this.difficulty = difficulty;
         this.imageData = imageData;
     }
-    public Integer getPixelWidthWidth(){
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public Integer getPixelWidth(){
         return pixelWidth;
     }
     public Integer getPixelHeight(){

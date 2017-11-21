@@ -18,7 +18,7 @@ public class ReduceColors {
     public ReduceColors(Picture image) throws IOException {
         //System.out.println(image.getHeight());
         this.pic = image;
-        generateColorPalette(5);
+        generateColorPalette(pic.getDifficulty());
     }
 
     public void generateColorPalette(int numColors) throws IOException {
