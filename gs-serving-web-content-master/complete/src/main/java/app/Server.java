@@ -30,7 +30,7 @@ public class Server {
         //byte[] data = Base64.decodeBase64(image64);
         //String s = new String(data);
         //System.out.println(s);
-        //Response success = new Response("success", image64);
+        Response success = new Response("success", image64);
         //GetImage image = new GetImage(image64.getImageData());
 
         System.out.println("Testing to see if the database was connected to ");
