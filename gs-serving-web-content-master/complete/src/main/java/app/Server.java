@@ -37,10 +37,9 @@ public class Server {
         System.out.println("Testing to see if the database was connected to ");
         MySQLConnection mySQLConnection =  new MySQLConnection();
         try {
-
             mySQLConnection.connectToDataBase();
         }catch (Exception e) {
-
+            throw e;
         }
         return success;
     }
