@@ -19,7 +19,7 @@ public class ReduceColors {
     public ReduceColors(Picture image) throws IOException {
         //System.out.println(image.getHeight());
         this.pic = image;
-        
+
         String[] parts = pic.getImageData().split(",");
         String imString = parts[1];
         int difficulty = pic.getDifficulty();
