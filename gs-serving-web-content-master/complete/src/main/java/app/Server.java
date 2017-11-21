@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @Controller
 public class Server {
-    public static final String MYSQL_URL = "jdbc:mysql://google/images?useSSL=false&amp;cloudSqlInstance=tap-estry-186513:europe-west1:back-end&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory";
+    public static final String MYSQL_URL = "jdbc:mysql://google/images?cloudSqlInstance=tap-estry-186513:europe-west1:back-end&socketFactory=com.google.cloud.sql.mysql.SocketFactory";
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
