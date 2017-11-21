@@ -29,9 +29,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <!-- add dependency stuff for it to work -->
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.5.58</version>
+            <version>8.0.8-dmr</version>
         </dependency>
     </dependencies>
 
