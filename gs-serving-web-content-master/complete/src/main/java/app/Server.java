@@ -33,10 +33,9 @@ public class Server {
         //Response success = new Response("success", image64);
         //GetImage image = new GetImage(image64.getImageData());
 
-
         System.out.println("Testing to see if the database was connected to ");
-        MySQLConnection mySQLConnection =  new MySQLConnection();
         try {
+            MySQLConnection mySQLConnection =  new MySQLConnection();
             mySQLConnection.connectToDataBase();
         }catch (Exception e) {
             e.printStackTrace();
