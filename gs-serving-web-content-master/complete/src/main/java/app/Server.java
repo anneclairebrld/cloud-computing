@@ -1,6 +1,7 @@
 package app;
-
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.smartcardio.CommandAPDU;
 import java.io.IOException;
-
+import app.MySQLConnection;
 
 @Controller
 public class Server {
-    public static final String MYSQL_URL = "jdbc:mysql://google/images?cloudSqlInstance=tap-estry-186513:europe-west1:back-end&socketFactory=com.google.cloud.sql.mysql.SocketFactory";
+    private app.MySQLConnection mySQLConnection;
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -33,18 +35,25 @@ public class Server {
         //System.out.println(s);
         Response success = new Response("success", image64);
         //GetImage image = new GetImage(image64.getImageData());
-
-        System.out.println("Testing to see if the database was connected to ");
-        String databaseName = "images" ;
-        String instanceConnectionName = "tap-estry-186513:europe-west1:back-end";
-        String jdbcUrl ="jdbc:mysql://35.195.54.162:3306/images";
-        try {
-            MySQLConnection mySQLConnection =  new MySQLConnection(jdbcUrl);
-            mySQLConnection.readData();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        demo();
         return success;
+    }
+
+    @Bean
+    private void demo() {
+        //save a couple of people to test
+        mySQLConnection.save(new User("Jack", "Bauer"));
+        mySQLConnection.save(new User("Chloe", "O'Brian"));
+        mySQLConnection.save(new User("Kim", "Bauer"));
+        mySQLConnection.save(new User("David", "Palmer"));
+        mySQLConnection.save(new User("Michelle", "Dessler"));
+
+        //fetch all
+        System.out.println("Customer found with findAll():");
+        for (User user : mySQLConnection.findAll()){
+            System.out.println(user.toString());
+        }
+
     }
 
 }
