@@ -29,23 +29,16 @@
             <scope>test</scope>
         </dependency>
 
-	<dependecy>
-	    <groupId>org.spingframework.boot</groupId>
-	    <artifactId>spring-boot-starter-web</artifactId>
-	    <exclusions>
-		<exclusion>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-	        </exclusion>
-	    </exclusions>
-	</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
         <!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>1.4.0.RELEASE</version>
         </dependency>
 
         <!-- Use MySQL Connector-J -->
@@ -53,7 +46,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.42 </version>
         </dependency>
 
 
