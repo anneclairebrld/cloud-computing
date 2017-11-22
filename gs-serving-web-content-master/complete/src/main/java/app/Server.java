@@ -24,13 +24,12 @@ public class Server {
     @RequestMapping(value = "images", method = RequestMethod.POST)
     public @ResponseBody Response saveImage(@RequestBody Picture image64) throws IOException {
         System.out.println("Got a post request to the server");
-        Response success = new Response("success", image64);
+
         MosaicGenerator mosaicGenerator = new MosaicGenerator();
         mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
-        //ReduceColors rc = new ReduceColors(image64);
-        //GetImage image = new GetImage(image64.getImageData());
-        //MosaicGenerator mosaicGenerator = new MosaicGenerator();
-        //mosaicGenerator.run(image64.getImageData(), "generated", 5, 200);
+
+        Response success = new Response("success", image64);
+
         return success;
     }
 
