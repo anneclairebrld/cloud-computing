@@ -1,4 +1,6 @@
 package app;
+
+import com.mysql.jdbc.MySQLConnection;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -56,3 +58,4 @@ public class Server {
     }
 
 }
+
