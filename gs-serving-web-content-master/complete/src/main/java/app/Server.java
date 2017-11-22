@@ -1,4 +1,6 @@
 package app;
+
+import com.mysql.jdbc.MySQLConnection;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -13,11 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.smartcardio.CommandAPDU;
 import java.io.IOException;
-import app.MySQLConnection;
 
 @Controller
 public class Server {
-    private app.MySQLConnection mySQLConnection;
+    private MySQLConnection mySQLConnection;
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
