@@ -1,25 +1,17 @@
 package app;
 
-import com.mysql.jdbc.MySQLConnection;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.smartcardio.CommandAPDU;
 import java.io.IOException;
-
 
 @Controller
 public class Server {
-    private MySQLConnection mySQLConnection;
+    private app.MySQLConnection mySQLConnection;
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
