@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.smartcardio.CommandAPDU;
 import java.io.IOException;
-import app.MySQLConnection;
+
 
 @Controller
 public class Server {
-    private app.MySQLConnection mySQLConnection;
+    private MySQLConnection mySQLConnection;
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -39,7 +39,6 @@ public class Server {
         return success;
     }
 
-    @Bean
     private void demo() {
         //save a couple of people to test
         mySQLConnection.save(new User("Jack", "Bauer"));
