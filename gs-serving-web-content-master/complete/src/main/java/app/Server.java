@@ -1,20 +1,17 @@
 package app;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import database.MySQLConnection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 
 @Controller
 public class Server {
+    private MySQLConnection mySQLConnection;
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -31,8 +28,10 @@ public class Server {
         //String s = new String(data);
         //System.out.println(s);
         Response success = new Response("success", image64);
-        GetImage image = new GetImage(image64.getImageData());
+        System.out.println("just before connection stuff");
+        MySQLConnection mySQLConnection = new MySQLConnection();
+        //GetImage image = new GetImage(image64.getImageData());
         return success;
     }
-
 }
+
