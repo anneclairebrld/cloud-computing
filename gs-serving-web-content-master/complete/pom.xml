@@ -13,8 +13,6 @@
         <version>1.5.8.RELEASE</version>
     </parent>
 
-
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,10 +32,7 @@
             <groupId>javaml</groupId>
             <artifactId>javaml</artifactId>
             <version>0.1.7</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/javaml-0.1.7.jar</systemPath>
         </dependency>
-
     </dependencies>
 
     <properties>
@@ -54,6 +49,29 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration><mainClass>app.Application</mainClass></configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>install-artifact</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${project.basedir}/lib/javaml-0.1.7.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>javaml</groupId>
+                            <artifactId>javaml</artifactId>
+                            <version>0.1.7</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
