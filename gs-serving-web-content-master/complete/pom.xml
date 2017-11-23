@@ -41,14 +41,14 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <dependency> <!-- Only used locally -->
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.40</version>  <!-- v5.x.x is for production, v6.x.x EAP X DevAPI -->
+            <version>5.1.40</version>
         </dependency>
         <dependency>
             <groupId>com.google.cloud.sql</groupId>
-            <artifactId>mysql-socket-factory</artifactId> <!-- mysql-socket-factory-connector-j-6 if using 6.x.x -->
+            <artifactId>mysql-socket-factory</artifactId>
             <version>1.0.4</version>
         </dependency>
 
