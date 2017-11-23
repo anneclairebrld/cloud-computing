@@ -1,6 +1,6 @@
 package app;
 
-import org.springframework.context.annotation.Bean;
+import database.MySQLConnection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Controller
 public class Server {
-    private app.MySQLConnection mySQLConnection;
+    private MySQLConnection mySQLConnection;
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -28,26 +28,10 @@ public class Server {
         //String s = new String(data);
         //System.out.println(s);
         Response success = new Response("success", image64);
+        System.out.println("just before connection stuff");
+        MySQLConnection mySQLConnection = new MySQLConnection();
         //GetImage image = new GetImage(image64.getImageData());
-        demo();
         return success;
     }
-
-    private void demo() {
-        //save a couple of people to test
-        mySQLConnection.save(new User("Jack", "Bauer"));
-        mySQLConnection.save(new User("Chloe", "O'Brian"));
-        mySQLConnection.save(new User("Kim", "Bauer"));
-        mySQLConnection.save(new User("David", "Palmer"));
-        mySQLConnection.save(new User("Michelle", "Dessler"));
-
-        //fetch all
-        System.out.println("Customer found with findAll():");
-        for (User user : mySQLConnection.findAll()){
-            System.out.println(user.toString());
-        }
-
-    }
-
 }
 
