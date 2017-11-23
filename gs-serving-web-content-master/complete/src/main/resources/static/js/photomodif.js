@@ -34,11 +34,14 @@ $(document).ready(function() {
 
         // find which button was pressed
         if (lev == "e") {
-            size = 0.01
+            size = 0.06;
+            difficulty = 10;
         } else if (lev == "m") {
-            size = 0.15
+            size = 0.03;
+            difficulty = 15;
         } else {
-            size = 0.25
+            size = 0.01;
+            difficulty = 20;
         }
 
         // cache scaled width and height
@@ -46,35 +49,24 @@ $(document).ready(function() {
             h = canvas.height * size;
 
         // draw original image to the scaled size
-        ctx.drawImage(img, 0, 0, w, h);
-        //console.log(ctx.getImageData(0, 0, w, h));
-        //console.log(canvas.toDataURL());
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         // then draw that scaled image thumb back to fill canvas
         // As smoothing is off the result will be pixelated
 
-        //Orsi, this is where the pixel rgb's are calculated, you can console out and see
-        ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
-//        var i = 1;
-//        for (var x1 = 0; x1<w*1/size; x1+=1/size){
-//            for(var y1 = 0; y1<h*1/size; y1+=1/size){
-//                var r = ctx.getImageData(x1,y1,x1+1/size,y1+1/size).data[0];
-//                var g = ctx.getImageData(x1,y1,x1+1/size,y1+1/size).data[1];
-//                var b = ctx.getImageData(x1,y1,x1+1/size,y1+1/size).data[2];
-//                console.log("rgb " + i + " " + r + " " + g + " " + b);
-//                i++;
-//            }
-//        }
-//        i = 0;
-
+        //ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
     }
 
     function saveImage() {
         var imageData = canvas.toDataURL();
         var image = {
             imageData: imageData,
-            width: w,
-            height: h
+            width: canvas.width,
+            hwight: canvas.height,
+            pixelWidth: canvas.width/w,
+            pixelHeight: canvas.height/h,
+            difficulty: difficulty
         }
+        //console.log(image);
         $.ajax({
             url:'/images',
             data:JSON.stringify(image),

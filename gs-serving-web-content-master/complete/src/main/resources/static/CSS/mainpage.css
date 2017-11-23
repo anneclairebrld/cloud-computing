@@ -33,7 +33,11 @@ div.box{
 	top: 25%;
 	left: 30%;
 }
-
+div.coloring{
+	position: absolute;
+	top: 25%;
+	left: 30%;
+}
 /*Check out the alginments, must be a better way to do this*/
 div.buttons{
 	text-align:center;
