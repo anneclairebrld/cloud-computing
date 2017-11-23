@@ -11,15 +11,11 @@ public class MySQLConnection{
    //constructor: generates the connection and saves it
     public MySQLConnection(){
         try{
-
-            System.out.println("in mysql connection");
             connection = DriverManager.getConnection("jdbc:mysql://35.195.54.162:3306/names","root","finalyear4us3");
+            //do stuff with the certificates and all
 
             //statements allow to issue SQL queries to the database & results gets them back
             statement = connection.createStatement();
-
-            get_tables();
-            System.out.println("i have created a connection");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,7 +38,7 @@ public class MySQLConnection{
 
     }
 
-    public String get_table_data(String tablename){
+    public String get(){
         return "data";
     }
 

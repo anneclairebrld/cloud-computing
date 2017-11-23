@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Controller
 public class Server {
-    private MySQLConnection mySQLConnection;
+    private MySQLConnection mySQLConnection = new MySQLConnection();
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -21,15 +21,13 @@ public class Server {
     @RequestMapping(value = "images", method = RequestMethod.POST)
     public @ResponseBody Response saveImage(@RequestBody Picture image64) throws IOException {
         System.out.println("Got a post request to the server");
-        //System.out.println("base64 String: " + image64.getImageData());
-        System.out.println("Image Width: " + image64.getWidth());
-        System.out.println("Image Height: " + image64.getHeight());
-        //byte[] data = Base64.decodeBase64(image64);
-        //String s = new String(data);
-        //System.out.println(s);
+
+        MosaicGenerator mosaicGenerator = new MosaicGenerator();
+        mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
+
         Response success = new Response("success", image64);
         System.out.println("just before connection stuff");
-        MySQLConnection mySQLConnection = new MySQLConnection();
+        mySQLConnection.get_tables();
         //GetImage image = new GetImage(image64.getImageData());
         return success;
     }
