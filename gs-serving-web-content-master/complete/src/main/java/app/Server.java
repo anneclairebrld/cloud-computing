@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Controller
 public class Server {
-    private MySQLConnection mySQLConnection;
+    private MySQLConnection mySQLConnection = new MySQLConnection();
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -27,7 +27,7 @@ public class Server {
 
         Response success = new Response("success", image64);
         System.out.println("just before connection stuff");
-        MySQLConnection mySQLConnection = new MySQLConnection();
+        mySQLConnection.get_tables();
         //GetImage image = new GetImage(image64.getImageData());
         return success;
     }

@@ -18,7 +18,6 @@ public class MySQLConnection{
             //statements allow to issue SQL queries to the database & results gets them back
             statement = connection.createStatement();
 
-            get_tables();
             System.out.println("i have created a connection");
         } catch (SQLException e) {
             e.printStackTrace();
