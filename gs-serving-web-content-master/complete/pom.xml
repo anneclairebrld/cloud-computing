@@ -30,13 +30,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>javaml</groupId>
-            <artifactId>javaml</artifactId>
-            <version>0.1.7</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/javaml-0.1.7.jar</systemPath>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javaml</groupId>-->
+            <!--<artifactId>javaml</artifactId>-->
+            <!--<version>0.1.7</version>-->
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${project.basedir}/lib/javaml-0.1.7.jar</systemPath>-->
+        <!--</dependency>-->
 
         <dependency> <!-- Only used locally -->
             <groupId>mysql</groupId>

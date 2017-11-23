@@ -14,6 +14,7 @@ public class MySQLConnection{
 
             System.out.println("in mysql connection");
             connection = DriverManager.getConnection("jdbc:mysql://35.195.54.162:3306/names","root","finalyear4us3");
+            //do stuff with the certificates and all
 
             //statements allow to issue SQL queries to the database & results gets them back
             statement = connection.createStatement();
