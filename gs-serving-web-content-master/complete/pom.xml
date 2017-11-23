@@ -30,8 +30,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--Java ml does not work with maven and thus on the  cloud!! use wecka or something instead to do the machine learning stuff ?-->
         <dependency>
-            <groupId>net.sf</groupId>
+            <groupId>javaml</groupId>
             <artifactId>javaml</artifactId>
             <version>0.1.7</version>
             <scope>system</scope>
