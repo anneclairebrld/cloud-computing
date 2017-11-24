@@ -8,6 +8,7 @@ public class MySQLConnection{
     private Statement statement;
     private String databaseName;
     private ResultSet resultSet;
+    // private String tableName; -- will i be using more than one table -- probably (example table colouring trace ? )
 
    //constructor: generates the connection and saves it
     public MySQLConnection(String databaseName){
@@ -52,19 +53,23 @@ public class MySQLConnection{
         return resultSet;
     }
 
-    public void delete(String id) {
-        //method to delete element id in db
+    //delete with id number
+    public void delete(String id, String tableName) {
+        String query = "delete from " + tableName + " where ID = " + id;
+        execute_query(query);
     }
 
-    public void put(String id){
-        //method to change id data in db
+    //add data into table
+    public void post(String values, String ColumnNames, String tableName){
+        String query = "insert into " + tableName + " (" + ColumnNames + " ) values (" + values + ")";
+        execute_query(query);
+        //return the image_id to be saved
     }
 
-    public Integer post(Integer imageLoc){
-        String query = "";
-
-        return 0;
-        //add method to save to db
+    //update a particular value
+    public void put(String id, String imageLoc, String tableName){
+        String query = "update " + tableName + " set IMAGE_LOC = " + imageLoc + " where ID = " + id;
+        execute_query(query);
     }
 
     public String get(String info, String tableName){
@@ -84,6 +89,7 @@ public class MySQLConnection{
 
         //Find a more intelligent way of printing out stuff for yourself
         //right now prints the two columns of the data
+        //do a list array or something to be returned
         try {
             while(resultSet.next()){
                 switch (info) {
@@ -95,7 +101,7 @@ public class MySQLConnection{
                         break;
                 }
             }
-        } catch (SQLException e) {  
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         close();
@@ -113,13 +119,23 @@ public class MySQLConnection{
             if (statement != null) {
                 statement.close();
             }
-//look up the best way of closing down a connection and when to do so  ..
-//            if (connection != null) {
-//                connection.close();
-//            }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+    }
+
+    //close down connection when closing the instance
+    private void close_connection() {
+         try {
+            if (connection != null ) { connection.close();}
+         }catch (Exception e) {
+             e.printStackTrace();
+        }
+    }
+
+    public void close_all() {
+        close();
+        close_connection();
     }
 }
 
