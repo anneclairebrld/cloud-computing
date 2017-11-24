@@ -11,7 +11,8 @@ import java.io.IOException;
 
 @Controller
 public class Server {
-    private MySQLConnection mySQLConnection = new MySQLConnection();
+    private MySQLConnection mySQLConnection = new MySQLConnection("images");
+    private Integer image_id;
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -28,6 +29,18 @@ public class Server {
         Response success = new Response("success", image64);
         System.out.println("just before connection stuff");
         mySQLConnection.get_tables();
+
+        // This will be different once we are using object storage
+        Integer imageLoc = 0;
+        //image_id = mySQLConnection.post(imageLoc);
+
+        image_id = 2;
+        String info = "" + image_id;
+        System.out.println("printintg out the information of image_ide number 2");
+        mySQLConnection.get(info, "Storage_Details");
+        System.out.println("Printing out all the info on the table");
+        mySQLConnection.get("all", "Storage_Details");
+
         //GetImage image = new GetImage(image64.getImageData());
         return success;
     }
