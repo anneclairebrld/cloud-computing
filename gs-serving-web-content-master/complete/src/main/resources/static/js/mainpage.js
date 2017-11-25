@@ -13,7 +13,7 @@ $(document).ready(function(){
 	//This is how we make buttons do cool stuff using css
 	$('.custom-file-upload').on({
 		mouseenter : function(){
-			$(this).css("background-color", "grey");
+			$(this).css("background-color", "grey");	
 		}, 
 
 		mouseleave : function(){

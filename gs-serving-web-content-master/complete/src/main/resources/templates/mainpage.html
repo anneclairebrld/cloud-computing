@@ -1,59 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8"></meta>
-	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-	<title>mainpage</title>
-	<link rel="stylesheet" href="CSS/mainpage.css"></link>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> <!-- jquery -->
-	<script src="js/mainpage.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>mainpage</title>		
+		<link rel="stylesheet" href="CSS/mainpage.css"></link>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> <!-- jquery -->
+		<script src="js/mainpage.js"></script>
+	</head>
 
-<body>
-<div id="welcome" class="container-fluid">
-	<h1 class="text-center">Tap-estry</h1>
-	<p class="text-center"> Welcome, upload your first image and get colouring!!</p>
-	<div class="row">
-		<div class="col-sm-2"> col onee</div>
-		<div class="col-sm-8 inner-padding" align="center" style="background-color:rgba(1,0,0,0.7); width:400px; height:250px;">
+	<body>
+		<div id="welcome" class="box">
+			<h1>Tap-estry</h1>	
+			<p class="welcometext"> Welcome, upload your first image and get colouring!!</p>
+			
+			<div class="buttons">
+				<form method="POST">
+					<label for="myImage" class="custom-file-upload">
+					    <i class="fa fa-cloud-upload"></i> Upload Image
+					</label> 
+					<input name="myImage" class="myImage" id="myImage" type="file" accept="image/*" onclick="toggleVisibility();"></input>
 
-			<div class="btn-group-vertical">
-				<label class="btn btn-default btn-file">
-					<input type="file" style="display: none;"></input>Upload Image
-				</label>
-				<button type="button" class="otherswork">See others work</button>
+				</form>
+				<a href="peoplesimages.html"><button class="otherswork">See others work</button></a>	
 			</div>
 		</div>
-		<div class="col-sm-2">.col-sm-2</div>
-	</div>
-	<!--<div class="buttons">-->
-		<!--<form method="POST">-->
-			<!--<label for="myImage" class="custom-file-upload">-->
-				<!--<i class="fa fa-cloud-upload"></i> Upload Image-->
-			<!--</label>-->
-			<!--<input name="myImage" class="myImage" id="myImage" type="file" accept="image/*" onclick="toggleVisibility();"></input>-->
 
-		<!--</form>-->
-		<!--<a href="peoplesimages.html"><button class="otherswork">See others work</button></a>-->
-	<!--</div>-->
-</div>
+		<div id="coloring" style="display: none" class="coloring">
+				<canvas id="canvas" width="800" height="600"></canvas>
+				<br></br>
+				<!--<input id="blocks" type="range" min="1" max="50" value="0"></input>
+				<input id="animate" type="button" value="Animate"></input>-->
+				<input id="easy" type="button" value="Easy"></input>
+				<input id="medium" type="button" value="Medium"></input>
+				<input id="hard" type="button" value="Hard"></input>
+				<input id="startColoring" type="button" value="Start"></input>
+				<script src="js/photomodif.js"></script>
+		</div>
 
-<!--<div id="coloring" style="display: none" class="coloring">-->
-	<!--<canvas id="canvas" width="800" height="600"></canvas>-->
-	<!--<br></br>-->
-	<!--&lt;!&ndash;<input id="blocks" type="range" min="1" max="50" value="0"></input>-->
-    <!--<input id="animate" type="button" value="Animate"></input>&ndash;&gt;-->
-	<!--<input id="easy" type="button" value="Easy"></input>-->
-	<!--<input id="medium" type="button" value="Medium"></input>-->
-	<!--<input id="hard" type="button" value="Hard"></input>-->
-	<!--<input id="startColoring" type="button" value="Start"></input>-->
-	<!--<script src="js/photomodif.js"></script>-->
-<!--</div>-->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-</body>
+	</body>
 </html>
