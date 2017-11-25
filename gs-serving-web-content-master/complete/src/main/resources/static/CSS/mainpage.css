@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 /*Styling for the first page*/
 h1 {
 	text-align: center;
@@ -17,7 +18,7 @@ body{
 
 p.welcometext{
 	color:white;
-	left:15%;
+	/*left:15%;*/
 }
 
 input[type="file"] {
@@ -25,16 +26,39 @@ input[type="file"] {
 }
 
 
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    background-color:#ff8000;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    font-size: 16px;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background-color:#ff8000;
+    cursor: inherit;
+    display: block;
+}
+
 div.box{
 	width:500px;
 	height:250px;
 	background-color: rgba(1,0,0,0.7);
-	position: absolute;
 	top: 25%;
 	left: 30%;
 }
 div.coloring{
-	position: absolute;
 	top: 25%;
 	left: 30%;
 }
