@@ -1,6 +1,7 @@
 package app;
 
 import database.MySQLConnection;
+import database.StorageCtrl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import java.io.IOException;
 @Controller
 public class Server {
     private MySQLConnection mySQLConnection = new MySQLConnection("images");
+    private StorageCtrl storageCtrl = new StorageCtrl();
     private Integer image_id; // if eq = 0 : does not exist
     private String tableName = "Storage_Details";
 
@@ -35,7 +37,6 @@ public class Server {
         mySQLConnection.get("all", tableName);
         System.out.println("modified element in table");
         mySQLConnection.put(image_id, 77, tableName);
-
         //GetImage image = new GetImage(image64.getImageData());
         return success;
     }
