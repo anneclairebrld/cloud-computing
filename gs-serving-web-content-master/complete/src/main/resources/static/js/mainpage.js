@@ -21,6 +21,16 @@ $(document).ready(function(){
 		}
 	});
 
+	$('.btn-file').on({
+    	mouseenter : function(){
+    		$(this).css("background-color", "grey");
+   		},
+
+    	mouseleave : function(){
+    		$(this).css("background-color", "#ff8000");
+    	}
+    });
+
 
 	$('.otherswork').on({
 		mouseenter : function(){
