@@ -1,6 +1,28 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 /*Styling for the first page*/
-h1 {
+html, body {
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.fill {
+    min-height: 100%;
+    height: 100%;
+}
+
+/*.row.content {height: 50%}*/
+
+@media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+
+h1,p {
 	text-align: center;
 	text-transform: capitalize;
 	letter-spacing: 3px;
@@ -8,17 +30,34 @@ h1 {
 	color:white;
 }
 
-body{
+/*body{
 	background-image: url("./../images/fox.png");
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	/*Possible to add background color but will need alphaon other images*/
-}
+	*//*Possible to add background color but will need alphaon other images*//*
+}*/
+/*.welcome{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}*/
 
 p.welcometext{
 	color:white;
 	/*left:15%;*/
+}
+
+.jumbotron .container {
+  max-width: 100%;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
 }
 
 input[type="file"] {
@@ -35,6 +74,7 @@ input[type="file"] {
     padding: 15px 32px;
     font-size: 16px;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -51,7 +91,7 @@ input[type="file"] {
     display: block;
 }
 
-div.box{
+/*div.box{
 	width:500px;
 	height:250px;
 	background-color: rgba(1,0,0,0.7);
@@ -61,8 +101,9 @@ div.box{
 div.coloring{
 	top: 25%;
 	left: 30%;
-}
-/*Check out the alginments, must be a better way to do this*/
+}*/
+/*.container{
+    width: 100%;}*/
 div.buttons{
 	text-align:center;
 	margin:auto;
