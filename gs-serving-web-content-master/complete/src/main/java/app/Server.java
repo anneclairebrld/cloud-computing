@@ -12,7 +12,8 @@ import java.io.IOException;
 @Controller
 public class Server {
     private MySQLConnection mySQLConnection = new MySQLConnection("images");
-    private Integer image_id;
+    private Integer image_id; // if eq = 0 : does not exist
+    private String tableName = "Storage_Details";
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -27,19 +28,13 @@ public class Server {
         mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
 
         Response success = new Response("success", image64);
-        System.out.println("just before connection stuff");
-        mySQLConnection.get_tables();
 
-        // This will be different once we are using object storage
-        Integer imageLoc = 0;
-        //image_id = mySQLConnection.post(imageLoc);
-
-        image_id = 2;
-        String info = "" + image_id;
-        System.out.println("printintg out the information of image_ide number 2");
-        mySQLConnection.get(info, "Storage_Details");
-        System.out.println("Printing out all the info on the table");
-        mySQLConnection.get("all", "Storage_Details");
+        //image id generated when i post in the database
+        System.out.println("insert element in table");
+        image_id = mySQLConnection.post(66, "IMAGE_LOC", tableName);
+        mySQLConnection.get("all", tableName);
+        System.out.println("modified element in table");
+        mySQLConnection.put(image_id, 77, tableName);
 
         //GetImage image = new GetImage(image64.getImageData());
         return success;

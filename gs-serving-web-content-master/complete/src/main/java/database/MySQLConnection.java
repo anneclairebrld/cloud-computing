@@ -53,23 +53,40 @@ public class MySQLConnection{
         return resultSet;
     }
 
+    //Executing updates to db
+    private Integer execute_updates(String update){
+        Integer generated_id = 0;
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(update);
+
+            //get the image_id generated
+            resultSet = statement.executeQuery("SELECT LAST_INSERT_ID()");
+            if (resultSet.next()) {
+                generated_id = resultSet.getInt(1);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return generated_id;
+    }
+
     //delete with id number
-    public void delete(String id, String tableName) {
-        String query = "delete from " + tableName + " where ID = " + id;
-        execute_query(query);
+    public Integer delete(Integer id, String tableName) {
+        String query = "delete from " + tableName + " where ID = " + id.toString();
+        return execute_updates(query);
     }
 
     //add data into table
-    public void post(String values, String ColumnNames, String tableName){
-        String query = "insert into " + tableName + " (" + ColumnNames + " ) values (" + values + ")";
-        execute_query(query);
-        //return the image_id to be saved
+    public Integer post(Integer values, String ColumnNames, String tableName){
+        String update = "insert into " + tableName + " (" + ColumnNames + " ) values (" + values.toString() + ")";
+        return execute_updates(update);
     }
 
     //update a particular value
-    public void put(String id, String imageLoc, String tableName){
-        String query = "update " + tableName + " set IMAGE_LOC = " + imageLoc + " where ID = " + id;
-        execute_query(query);
+    public void put(Integer id, Integer imageLoc, String tableName){
+        String update = "update " + tableName + " set IMAGE_LOC = " + imageLoc.toString() + " where ID = " + id.toString();
+        execute_updates(update);
     }
 
     public String get(String info, String tableName){
