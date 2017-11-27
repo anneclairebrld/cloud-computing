@@ -11,15 +11,15 @@ $(document).ready(function(){
 	});*/
 
 	//This is how we make buttons do cool stuff using css
-	$('.custom-file-upload').on({
-		mouseenter : function(){
-			$(this).css("background-color", "grey");
-		}, 
-
-		mouseleave : function(){
-			$(this).css("background-color", "#ff8000");
-		}
-	});
+//	$('.custom-file-upload').on({
+//		mouseenter : function(){
+//			$(this).css("background-color", "grey");
+//		},
+//
+//		mouseleave : function(){
+//			$(this).css("background-color", "#ff8000");
+//		}
+//	});
 
 	$('.btn-file').on({
     	mouseenter : function(){
@@ -49,5 +49,12 @@ function toggleVisibility() {
     var coloring = document.getElementById("coloring");
     welcome.style.display = "none";
     coloring.style.display=  "block";
-
 }
+
+//function whiteCanvas(){
+//    var coloring = document.getElementById("coloring");
+//    var interact = document.getElementById("startInteract");
+//    coloring.style.display = "none";
+//    interact.style.display = "block";
+//
+//}

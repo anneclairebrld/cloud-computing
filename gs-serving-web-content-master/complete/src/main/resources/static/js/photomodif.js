@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
     // (C) Ken Fyrstenberg, Epistemex, License: CC3.0-attr
-    var ctx = canvas.getContext('2d'),
+    var ctx = imageDisplay.getContext('2d'),
         img = new Image(),
         play = false;
 
@@ -45,25 +45,25 @@ $(document).ready(function() {
         }
 
         // cache scaled width and height
-        w = canvas.width * size,
-            h = canvas.height * size;
+        w = imageDisplay.width * size,
+            h = imageDisplay.height * size;
 
         // draw original image to the scaled size
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, imageDisplay.width, imageDisplay.height);
         // then draw that scaled image thumb back to fill canvas
         // As smoothing is off the result will be pixelated
 
-        //ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+        //ctx.drawImage(imageDisplay, 0, 0, w, h, 0, 0, imageDisplay.width, imageDisplay.height);
     }
 
     function saveImage() {
-        var imageData = canvas.toDataURL();
+        var imageData = imageDisplay.toDataURL();
         var image = {
             imageData: imageData,
-            width: canvas.width,
-            hwight: canvas.height,
-            pixelWidth: canvas.width/w,
-            pixelHeight: canvas.height/h,
+            width: imageDisplay.width,
+            hwight: imageDisplay.height,
+            pixelWidth: imageDisplay.width/w,
+            pixelHeight: imageDisplay.height/h,
             difficulty: difficulty
         }
         //console.log(image);
