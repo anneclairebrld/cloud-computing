@@ -51,10 +51,10 @@ function toggleVisibility() {
     coloring.style.display=  "block";
 }
 
-//function whiteCanvas(){
-//    var coloring = document.getElementById("coloring");
-//    var interact = document.getElementById("startInteract");
-//    coloring.style.display = "none";
-//    interact.style.display = "block";
-//
-//}
+function whiteCanvas(){
+    var coloring = document.getElementById("coloring");
+    var interact = document.getElementById("startInteract");
+    coloring.style.display = "none";
+    interact.style.display = "block";
+
+}
