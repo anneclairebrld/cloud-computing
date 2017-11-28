@@ -143,6 +143,13 @@ div.buttons{
 	font-size: 16px;
 }
 
+td {
+    border: 1px solid;
+    width: 20px;
+    height: 20px;
+    background: white;
+}
+
 /*input[type=file].myImage{
 	background-color:#ff8000; 
     border: none;
@@ -153,4 +160,64 @@ div.buttons{
     display: inline-block;
     font-size: 16px;
 }*/
+
+.square {
+    float:left;
+    position: relative;
+    width: 5%;
+    padding-bottom: 2.8125%;
+    background-color:#1E1E1E;
+    overflow:hidden;
+    outline: 1px solid #FFFFFF;
+}
+
+/*
+ Aspect ratio  |  padding-bottom  |  for 30% width
+------------------------------------------------
+    1:1        |  = width         |    30%
+    1:2        |  width x 2       |    60%
+    2:1        |  width x 0.5     |    15%
+    4:3        |  width x 0.75    |    22.5%
+    16:9       |  width x 0.5625  |    16.875%
+    */
+
+.content {
+    position:absolute;
+    height:40%;
+    width:47%;
+    padding: 5% 26.5%;
+    text-align:center;
+}
+
+.content .rs{
+    width:auto;
+    height:auto;
+    max-height:90%;
+    max-width:100%;
+}
+
+.table{
+    display:table;
+    height:100%;
+    width:100%;
+}
+
+.table-cell{
+    display:table-cell;
+    vertical-align:middle;
+    height:100%;
+    width:100%;
+}
+/*
+body {
+    font-size:20px;
+    font-family: 'Lato',verdana, sans-serif;
+    color: #000000;
+    background:#ECECEC;
+}*/
+
+.numbers{
+    font-weight:900;
+    font-size:100px;
+}
 

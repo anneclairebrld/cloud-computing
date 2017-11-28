@@ -88,9 +88,36 @@ $(document).ready(function() {
         });
     }
 
+    function generateGrid( rows, cols ) {
+        var grid = "<table>";
+        for ( row = 1; row <= rows; row++ ) {
+            grid += "<tr>";
+            for ( col = 1; col <= cols; col++ ) {
+                grid += "<td></td>";
+            }
+            grid += "</tr>";
+        }
+        return grid;
+    }
+
+    function prettyGrid(dimX,dimY){
+
+        $( "#tableContainer" ).append( generateGrid( dimX, dimY) );
+
+        $( "td" ).click(function() {
+            var index = $( "td" ).index( this );
+            var row = Math.floor( ( index ) / dimX) + 1;
+            var col = ( index % dimY ) + 1;
+            $( "span" ).text( "That was row " + row + " and col " + col );
+            $( this ).css( 'background-color', 'red' );
+        });
+    }
+
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
     startColoring.addEventListener('click', function() { saveImage() }, false);
+//    startColoring.addEventListener('click', function() { makeGrid(20, 20) }, false);
+    startColoring.addEventListener('click',function() {prettyGrid(20,30)}, false);
 
 });
