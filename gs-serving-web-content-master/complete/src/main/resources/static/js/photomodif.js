@@ -61,7 +61,7 @@ $(document).ready(function() {
         var image = {
             imageData: imageData,
             width: canvas.width,
-            hwight: canvas.height,
+            height: canvas.height,
             pixelWidth: canvas.width/w,
             pixelHeight: canvas.height/h,
             difficulty: difficulty
@@ -81,6 +81,7 @@ $(document).ready(function() {
             success: function(res){
                 if(res.status === "success"){
                     console.log("SUCCESS");
+                    getImage();
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -88,9 +89,34 @@ $(document).ready(function() {
         });
     }
 
+    function getImage(){
+
+        $.ajax({
+            url:'/coloring',
+            data:'ask',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'post',
+            timeout: 10000,
+            async: true,
+            error: function(error){
+                console.log("Error: " + error);
+            },
+            success: function(res){
+                if(res){
+                    console.log("SUCCESS");
+                    console.log(res);
+                }else{
+                    console.log("FAIL : " + res);
+                }
+            }
+        });
+
+    }
+
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
-    startColoring.addEventListener('click', function() { saveImage() }, false);
+    startColoring.addEventListener('click', function() { saveImage();}, false);
 
 });
