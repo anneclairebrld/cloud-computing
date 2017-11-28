@@ -24,7 +24,7 @@ public class Server {
 
         MosaicGenerator mosaicGenerator = new MosaicGenerator();
         mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
-
+        System.out.println("HERE: " + mosaicGenerator.pixelatedImage.getColors());
         Response success = new Response("success", image64);
         System.out.println("just before connection stuff");
         mySQLConnection.get_tables();

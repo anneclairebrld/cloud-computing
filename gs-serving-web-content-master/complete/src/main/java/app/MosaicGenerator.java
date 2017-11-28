@@ -38,7 +38,9 @@ import java.util.List;
  *
  */
 public class MosaicGenerator {
-	
+
+    public PixelatedImage pixelatedImage;
+
 	private static final String OUTPUT_EXTENSION = "png";
 
     /**
@@ -98,7 +100,12 @@ public class MosaicGenerator {
         srcX2 = tileImage.getWidth();
         srcY2 = tileImage.getHeight();
         graphics.drawImage(tileImage, destX1, destY1, destX2, destY2, srcX1, srcY1, srcX2, srcY2, null);
-
+        pixelatedImage = new PixelatedImage(outImage);
+        pixelatedImage.setxNum(srcX2);
+        pixelatedImage.setyNum(srcY2);
+        pixelatedImage.setPixelWidth(outImage.getWidth()/srcX2);
+        pixelatedImage.setPixelHeight(outImage.getHeight()/srcY2);
+        pixelatedImage.setColors(colors);
         return outImage;
     }
     
