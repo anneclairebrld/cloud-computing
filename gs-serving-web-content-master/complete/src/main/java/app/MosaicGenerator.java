@@ -53,7 +53,7 @@ public class MosaicGenerator {
      * @throws MalformedURLException
      * @throws IOException
      */
-    public void run(String inputUrl, String outputDirectory, Integer colorCounts, Integer widths) throws MalformedURLException, IOException {
+    public BufferedImage run(String inputUrl, String outputDirectory, Integer colorCounts, Integer widths) throws MalformedURLException, IOException {
         String[] parts = inputUrl.split(",");
         inputUrl = parts[1];
 
@@ -64,11 +64,13 @@ public class MosaicGenerator {
         ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
         BufferedImage rawImage = ImageIO.read(bis);
         BufferedImage compositeImage = generateCompositeMosaic(rawImage, colorCounts, widths, new ImageBasedColorPaletteGenerator(rawImage));
-        String outputFilename = "out";
-        File outputFile = new File(outputDirectory, outputFilename);
-        outputFile.mkdirs();
-        System.out.println("Writing mosaic: " + outputFile.getAbsolutePath());
-        ImageIO.write(compositeImage, OUTPUT_EXTENSION, outputFile);
+//        String outputFilename = "out_original";
+//        File outputFile = new File(outputDirectory, outputFilename);
+//        outputFile.mkdirs();
+//        System.out.println("Writing mosaic: " + outputFile.getAbsolutePath());
+//        ImageIO.write(compositeImage, OUTPUT_EXTENSION, outputFile);
+
+        return compositeImage;
     }
     
     /**

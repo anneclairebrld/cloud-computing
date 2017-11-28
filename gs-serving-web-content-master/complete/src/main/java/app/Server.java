@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @Controller
@@ -26,18 +28,12 @@ public class Server {
     public @ResponseBody Response saveImage(@RequestBody Picture image64) throws IOException {
         System.out.println("Got a post request to the server");
 
+        //buffered image is just a bytestream -- it has no format
         MosaicGenerator mosaicGenerator = new MosaicGenerator();
-        mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
-
+        BufferedImage pixelised_image  = mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
+        
+        //why does this return image64 ? ==> is that the image ?
         Response success = new Response("success", image64);
-
-        //image id generated when i post in the database
-        System.out.println("insert element in table");
-        image_id = mySQLConnection.post(66, "IMAGE_LOC", tableName);
-        mySQLConnection.get("all", tableName);
-        System.out.println("modified element in table");
-        mySQLConnection.put(image_id, 77, tableName);
-        //GetImage image = new GetImage(image64.getImageData());
         return success;
     }
 }
