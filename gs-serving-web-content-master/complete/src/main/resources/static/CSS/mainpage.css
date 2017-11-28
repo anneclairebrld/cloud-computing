@@ -148,6 +148,7 @@ td {
     width: 20px;
     height: 20px;
     background: white;
+    text-align:center;
 }
 
 /*input[type=file].myImage{

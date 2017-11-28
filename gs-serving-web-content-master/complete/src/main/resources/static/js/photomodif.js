@@ -108,8 +108,7 @@ $(document).ready(function() {
             var index = $( "td" ).index( this );
             var row = Math.floor( ( index ) / dimX) + 1;
             var col = ( index % dimY ) + 1;
-            $( "span" ).text( "That was row " + row + " and col " + col );
-            $( this ).css( 'background-color', 'red' );
+            $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
         });
     }
 
