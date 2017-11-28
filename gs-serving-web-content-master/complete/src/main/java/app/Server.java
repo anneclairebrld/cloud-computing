@@ -12,6 +12,7 @@ import java.io.IOException;
 @Controller
 public class Server {
     private MySQLConnection mySQLConnection = new MySQLConnection();
+    private MosaicGenerator mosaicGenerator = new MosaicGenerator();
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -22,14 +23,20 @@ public class Server {
     public @ResponseBody Response saveImage(@RequestBody Picture image64) throws IOException {
         System.out.println("Got a post request to the server");
 
-        MosaicGenerator mosaicGenerator = new MosaicGenerator();
         mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
-        System.out.println("HERE: " + mosaicGenerator.pixelatedImage.getColors());
+        //System.out.println("HERE: " + mosaicGenerator.pixelatedImage.getIndexes());
         Response success = new Response("success", image64);
         System.out.println("just before connection stuff");
         mySQLConnection.get_tables();
         //GetImage image = new GetImage(image64.getImageData());
         return success;
+    }
+
+    @RequestMapping(value = "coloring", method = RequestMethod.POST)
+    public @ResponseBody PixelatedImage getImage(){
+        System.out.println("Image requested from FrontEnd :)");
+        //System.out.println(mosaicGenerator.pixelatedImage.getPixelWidth());
+        return mosaicGenerator.pixelatedImage;
     }
 }
 

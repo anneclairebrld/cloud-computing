@@ -106,6 +106,7 @@ public class MosaicGenerator {
         pixelatedImage.setPixelWidth(outImage.getWidth()/srcX2);
         pixelatedImage.setPixelHeight(outImage.getHeight()/srcY2);
         pixelatedImage.setColors(colors);
+        pixelatedImage.setIndexes();
         return outImage;
     }
     

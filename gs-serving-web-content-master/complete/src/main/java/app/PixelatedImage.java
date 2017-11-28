@@ -17,29 +17,35 @@ public class PixelatedImage {
 
    public PixelatedImage(BufferedImage image){
        this.image = image;
-          }
+   }
 
-    public Integer getPixelWidth() {
+   public PixelatedImage(){}
+
+   public void setImage(BufferedImage image){
+       this.image = image;
+    }
+
+   public Integer getPixelWidth() {
         return pixelWidth;
     }
 
-    public Integer getPixelHeight() {
+   public Integer getPixelHeight() {
         return pixelHeight;
     }
 
-    public Integer getxNum() {
+   public Integer getxNum() {
         return xNum;
     }
 
-    public Integer getyNum() {
+   public Integer getyNum() {
         return yNum;
     }
 
-    public List<Color> getColors() {
+   public List<Color> getColors() {
         return colors;
     }
 
-    public void setPixelWidth(Integer pixelWidth){
+   public void setPixelWidth(Integer pixelWidth){
        this.pixelWidth = pixelWidth;
     }
 
@@ -54,5 +60,23 @@ public class PixelatedImage {
     }
     public void setColors(List<Color> colors){
         this.colors = colors;
+    }
+
+    public void setIndexes(){
+        this.indexes = new ArrayList<Integer>();
+        for(int y = 0; y < image.getHeight(); y+=pixelHeight){
+            for(int x = 0; x < image.getWidth(); x+=pixelWidth){
+                for(int c = 1; c<=colors.size(); c++){
+                    if (colors.get(c - 1).getRGB() == image.getRGB(x, y)){
+                        this.indexes.add(c);
+                        c = colors.size();
+                    }
+                }
+            }
+        }
+    }
+
+    public List<Integer> getIndexes() {
+        return indexes;
     }
 }
