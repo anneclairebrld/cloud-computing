@@ -17,13 +17,13 @@ import java.nio.Buffer;
 
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 
-public class StorageCtrl {
+public class StorageConnection {
     Storage storage;
     String bucketName;
     Bucket bucket;
 
     //Sets up connection to storage
-    public StorageCtrl() {
+    public StorageConnection() {
         storage = StorageOptions.getDefaultInstance().getService();
     }
 
@@ -31,8 +31,6 @@ public class StorageCtrl {
     public void connectToBucket(String bucketName) {
         this.bucketName = bucketName;
         Page<Bucket> buckets = storage.list();
-        //getting the bucket references
-        System.out.println("printing buckets");
         for (Bucket bucket : buckets.iterateAll()) {
             if (bucket.getName().equals(bucketName)) {
                 this.bucket = bucket;
@@ -98,7 +96,6 @@ public class StorageCtrl {
         return baos.toByteArray();
     }
 
-    //!!NUll pointer potential
     private BufferedImage bytes_to_bufferedImage(byte[] bytes){
         BufferedImage bufferedImage = null;
         try {
@@ -117,6 +114,10 @@ public class StorageCtrl {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void disconnect(){
+        //do i need this?
     }
 
 }

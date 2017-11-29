@@ -6,13 +6,11 @@ import java.util.List;
 public class MySQLConnection{
     private Connection connection;
     private Statement statement;
-    private String databaseName;
     private ResultSet resultSet;
     // private String tableName; -- will i be using more than one table -- probably (example table colouring trace ? )
 
    //constructor: generates the connection and saves it
     public MySQLConnection(String databaseName){
-        this.databaseName = databaseName;
         String jdbcUrl = "jdbc:mysql://35.195.54.162:3306/" + databaseName;
         try{
             connection = DriverManager.getConnection(jdbcUrl,"root","finalyear4us3");
@@ -78,8 +76,8 @@ public class MySQLConnection{
     }
 
     //add data into table
-    public Integer post(Integer values, String ColumnNames, String tableName){
-        String update = "insert into " + tableName + " (" + ColumnNames + " ) values (" + values.toString() + ")";
+    public Integer post(String values, String tableName){
+        String update = "insert into " + tableName + " (IMAGE_LOC) values (" + values + ")";
         return execute_updates(update);
     }
 

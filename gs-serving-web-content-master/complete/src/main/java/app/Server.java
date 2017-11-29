@@ -1,24 +1,18 @@
 package app;
 
 import database.MySQLConnection;
-import database.StorageCtrl;
+import database.StorageConnection;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @Controller
 public class Server {
-    private MySQLConnection mySQLConnection = new MySQLConnection("images");
-    private StorageCtrl storageCtrl = new StorageCtrl();
-    private Integer image_id; // if eq = 0 : does not exist
-    private String tableName = "Storage_Details";
-
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
         return;
