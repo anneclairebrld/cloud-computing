@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
     // (C) Ken Fyrstenberg, Epistemex, License: CC3.0-attr
-    var ctx = canvas.getContext('2d'),
+    var ctx = imageDisplay.getContext('2d'),
         img = new Image(),
         play = false;
 
@@ -45,25 +45,26 @@ $(document).ready(function() {
         }
 
         // cache scaled width and height
-        w = canvas.width * size,
-            h = canvas.height * size;
+        w = imageDisplay.width * size,
+            h = imageDisplay.height * size;
 
         // draw original image to the scaled size
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, imageDisplay.width, imageDisplay.height);
         // then draw that scaled image thumb back to fill canvas
         // As smoothing is off the result will be pixelated
 
-        //ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+        //ctx.drawImage(imageDisplay, 0, 0, w, h, 0, 0, imageDisplay.width, imageDisplay.height);
     }
 
     function saveImage() {
-        var imageData = canvas.toDataURL();
+        var imageData = imageDisplay.toDataURL();
         var image = {
             imageData: imageData,
-            width: canvas.width,
-            height: canvas.height,
-            pixelWidth: canvas.width/w,
-            pixelHeight: canvas.height/h,
+
+            width: imageDisplay.width,
+            height: imageDisplay.height,
+            pixelWidth: imageDisplay.width/w,
+            pixelHeight: imageDisplay.height/h,
             difficulty: difficulty
         }
         //console.log(image);
@@ -111,12 +112,36 @@ $(document).ready(function() {
                 }
             }
         });
+    }
 
+    function generateGrid( rows, cols ) {
+        var grid = "<table>";
+        for ( row = 1; row <= rows; row++ ) {
+            grid += "<tr>";
+            for ( col = 1; col <= cols; col++ ) {
+                grid += "<td></td>";
+            }
+            grid += "</tr>";
+        }
+        return grid;
+    }
+
+    function prettyGrid(dimX,dimY){
+
+        $( "#tableContainer" ).append( generateGrid( dimX, dimY) );
+
+        $( "td" ).click(function() {
+            var index = $( "td" ).index( this );
+            var row = Math.floor( ( index ) / dimX) + 1;
+            var col = ( index % dimY ) + 1;
+            $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
+        });
     }
 
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
-    startColoring.addEventListener('click', function() { saveImage()}, false);
-
+    startColoring.addEventListener('click', function() { saveImage() }, false);
+//    startColoring.addEventListener('click', function() { makeGrid(20, 20) }, false);
+    startColoring.addEventListener('click',function() {prettyGrid(20,30)}, false);
 });
