@@ -60,8 +60,9 @@ $(document).ready(function() {
         var imageData = imageDisplay.toDataURL();
         var image = {
             imageData: imageData,
+
             width: imageDisplay.width,
-            hwight: imageDisplay.height,
+            height: imageDisplay.height,
             pixelWidth: imageDisplay.width/w,
             pixelHeight: imageDisplay.height/h,
             difficulty: difficulty
@@ -88,6 +89,29 @@ $(document).ready(function() {
             }
         });
     }
+
+    function getImage(){
+
+        $.ajax({
+            url:'/coloring',
+            data:'ask',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'post',
+            timeout: 10000,
+            async: true,
+            error: function(error){
+                console.log("Error: " + error);
+            },
+            success: function(res){
+                if(res){
+                    console.log("SUCCESS");
+                    console.log(res);
+                }else{
+                    console.log("FAIL : " + res);
+                }
+            }
+        });
 
     function generateGrid( rows, cols ) {
         var grid = "<table>";
@@ -119,5 +143,4 @@ $(document).ready(function() {
     startColoring.addEventListener('click', function() { saveImage() }, false);
 //    startColoring.addEventListener('click', function() { makeGrid(20, 20) }, false);
     startColoring.addEventListener('click',function() {prettyGrid(20,30)}, false);
-
 });
