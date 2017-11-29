@@ -117,6 +117,6 @@ $(document).ready(function() {
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
-    startColoring.addEventListener('click', function() { saveImage();}, false);
+    startColoring.addEventListener('click', function() { saveImage()}, false);
 
 });
