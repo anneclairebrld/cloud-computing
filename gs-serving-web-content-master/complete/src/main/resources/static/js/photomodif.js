@@ -112,6 +112,7 @@ $(document).ready(function() {
                 }
             }
         });
+    }
 
     function generateGrid( rows, cols ) {
         var grid = "<table>";
