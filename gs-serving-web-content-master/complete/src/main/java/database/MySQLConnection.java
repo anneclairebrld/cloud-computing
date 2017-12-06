@@ -87,42 +87,21 @@ public class MySQLConnection{
         execute_updates(update);
     }
 
-    public String get(String info, String tableName){
-        String query = "";
-
-        switch(info) {
-            case "all":
-                System.out.println("getting all the elements in the database");
-                query = "select ID, IMAGE_LOC from ." + tableName;
-                break;
-            default:
-                System.out.println("getting location of image with id " + info);
-                query = "select IMAGE_LOC from ." + tableName + " where ID = " + info;
-                break;
-        }
-        ResultSet resultSet = execute_query(query);
-
-        //Find a more intelligent way of printing out stuff for yourself
-        //right now prints the two columns of the data
-        //do a list array or something to be returned
+    //gets data from what you know and what you want to get
+    //ex: select imageloc from tablename where id = image_id
+    public String get(String[] info, String tableName, String whatIknow){
+        String query = "select " + info[2] + " from ." + tableName + " where " + whatIknow + " = " + info[1];
+        ResultSet resultSet;
+        resultSet = execute_query(query);
+        String response = "";
         try {
-            while(resultSet.next()){
-                switch (info) {
-                    case "all" :
-                        System.out.println("id: " + resultSet.getString(1) + " image_loc:  " +resultSet.getString(2));
-                        break;
-                    default:
-                        System.out.println("image_loc: " + resultSet.getString(1));
-                        break;
-                }
-            }
-        } catch (SQLException e) {
+            response = resultSet.getString(1);
+            close();
+        }catch (Exception e){
             e.printStackTrace();
         }
-        close();
-        return "success";
+        return response;
     }
-
 
     //closing db connection
     private void close() {

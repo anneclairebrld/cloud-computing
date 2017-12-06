@@ -1,5 +1,7 @@
 package database;
 
+import org.omg.CORBA.INTERNAL;
+
 import java.awt.image.BufferedImage;
 
 //This class controls MySQLConnection and StorageConnection
@@ -15,8 +17,8 @@ public class DatabaseController {
     private String Storage_bucket_modifyingImagesName = "modifying_imgs";
 
     //Other global variables
-    private Integer db_image_id = 0; // if eq = 0 : does not exist
-    private String storage_image_location = "";
+    private Integer db_image_id = 0;            // if = 0 : does not exist
+    private String storage_image_location = ""; // if = "": does not exist
 
     public DatabaseController(){}
 
@@ -31,16 +33,35 @@ public class DatabaseController {
         storageConnection.postImage(image, storage_image_location);
     }
 
-    //get image that currently using
-    public BufferedImage get() {
-        storageConnection.connectToBucket(Storage_bucket_originalName);
-        return storageConnection.getImage(storage_image_location);
-    }
-
-    //get other image from known name
-    public BufferedImage get(String name){
+    public BufferedImage getImage(String name) {
+        if(name.equals("mine")){
+            name = storage_image_location;
+        }
         storageConnection.connectToBucket(Storage_bucket_originalName);
         return storageConnection.getImage(name);
+    }
+
+
+
+    //public BufferedImage getImage(Integer id) {
+        //get name from the database
+        //storageConnection.connectToBucket(Storage_bucket_originalName);
+        //return storageConnection.getImage(name);
+    //}
+
+
+    //get the width and height from the db
+    public int[] getPixelSize(Integer image_id){
+        int width = 0;
+        int height = 0;
+        if (image_id.equals(0) ){
+            image_id = db_image_id;
+        }
+
+        String[] info = {image_id.toString(), "PIXELSIZE"};
+        String result = mySQLConnection.get(info, MySQL_table_storageName, "ID");
+        int[] pixel_size = {width, height};
+        return pixel_size;
     }
 
     // method to get the image location => for when you want to have it for yourself and colour it
@@ -51,8 +72,6 @@ public class DatabaseController {
         //recreate a new image for modifying
         return "success";
     }
-
-    //will require other method to colour at the same time => this sounds a little complicated but essentially what it is is websockets and some intelligent saving process for replaying
 
 //    public BufferedImage[] getAllImages(){
 //       do something like get all elements from the db and then iterate through whatever the db returns and gets them all from storage
