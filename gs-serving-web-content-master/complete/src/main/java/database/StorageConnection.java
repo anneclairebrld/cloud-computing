@@ -40,7 +40,7 @@ public class StorageConnection {
 
     public String postImage(BufferedImage image){
         //create a id
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("YYYYMMddHHmmssSSS");
         String fileName = DateTime.now(DateTimeZone.UTC).toString(dtf);
 
         //get correct image format

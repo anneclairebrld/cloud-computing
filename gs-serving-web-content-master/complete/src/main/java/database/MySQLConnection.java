@@ -56,6 +56,7 @@ public class MySQLConnection{
         Integer generated_id = 0;
         try {
             statement = connection.createStatement();
+            System.out.println("reached this point before crash: " + update);
             statement.executeUpdate(update);
 
             //get the image_id generated
@@ -77,8 +78,7 @@ public class MySQLConnection{
 
     //add data into table
     public Integer post(String values, Integer[] pixelsize, String tableName){
-        String PixelSize = pixelsize[0].toString() +  "," + pixelsize[1].toString();
-        String update = "insert into " + tableName + " (IMAGE_LOC, PIXELSIZE) values ( " + values + " , " + PixelSize +" )";
+        String update = "insert into " + tableName + " (IMAGE_LOC, WIDTH, HEIGHT) values ( " + values + ", " + pixelsize[0].toString() + ", " + pixelsize[1].toString()+ ")";
         return execute_updates(update);
     }
 
@@ -92,11 +92,14 @@ public class MySQLConnection{
     //ex: select imageloc from tablename where id = image_id
     public String get(String[] info, String tableName, String whatIknow){
         String query = "select " + info[1] + " from ." + tableName + " where " + whatIknow + " = " + info[0];
+        System.out.println(query);
         ResultSet resultSet;
         resultSet = execute_query(query);
         String response = "";
         try {
-            response = resultSet.getString(1);
+            while(resultSet.next()) {
+                response = resultSet.getString(1);
+            }
             close();
         }catch (Exception e){
             e.printStackTrace();

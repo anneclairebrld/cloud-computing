@@ -1,5 +1,6 @@
 package app;
 
+import database.DatabaseController;
 import database.MySQLConnection;
 import database.StorageConnection;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import java.io.IOException;
 
 @Controller
 public class Server {
+    private DatabaseController databaseController = new DatabaseController();
+
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
         return;
@@ -27,6 +30,10 @@ public class Server {
         BufferedImage pixelised_image  = mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
         
         //why does this return image64 ? ==> is that the image ?
+
+        Integer[] pixel_size = {20, 35};
+        databaseController.post(pixelised_image, pixel_size);
+        databaseController.getPixelSize(databaseController.getMydbImageID());
         Response success = new Response("success", image64);
         return success;
     }

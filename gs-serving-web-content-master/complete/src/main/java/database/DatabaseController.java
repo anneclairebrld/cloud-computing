@@ -41,12 +41,13 @@ public class DatabaseController {
 
     //get the width and height from the db
     public Integer[] getPixelSize(Integer image_id){
-        String[] info = {image_id.toString(), "PIXELSIZE"};
-        String result = mySQLConnection.get(info, MySQLTableStrgName, "ID");
+        String[] info = {image_id.toString(), "WIDTH"};
+        String[] info2 = {image_id.toString(), "HEIGHT"};
+        String width = mySQLConnection.get(info, MySQLTableStrgName, "ID");
+        String height = mySQLConnection.get(info2, MySQLTableStrgName, "ID");
+        System.out.println(width + " , " + height);
 
-        //parsing the string to get info out
-        String[] parts = result.split(",");
-        Integer[] pixel_size = {Integer.parseInt(parts[0]), Integer.parseInt(parts[1])};
+        Integer[] pixel_size = {Integer.parseInt(width), Integer.parseInt(height)};
         return pixel_size;
     }
 
