@@ -20,10 +20,10 @@ public class DatabaseController {
 
     public DatabaseController(){}
 
-    public void post(BufferedImage image) {
+    public void post(BufferedImage image, Integer[] pixelsize) {
         storageConnection.connectToBucket(strgBucketOriginalName);
         strgImageLocation = storageConnection.postImage(image);
-        dbImageID = mySQLConnection.post(strgImageLocation, MySQLTableStrgName);
+        dbImageID = mySQLConnection.post(strgImageLocation, pixelsize,  MySQLTableStrgName);
     }
 
     public void postModifiedImage(BufferedImage image){
@@ -40,13 +40,13 @@ public class DatabaseController {
     }
 
     //get the width and height from the db
-    public int[] getPixelSize(Integer image_id){
+    public Integer[] getPixelSize(Integer image_id){
         String[] info = {image_id.toString(), "PIXELSIZE"};
         String result = mySQLConnection.get(info, MySQLTableStrgName, "ID");
 
         //parsing the string to get info out
         String[] parts = result.split(",");
-        int[] pixel_size = {Integer.parseInt(parts[1]), Integer.parseInt(parts[2])};
+        Integer[] pixel_size = {Integer.parseInt(parts[0]), Integer.parseInt(parts[1])};
         return pixel_size;
     }
 

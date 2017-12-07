@@ -76,8 +76,9 @@ public class MySQLConnection{
     }
 
     //add data into table
-    public Integer post(String values, String tableName){
-        String update = "insert into " + tableName + " (IMAGE_LOC) values (" + values + ")";
+    public Integer post(String values, Integer[] pixelsize, String tableName){
+        String PixelSize = pixelsize[0].toString() +  "," + pixelsize[1].toString();
+        String update = "insert into " + tableName + " (IMAGE_LOC, PIXELSIZE) values ( " + values + " , " + PixelSize +" )";
         return execute_updates(update);
     }
 
@@ -90,7 +91,7 @@ public class MySQLConnection{
     //gets data from what you know and what you want to get
     //ex: select imageloc from tablename where id = image_id
     public String get(String[] info, String tableName, String whatIknow){
-        String query = "select " + info[2] + " from ." + tableName + " where " + whatIknow + " = " + info[1];
+        String query = "select " + info[1] + " from ." + tableName + " where " + whatIknow + " = " + info[0];
         ResultSet resultSet;
         resultSet = execute_query(query);
         String response = "";
