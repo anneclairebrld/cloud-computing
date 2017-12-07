@@ -15,6 +15,7 @@ import java.io.IOException;
 @Controller
 public class Server {
     private DatabaseController databaseController = new DatabaseController();
+    private MosaicGenerator mosaicGenerator = new MosaicGenerator();
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -25,17 +26,19 @@ public class Server {
     public @ResponseBody Response saveImage(@RequestBody Picture image64) throws IOException {
         System.out.println("Got a post request to the server");
 
-        //buffered image is just a bytestream -- it has no format
-        MosaicGenerator mosaicGenerator = new MosaicGenerator();
         BufferedImage pixelised_image  = mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
-        
-        //why does this return image64 ? ==> is that the image ?
-
         Integer[] pixel_size = {20, 35};
         databaseController.post(pixelised_image, pixel_size);
         databaseController.getPixelSize(databaseController.getMydbImageID());
         Response success = new Response("success", image64);
         return success;
+    }
+
+    @RequestMapping(value = "coloring", method = RequestMethod.POST)
+    public @ResponseBody PixelatedImage getImage(){
+        System.out.println("Image requested from FrontEnd :)");
+        //System.out.println(mosaicGenerator.pixelatedImage.getPixelWidth());
+        return mosaicGenerator.pixelatedImage;
     }
 }
 
