@@ -1,6 +1,8 @@
 package database;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 //This class controls MySQLConnection and StorageConnection
 public class DatabaseController {
@@ -20,10 +22,10 @@ public class DatabaseController {
 
     public DatabaseController(){}
 
-    public void post(BufferedImage image, Integer[] pixelsize) {
+    public void post(BufferedImage image, Integer[] pixelsize, List<Integer> colours) {
         storageConnection.connectToBucket(strgBucketOriginalName);
         strgImageLocation = storageConnection.postImage(image);
-        dbImageID = mySQLConnection.post(strgImageLocation, pixelsize,  MySQLTableStrgName);
+        dbImageID = mySQLConnection.post(strgImageLocation, pixelsize, colours, MySQLTableStrgName);
     }
 
     public void postModifiedImage(BufferedImage image){
@@ -54,6 +56,20 @@ public class DatabaseController {
     public String getImageLoc(Integer image_id){
         String[] info = {image_id.toString(), "IMAGE_LOC"};
         return mySQLConnection.get(info, MySQLTableStrgName, "ID");
+    }
+
+    //there are 20 colours
+    public List<Integer> getColours(Integer image_id) {
+        List<Integer> colours = new ArrayList<Integer>();
+        for(int i = 0; i < 20; i++){
+            String[] info = {image_id.toString(), "COLOUR" + (i+1)};
+            Integer result =  Integer.parseInt(mySQLConnection.get(info, "Storage_Details", "ID"));
+            if (result != 0) {
+                colours.add(result);
+            }
+        }
+
+        return colours;
     }
 
     //get all images

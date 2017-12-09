@@ -27,9 +27,12 @@ public class Server {
         System.out.println("Got a post request to the server");
 
         BufferedImage pixelised_image  = mosaicGenerator.run(image64.getImageData(), "out", image64.getDifficulty(), image64.getPixelWidth());
-        Integer[] pixel_size = {20, 35};
-        databaseController.post(pixelised_image, pixel_size);
-        databaseController.getPixelSize(databaseController.getMydbImageID());
+        //how do i get the pixels and extract the rgb from it
+
+        Integer[] pixel_size = {mosaicGenerator.pixelatedImage.getPixelWidth(), mosaicGenerator.pixelatedImage.getPixelHeight()};
+        databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs());
+        System.out.println(databaseController.getColours(databaseController.getMydbImageID()));
+        System.out.println();
         Response success = new Response("success", image64);
         return success;
     }
