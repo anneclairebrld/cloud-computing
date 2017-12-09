@@ -31,8 +31,8 @@ public class Server {
 
         Integer[] pixel_size = {mosaicGenerator.pixelatedImage.getPixelWidth(), mosaicGenerator.pixelatedImage.getPixelHeight()};
         databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs());
-        System.out.println(databaseController.getColours(databaseController.getMydbImageID()));
-        System.out.println();
+        databaseController.getColours(databaseController.getMydbImageID());
+
         Response success = new Response("success", image64);
         return success;
     }
