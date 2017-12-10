@@ -1,8 +1,9 @@
 package app;
 
-import database.DatabaseController;
+//import database.DatabaseController;
 import database.MySQLConnection;
-import database.StorageConnection;
+//import database.StorageConnection;
+import database.StorageController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,9 @@ import java.io.IOException;
 
 @Controller
 public class Server {
-    private DatabaseController databaseController = new DatabaseController();
+  //  private DatabaseController databaseController = new DatabaseController();
     private MosaicGenerator mosaicGenerator = new MosaicGenerator();
+    private StorageController storageController = new StorageController();
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -30,9 +32,10 @@ public class Server {
         //how do i get the pixels and extract the rgb from it
 
         Integer[] pixel_size = {mosaicGenerator.pixelatedImage.getPixelWidth(), mosaicGenerator.pixelatedImage.getPixelHeight()};
-        databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs());
-        databaseController.getColours(databaseController.getMydbImageID());
+        //databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs());
+        //databaseController.getColours(databaseController.getMydbImageID());
 
+        storageController.addNewStorageDetails("youaretheresomewhere", pixel_size, mosaicGenerator.pixelatedImage.getRGBs());
         Response success = new Response("success", image64);
         return success;
     }
