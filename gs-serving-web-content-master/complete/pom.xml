@@ -74,7 +74,7 @@
                         <id>install-artifact</id>
                         <phase>clean</phase>
                         <configuration>
-                            <file>/usr/share/maven/ref/repository/javaml-0.1.7.jar</file>
+                            <file>${project.basedir}/lib/javaml-0.1.7.jar</file>
                             <groupId>javaml</groupId>
                             <artifactId>javaml</artifactId>
                             <version>0.1.7</version>
