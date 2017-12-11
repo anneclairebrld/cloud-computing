@@ -75,6 +75,7 @@
                         <phase>clean</phase>
                         <configuration>
                             <file>${project.basedir}/lib/javaml-0.1.7.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
                             <groupId>javaml</groupId>
                             <artifactId>javaml</artifactId>
                             <version>0.1.7</version>
