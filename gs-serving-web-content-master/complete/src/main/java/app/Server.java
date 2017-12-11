@@ -32,7 +32,7 @@ public class Server {
 
         //get the required information from the mosaic generator and post the image
         Integer[] pixel_size = {mosaicGenerator.pixelatedImage.getPixelWidth(), mosaicGenerator.pixelatedImage.getPixelHeight()};
-        databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs());
+        databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs(), mosaicGenerator.pixelatedImage.getxNum(), mosaicGenerator.pixelatedImage.getyNum());
 
         Response success = new Response("success", image64);
         return success;

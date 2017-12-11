@@ -22,10 +22,10 @@ public class DatabaseController {
 
     public DatabaseController(){}
 
-    public void post(BufferedImage image, Integer[] pixelsize, List<Integer> colours) {
+    public void post(BufferedImage image, Integer[] pixelsize, List<Integer> colours, Integer width, Integer height) {
         storageConnection.connectToBucket(strgBucketOriginalName);
         strgImageLocation = storageConnection.postImage(image);
-        dbImageID = mySQLConnection.post(strgImageLocation, pixelsize, colours, MySQLTableStrgName);
+        dbImageID = mySQLConnection.post(strgImageLocation, pixelsize, colours, width, height, MySQLTableStrgName);
     }
 
     public void postModifiedImage(BufferedImage image){
@@ -42,9 +42,23 @@ public class DatabaseController {
     }
 
     //get the width and height from the db
-    public Integer[] getPixelSize(Integer image_id){
+    public Integer[] getImageSize(Integer image_id){
         String[] info = {image_id.toString(), "WIDTH"};
         String[] info2 = {image_id.toString(), "HEIGHT"};
+        String width = mySQLConnection.get(info, MySQLTableStrgName, "ID");
+        String height = mySQLConnection.get(info2, MySQLTableStrgName, "ID");
+        System.out.println(width + " , " + height);
+
+        Integer[] image_size = {Integer.parseInt(width), Integer.parseInt(height)};
+        return image_size;
+    }
+
+
+
+    //get the width and height from the db
+    public Integer[] getPixelSize(Integer image_id){
+        String[] info = {image_id.toString(), "PIXELWIDTH"};
+        String[] info2 = {image_id.toString(), "PIXELHEIGHT"};
         String width = mySQLConnection.get(info, MySQLTableStrgName, "ID");
         String height = mySQLConnection.get(info2, MySQLTableStrgName, "ID");
         System.out.println(width + " , " + height);
