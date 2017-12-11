@@ -112,6 +112,25 @@ public class MySQLConnection{
         return response;
     }
 
+    public String getAll(String info, String tableName){
+        String query = "select " + info + " from " + tableName ;
+        ResultSet resultSet;
+        resultSet = execute_query(query);
+        String response = "";
+        try {
+            while(resultSet.next()) {
+                if (response.equals("")){
+                    response = resultSet.getString(1);
+                }
+                else response = response + "," + resultSet.getString(1);
+            }
+            close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
     //closing db connection
     private void close() {
         try {

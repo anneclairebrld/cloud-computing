@@ -116,8 +116,9 @@ public class StorageConnection {
         }
     }
 
+    //to be implemented
     public void disconnect(){
-        //do i need this?
+
     }
 
 }

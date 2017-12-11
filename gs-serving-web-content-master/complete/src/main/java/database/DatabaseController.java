@@ -17,8 +17,8 @@ public class DatabaseController {
     private String strgBucketModImageName = "modifying_imgs";
 
     //Other global variables
-    private Integer dbImageID = 0;            // if = 0 : does not exist
-    private String strgImageLocation = ""; // if = "": does not exist
+    private Integer dbImageID = null;
+    private String strgImageLocation = null;
 
     public DatabaseController(){}
 
@@ -80,12 +80,25 @@ public class DatabaseController {
         storageConnection.deleteBlob(strgImageLocation);
         storageConnection.connectToBucket(strgBucketModImageName);
         storageConnection.deleteBlob(strgImageLocation);
-        strgImageLocation ="";
+        strgImageLocation = null;
 
         mySQLConnection.delete(dbImageID, MySQLTableStrgName);
-        dbImageID = 0;
+        dbImageID = null;
     }
 
+    //gets all images saved in the bucket storage
+    public List<BufferedImage> getAllImages(){
+        String result = mySQLConnection.getAll("IMAGE_LOC", MySQLTableStrgName);
+        String[] result_array =result.split(",");
+        List<BufferedImage> images = new ArrayList<BufferedImage>();
+        storageConnection.connectToBucket(strgBucketOriginalName);
+
+        for(int i = 0 ; i< result_array.length ; i++){
+            images.add(storageConnection.getImage(result_array[i]));
+        }
+
+        return images;
+    }
 
     //getters and setters of global variables
     public Integer getMydbImageID(){
