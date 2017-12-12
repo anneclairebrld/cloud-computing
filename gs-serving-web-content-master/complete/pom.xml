@@ -23,11 +23,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-test</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
         <!--Java ml does not work with maven and thus on the  cloud!! use wecka or something instead to do the machine learning stuff ?-->
         <!--<dependency>-->
@@ -51,6 +51,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+
     </properties>
     <build>
         <plugins>
