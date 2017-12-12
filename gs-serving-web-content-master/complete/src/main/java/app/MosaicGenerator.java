@@ -66,11 +66,11 @@ public class MosaicGenerator {
         ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
         BufferedImage rawImage = ImageIO.read(bis);
         BufferedImage compositeImage = generateCompositeMosaic(rawImage, colorCounts, widths, new ImageBasedColorPaletteGenerator(rawImage));
-//        String outputFilename = "out_original";
-//        File outputFile = new File(outputDirectory, outputFilename);
-//        outputFile.mkdirs();
-//        System.out.println("Writing mosaic: " + outputFile.getAbsolutePath());
-//        ImageIO.write(compositeImage, OUTPUT_EXTENSION, outputFile);
+        String outputFilename = "out";
+        File outputFile = new File(outputDirectory, outputFilename);
+        outputFile.mkdirs();
+        System.out.println("Writing mosaic: " + outputFile.getAbsolutePath());
+        ImageIO.write(compositeImage, OUTPUT_EXTENSION, outputFile);
 
         return compositeImage;
     }
