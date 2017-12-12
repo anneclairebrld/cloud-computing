@@ -58,7 +58,6 @@ public class MySQLConnection{
         Integer generated_id = 0;
         try {
             statement = connection.createStatement();
-            System.out.println("reached this point before crash: " + update);
             statement.executeUpdate(update);
 
             //get the image_id generated

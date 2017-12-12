@@ -1,11 +1,11 @@
 package app.palettegenerator;
 
-import net.sf.javaml.clustering.KMeans;
-import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.Instance;
-import net.sf.javaml.core.SparseInstance;
-import net.sf.javaml.tools.DatasetTools;
+//import net.sf.javaml.clustering.KMeans;
+//import net.sf.javaml.core.Dataset;
+//import net.sf.javaml.core.DefaultDataset;
+//import net.sf.javaml.core.Instance;
+//import net.sf.javaml.core.SparseInstance;
+//import net.sf.javaml.tools.DatasetTools;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -37,41 +37,46 @@ public class ImageBasedColorPaletteGenerator implements ColorPaletteGenerator {
 	@Override
 	public List<Color> generateColorPalette(int numColors) {
         List<Color> colors = new ArrayList<Color>();
-        Random r = new Random();
-        int height = image.getHeight();
-        int width = image.getWidth();
-    	KMeans kmeans = new KMeans(numColors, KMEANS_ITERATIONS);
-    	Dataset data = new DefaultDataset();
-    	
-    	// Take a random sampling of pixels from the image to use in clustering
-    	for (int i = 0; i < NUM_PIXELS_TO_SAMPLE; i++) {
-    		int rgb = image.getRGB(r.nextInt(width), r.nextInt(height));
-    		Color c = new Color(rgb);
-    		double[] vector = new double[] {c.getRed(), c.getGreen(), c.getBlue()};
-        	Instance instance = new SparseInstance(vector);
-        	data.add(instance);
-    	}
-    	
-    	// Peform the clustering
-    	Dataset[] clusters = kmeans.cluster(data);
-    	
-    	// Add a color to the palette for each cluster
-    	for (Dataset cluster : clusters) {
-    		Color c = getColorFromCluster(cluster);
-    		colors.add(c);
-    	}
-    	return colors;
+//        Random r = new Random();
+//        int height = image.getHeight();
+//        int width = image.getWidth();
+//    	KMeans kmeans = new KMeans(numColors, KMEANS_ITERATIONS);
+//    	Dataset data = new DefaultDataset();
+//
+//    	// Take a random sampling of pixels from the image to use in clustering
+//    	for (int i = 0; i < NUM_PIXELS_TO_SAMPLE; i++) {
+//    		int rgb = image.getRGB(r.nextInt(width), r.nextInt(height));
+//    		Color c = new Color(rgb);
+//    		double[] vector = new double[] {c.getRed(), c.getGreen(), c.getBlue()};
+//        	Instance instance = new SparseInstance(vector);
+//        	data.add(instance);
+//    	}
+//
+//    	// Peform the clustering
+//    	Dataset[] clusters = kmeans.cluster(data);
+//
+//    	// Add a color to the palette for each cluster
+//    	for (Dataset cluster : clusters) {
+//    		Color c = getColorFromCluster(cluster);
+//    		colors.add(c);
+//    	}
+//    	return colors;
+		Color c = new Color(0,0,0);
+		for (int i = 0; i < 20; i++){
+			colors.add(c);
+		}
+		return colors;
 	}
     
 	/*
 	 * Return the Color representing by this cluster's centroid. The centroid (average) is represented as a
 	 * collection of doubles representing the R, G and B value.
 	 */
-    private static Color getColorFromCluster(Dataset cluster) {
-    	Instance centroid = DatasetTools.average(cluster);
-    	Collection<Double> rgb = centroid.values();
-    	Iterator<Double> iter = rgb.iterator();
-    	Color c = new Color(iter.next().intValue(), iter.next().intValue(), iter.next().intValue());
-    	return c;
-	}
+//    private static Color getColorFromCluster(Dataset cluster) {
+//    	Instance centroid = DatasetTools.average(cluster);
+//    	Collection<Double> rgb = centroid.values();
+//    	Iterator<Double> iter = rgb.iterator();
+//    	Color c = new Color(iter.next().intValue(), iter.next().intValue(), iter.next().intValue());
+//    	return c;
+//	}
 }
