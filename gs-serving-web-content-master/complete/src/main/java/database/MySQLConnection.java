@@ -1,6 +1,8 @@
 package database;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MySQLConnection{
@@ -77,9 +79,12 @@ public class MySQLConnection{
     }
 
     //add data into table
-    public Integer post(String values, Integer[] pixelsize, String tableName){
-        String update = "insert into " + tableName + " (IMAGE_LOC, WIDTH, HEIGHT) values ( " + values + ", " + pixelsize[0].toString() + ", " + pixelsize[1].toString()+ ")";
-        return execute_updates(update);
+    public Integer post(String values, Integer[] pixelsize, List<Integer> colours, Integer width, Integer height, String tableName){
+        System.out.println("Colours array: " + colours);
+        String update = "insert into " + tableName + " (IMAGE_LOC, WIDTH, HEIGHT, PIXELWIDTH, PIXELHEIGHT, COLOUR1, COLOUR2, COLOUR3, COLOUR4, COLOUR5, COLOUR6, COLOUR7, COLOUR8, COLOUR9, COLOUR10, COLOUR11, COLOUR12, COLOUR13, COLOUR14, COLOUR15, COLOUR16, COLOUR17, COLOUR18, COLOUR19, COLOUR20) values ( " + values + ", " + width.toString() + "," + height.toString() + "," + pixelsize[0].toString() + ", " + pixelsize[1].toString() + ", " + colours.get(0) + ", " + colours.get(1) + ", " + colours.get(2) + ", " + colours.get(3) + ", " + colours.get(4) + ", " + colours.get(5) + ", " + colours.get(6) +  ", " + colours.get(7) + ", " + colours.get(8) + ", " + colours.get(9) + ", " + colours.get(10) + ", " + colours.get(11) + ", " + colours.get(12) + ", " + colours.get(13) + ", " + colours.get(14) + ", " + colours.get(15) + ", " + colours.get(16) + ", " + colours.get(17) + ", " + colours.get(18) + ", " + colours.get(19) +  ")";
+        Integer ID = execute_updates(update);
+
+        return ID;
     }
 
     //update a particular value
@@ -99,6 +104,25 @@ public class MySQLConnection{
         try {
             while(resultSet.next()) {
                 response = resultSet.getString(1);
+            }
+            close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public String getAll(String info, String tableName){
+        String query = "select " + info + " from " + tableName ;
+        ResultSet resultSet;
+        resultSet = execute_query(query);
+        String response = "";
+        try {
+            while(resultSet.next()) {
+                if (response.equals("")){
+                    response = resultSet.getString(1);
+                }
+                else response = response + "," + resultSet.getString(1);
             }
             close();
         }catch (Exception e){

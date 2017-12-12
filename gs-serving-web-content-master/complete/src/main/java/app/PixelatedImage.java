@@ -14,6 +14,7 @@ public class PixelatedImage {
    private Integer yNum;
    private List<Color> colors;
    private List<Integer> indexes;
+   private List<Integer> RGBs;
 
    public PixelatedImage(BufferedImage image){
        this.image = image;
@@ -49,6 +50,9 @@ public class PixelatedImage {
        this.pixelWidth = pixelWidth;
     }
 
+
+    public List<Integer> getRGBs() {return this.RGBs;}
+
     public void  setPixelHeight(Integer pixelHeight){
         this.pixelHeight = pixelHeight;
     }
@@ -72,6 +76,20 @@ public class PixelatedImage {
                         c = colors.size();
                     }
                 }
+            }
+        }
+        setRGBs();
+    }
+
+    private void setRGBs(){
+        this.RGBs = new ArrayList<Integer>();
+        for (int i = 0; i < colors.size(); i++){
+            RGBs.add(colors.get(i).getRGB());
+        }
+
+        if (colors.size() < 20) {
+            for( int i = colors.size(); i < 20; i++){
+                RGBs.add(0);
             }
         }
     }
