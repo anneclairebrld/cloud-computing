@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta2
+kind: Deployement
+metadata:
+  name: tap-estry-deployement
+  labels:
+    app: tap-estry
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tap-estry
+  template:
+    metadata:
+      labels:
+        app: tap-estry
+    spec:
+      containers:
+      - name: front-end
+        image: eu.gcr.io/tap-estry-186513/tap-estry
+        ports:
+         - containerPort: 8080
