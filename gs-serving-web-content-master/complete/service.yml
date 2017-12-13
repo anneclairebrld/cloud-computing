@@ -4,8 +4,8 @@ metadata:
   name: tap-estry
 spec:
   selector:
-      app: tap-estry
-    ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+    app: tap-estry
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
