@@ -8,11 +8,11 @@ spec:
 #  clusterIP: 10.55.255.116
 #  externalTrafficPolicy: Cluster
   ports:
-  - port: 8080
+  port: 8080
     protocol: TCP
     targetPort: 8080
   selector:
     matchLabels:
-      app: tap-estry-deployment
+      app: front-end-pod
   sessionAffinity: None
   type: LoadBalancer
