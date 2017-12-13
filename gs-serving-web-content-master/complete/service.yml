@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tap-estry
+  name: tap-estry-service
 spec:
   selector:
     app: tap-estry
