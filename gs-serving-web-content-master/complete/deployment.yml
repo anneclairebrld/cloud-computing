@@ -1,0 +1,21 @@
+apiVersion:  extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tap-estry-deployment
+  labels:
+    app: tap-estry-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tap-estry-pod
+  template:
+    metadata:
+      labels:
+        app: tap-estry-pod
+    spec:
+      containers:
+      - name: latest
+        image: eu.gcr.io/tap-estry-186513/tap-estry
+        ports:
+         - containerPort: 8080

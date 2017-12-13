@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tap-estry-pod
+  labels:
+    app: tap-estry-pod
+spec:
+ containers:
+   - name: latest
+     image: eu.gcr.io/tap-estry-186513/tap-estry
+     ports:
+       - containerPort: 8080
