@@ -12,7 +12,6 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    matchLabels:
-      app: front-end-pod
+    app: front-end-pod
   sessionAffinity: None
   type: LoadBalancer
