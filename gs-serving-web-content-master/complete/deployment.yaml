@@ -1,11 +1,11 @@
-apiVersion: extensions/v1beta1
-kind: Deployement
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
-  name: tap-estry-deployement
+  name: tap-estry-deployment
   labels:
     app: tap-estry
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: tap-estry
