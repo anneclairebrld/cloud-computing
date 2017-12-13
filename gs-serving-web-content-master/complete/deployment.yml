@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: tap-estry-deployment
   labels:
-    app: tap-estry
+    app: tap-estry-deployment
 spec:
   replicas: 2
   selector:
