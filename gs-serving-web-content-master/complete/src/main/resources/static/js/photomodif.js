@@ -81,8 +81,9 @@ $(document).ready(function() {
             },
             success: function(res){
                 if(res.status === "success"){
-                    console.log("SUCCESS");
+                    console.log("SUCCESS save");
                     getImage();
+//                    return pixelatedImageData;
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -106,7 +107,11 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    console.log(res.indexes);
+//                    console.log(res);
+//                    console.log(res);
+                    prettyGrid(res.xNum,res.yNum,res.indexes);
+                    //console.log(typeof res);
+//                    return(res)
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -114,21 +119,21 @@ $(document).ready(function() {
         });
     }
 
-    function generateGrid( rows, cols ) {
+    function generateGrid( rows, cols,colorIndex ) {
         var grid = "<table>";
+        console.log("Started making the table");
         for ( row = 1; row <= rows; row++ ) {
             grid += "<tr>";
             for ( col = 1; col <= cols; col++ ) {
-                grid += "<td></td>";
+                grid += "<td>"+colorIndex[col*cols+row]+"</td>";
             }
             grid += "</tr>";
         }
         return grid;
     }
 
-    function prettyGrid(dimX,dimY){
-
-        $( "#tableContainer" ).append( generateGrid( dimX, dimY) );
+    function prettyGrid(dimX,dimY,colorIndex){
+        $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
 
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
@@ -142,6 +147,6 @@ $(document).ready(function() {
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
     startColoring.addEventListener('click', function() { saveImage() }, false);
-//    startColoring.addEventListener('click', function() { makeGrid(20, 20) }, false);
-    startColoring.addEventListener('click',function() {prettyGrid(20,30)}, false);
+    console.log("Will build grid");
+//    startColoring.addEventListener('click', function() { prettyGrid(20, 20) }, false);
 });

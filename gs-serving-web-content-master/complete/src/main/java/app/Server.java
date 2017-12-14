@@ -31,7 +31,7 @@ public class Server {
 
         //get the required information from the mosaic generator and post the image
         Integer[] pixel_size = {mosaicGenerator.pixelatedImage.getPixelWidth(), mosaicGenerator.pixelatedImage.getPixelHeight()};
-        //databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs(), mosaicGenerator.pixelatedImage.getxNum(), mosaicGenerator.pixelatedImage.getyNum());
+        databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs(), mosaicGenerator.pixelatedImage.getxNum(), mosaicGenerator.pixelatedImage.getyNum());
 
         Response success = new Response("success", image64);
         return success;
@@ -43,6 +43,7 @@ public class Server {
         System.out.println("Image requested from FrontEnd :)");
         return mosaicGenerator.pixelatedImage;
     }
+
 
     //this is for the otherswork page
     @RequestMapping(value = "/otherswork", method = RequestMethod.GET)
