@@ -107,8 +107,8 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    console.log(res.indexes);
                     connect(res);
+                    prettyGrid(res.yNum, res.xNum, res.indexes, res.colors, stompClient);
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -136,7 +136,8 @@ $(document).ready(function() {
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (res) {
             stompClient.subscribe('/topic/game', receivedInteraction);
-            prettyGrid(res.yNum, res.xNum, res.indexes, res.colors, stompClient);
+//            prettyGrid(res.yNum, res.xNum, res.indexes, res.colors, stompClient);
+            console.log(res);
             //stompClient.send("/app/interact", {}, "HIIIII");
         });
     }
@@ -149,7 +150,7 @@ $(document).ready(function() {
         console.log("Disconnected");
     }
 
-    function generateGrid( rows, cols ) {
+    function generateGrid( rows, cols, colorIndex ) {
         var grid = "<table>";
 
         console.log("Started making the table");
@@ -157,7 +158,7 @@ $(document).ready(function() {
             grid += "<tr>";
             for ( col = 1; col <= cols; col++ ) {
                 var getElem = (col-1)+(cols * (row-1));
-                grid += "<td>"+colorIndex[getElem]+"</td>";
+                grid += "<td>"+(colorIndex[getElem]-1)+"</td>";
             }
             grid += "</tr>";
         }
@@ -179,12 +180,12 @@ $(document).ready(function() {
             }
             socket.send('/app/interact', {}, JSON.stringify(object));
 
-            $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
-            var mycolor = colorIndex[index]
-            console.log(mycolor);
-//            console.log(colors[mycolor].red,colors[mycolor].green,colors[mycolor].blue);
-            
-//            $( this ).css( 'background-color', 'rgb:('+ colors[index].red+','+ colors[index].green +','+ colors[index].blue+')'); // You change the color that you clicked on here
+            var mycolor = colorIndex[index]-1;
+            console.log("this color",mycolor); // gets the index of the color in the color array
+            var colorarray = colors[mycolor]; // gets the color array
+
+            $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
+//            $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
         });
     }
     function receivedInteraction(req){
