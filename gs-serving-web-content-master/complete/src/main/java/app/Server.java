@@ -65,7 +65,7 @@ public class Server {
     @SendTo("/topic/game")
     public Interaction interact(String req) throws Exception{
         Interaction action = new Interaction(req);
-        System.out.println("row: " + action.getRow() + " col: " + action.getCol() + " color: " + action.getColor());
+        //System.out.println("row: " + action.getRow() + " col: " + action.getCol() + " color: " + action.getColor());
 
         return action;
     }
