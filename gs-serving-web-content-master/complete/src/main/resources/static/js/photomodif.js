@@ -107,8 +107,8 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    prettyGrid(res.yNum,res.xNum,res.indexes,res.colors);
-                    console.log(res);
+                    console.log(res.indexes);
+                    connect(res);
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -116,7 +116,40 @@ $(document).ready(function() {
         });
     }
 
-    function generateGrid( rows, cols, colorIndex ) {
+    var stompClient = null;
+
+    function setConnected(connected) {
+        $("#interaction").prop("disabled", connected);
+        $("#disconnect").prop("disabled", !connected);
+        if (connected) {
+            $("#interaction").show();
+        }
+        else {
+            $("#conversation").hide();
+        }
+        $("#game").html("");
+    }
+
+    function connect(res) {
+        console.log("Interaction will start :)");
+        var socket = new SockJS('/websocket');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (res) {
+            stompClient.subscribe('/topic/game', receivedInteraction);
+            prettyGrid(res.yNum, res.xNum, res.indexes, res.colors, stompClient);
+            //stompClient.send("/app/interact", {}, "HIIIII");
+        });
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
+    }
+
+    function generateGrid( rows, cols ) {
         var grid = "<table>";
 
         console.log("Started making the table");
@@ -131,20 +164,36 @@ $(document).ready(function() {
         return grid;
     }
 
-    function prettyGrid(dimX,dimY,colorIndex,colors){
+    function prettyGrid(dimX,dimY,colorIndex,colors, socket){
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
 
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
             var row = Math.floor( ( index ) / dimX) + 1;
             var col = ( index % dimY ) + 1;
+            console.log("Sending...")
+            var object  = {
+                row: row,
+                col: col,
+                color: [255, 0, 0]
+            }
+            socket.send('/app/interact', {}, JSON.stringify(object));
+
+            $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
             var mycolor = colorIndex[index]
             console.log(mycolor);
 //            console.log(colors[mycolor].red,colors[mycolor].green,colors[mycolor].blue);
             
 //            $( this ).css( 'background-color', 'rgb:('+ colors[index].red+','+ colors[index].green +','+ colors[index].blue+')'); // You change the color that you clicked on here
-            $( this ).css( 'background-color', 'red');
         });
+    }
+    function receivedInteraction(req){
+        if (req.body) {
+            var interaction = JSON.parse(req.body)
+            console.log("got message with row and col " + interaction.row + " " + interaction.col);
+        } else {
+            alert("got empty message");
+        }
     }
 
 
