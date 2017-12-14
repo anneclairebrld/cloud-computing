@@ -170,14 +170,15 @@ $(document).ready(function() {
         $('td').css('width', pixelW);
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
-            var row = Math.floor( ( index ) / dimX) + 1;
+            console.log("dimX: " + dimX + "dimY: " + dimY);
+            var row = Math.floor( ( index ) / dimY) + 1;
             var col = ( index % dimY ) + 1;
             console.log("Sending...")
             var mycolor = colorIndex[index]-1;
             console.log("this color",mycolor); // gets the index of the color in the color array
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
-                dimX: dimX,
+                dimY: dimY,
                 row: row,
                 col: col,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
@@ -192,7 +193,7 @@ $(document).ready(function() {
         if (req.body) {
             var interaction = JSON.parse(req.body);
             var grid = document.getElementsByTagName("td");
-            var index = interaction.dimX*(interaction.row - 1) + interaction.col-1;
+            var index = interaction.dimY*(interaction.row - 1) + interaction.col-1;
             grid[index].style.backgroundColor = 'rgb(' + interaction.red + ',' + interaction.green + ',' + interaction.blue + ')';
             console.log("got message with row, col and color: " + interaction.row + " " + interaction.col);
         } else {
