@@ -107,8 +107,8 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    connect(res);
-                    prettyGrid(res.yNum, res.xNum, res.indexes, res.colors, stompClient);
+                    connect(res, res.xNum, res.yNum);
+                    prettyGrid(res.xNum, res.yNum, res.indexes, res.colors, stompClient);
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -130,15 +130,12 @@ $(document).ready(function() {
         $("#game").html("");
     }
 
-    function connect(res) {
+    function connect(res, dimX, dimY) {
         console.log("Interaction will start :)");
         var socket = new SockJS('/websocket');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (res) {
             stompClient.subscribe('/topic/game', receivedInteraction);
-//            prettyGrid(res.yNum, res.xNum, res.indexes, res.colors, stompClient);
-            console.log(res);
-            //stompClient.send("/app/interact", {}, "HIIIII");
         });
     }
 
@@ -173,27 +170,30 @@ $(document).ready(function() {
             var row = Math.floor( ( index ) / dimX) + 1;
             var col = ( index % dimY ) + 1;
             console.log("Sending...")
-            var object  = {
-                row: row,
-                col: col,
-                color: [255, 0, 0]
-            }
-            socket.send('/app/interact', {}, JSON.stringify(object));
-
             var mycolor = colorIndex[index]-1;
             console.log("this color",mycolor); // gets the index of the color in the color array
             var colorarray = colors[mycolor]; // gets the color array
+            var object  = {
+                dimX: dimX,
+                row: row,
+                col: col,
+                color: [colorarray.red, colorarray.green, colorarray.blue]
+            }
+
+            socket.send('/app/interact', {}, JSON.stringify(object));
 
             $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
-//            $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
         });
     }
     function receivedInteraction(req){
         if (req.body) {
-            var interaction = JSON.parse(req.body)
-            console.log("got message with row and col " + interaction.row + " " + interaction.col);
+            var interaction = JSON.parse(req.body);
+            var grid = document.getElementsByTagName("td");
+            var index = interaction.dimX*(interaction.row - 1) + interaction.col-1;
+            grid[index].style.backgroundColor = 'rgb(' + interaction.red + ',' + interaction.green + ',' + interaction.blue + ')';
+            console.log("got message with row, col and color: " + interaction.row + " " + interaction.col);
         } else {
-            alert("got empty message");
+            console.log("got empty message");
         }
     }
 

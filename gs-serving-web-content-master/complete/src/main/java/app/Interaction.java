@@ -7,22 +7,38 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Interaction {
+    private Integer dimX;
     private Integer row;
     private Integer col;
-    private Color color;
+    private Integer red;
+    private Integer green;
+    private  Integer blue;
 
     public Interaction(){}
 
     public Interaction(String object){
         JSONObject obj = new JSONObject(object);
+        setDimX(obj.getInt("dimX"));
         setRow(obj.getInt("row"));
         setCol(obj.getInt("col"));
-        setColor(obj.getJSONArray("color"));
+        setRed(obj.getJSONArray("color"));
+        setGreen(obj.getJSONArray("color"));
+        setBlue(obj.getJSONArray("color"));
     }
-
+    public void setDimX(Integer dimX){this.dimX = dimX;}
     public void setRow(Integer row){this.row = row;}
     public void setCol(Integer col){this.col = col;}
-    public void setColor(JSONArray color){this.color = new Color(color.getInt(0), color.getInt(1), color.getInt(2));}
+    public void setRed(JSONArray color){this.red = color.getInt(0);}
+
+    public void setGreen(JSONArray color) {
+        this.green = color.getInt(1);;
+    }
+
+    public void setBlue(JSONArray color) { this.blue = color.getInt(2);}
+
+    public Integer getDimX() {
+        return dimX;
+    }
 
     public Integer getRow(){
         return row;
@@ -32,8 +48,16 @@ public class Interaction {
         return col;
     }
 
-    public Color getColor() {
-        System.out.println("Color: " + color);
-        return color;
+    public Integer getRed() {
+        //System.out.println("Color: " + color);
+        return red;
+    }
+
+    public Integer getGreen() {
+        return green;
+    }
+
+    public Integer getBlue() {
+        return blue;
     }
 }
