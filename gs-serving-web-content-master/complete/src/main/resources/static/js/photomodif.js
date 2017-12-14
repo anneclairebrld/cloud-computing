@@ -107,9 +107,8 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    prettyGrid(res.yNum,res.xNum,res.indexes);
-                    //console.log(typeof res);
-//                    return(res)
+                    prettyGrid(res.yNum,res.xNum,res.indexes,res.colors);
+                    console.log(res);
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -132,22 +131,26 @@ $(document).ready(function() {
         return grid;
     }
 
-    function prettyGrid(dimX,dimY,colorIndex){
-        console.log("In prettyGrid colorindex: ", colorIndex)
+    function prettyGrid(dimX,dimY,colorIndex,colors){
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
 
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
             var row = Math.floor( ( index ) / dimX) + 1;
             var col = ( index % dimY ) + 1;
-            $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
+            var mycolor = colorIndex[index]
+            console.log(mycolor);
+//            console.log(colors[mycolor].red,colors[mycolor].green,colors[mycolor].blue);
+            
+//            $( this ).css( 'background-color', 'rgb:('+ colors[index].red+','+ colors[index].green +','+ colors[index].blue+')'); // You change the color that you clicked on here
+            $( this ).css( 'background-color', 'red');
         });
     }
+
 
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
     startColoring.addEventListener('click', function() { saveImage() }, false);
     console.log("Will build grid");
-//    startColoring.addEventListener('click', function() { prettyGrid(20, 20) }, false);
 });
