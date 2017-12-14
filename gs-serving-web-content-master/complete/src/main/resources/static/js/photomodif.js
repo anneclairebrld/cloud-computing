@@ -108,7 +108,7 @@ $(document).ready(function() {
                 if(res){
                     console.log("SUCCESS");
                     console.log(res.indexes);
-                    connect();
+                    connect(res);
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -130,13 +130,13 @@ $(document).ready(function() {
         $("#game").html("");
     }
 
-    function connect() {
+    function connect(res) {
         console.log("Interaction will start :)");
         var socket = new SockJS('/websocket');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (res) {
             stompClient.subscribe('/topic/game', receivedInteraction);
-            prettyGrid(20,30,stompClient);
+            prettyGrid(res.yNum, res.xNum, res.indexes, res.colors, stompClient);
             //stompClient.send("/app/interact", {}, "HIIIII");
         });
     }
@@ -164,7 +164,8 @@ $(document).ready(function() {
         return grid;
     }
 
-    function prettyGrid(dimX,dimY, socket){
+    function prettyGrid(dimX,dimY,colorIndex,colors, socket){
+        $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
 
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
@@ -179,6 +180,11 @@ $(document).ready(function() {
             socket.send('/app/interact', {}, JSON.stringify(object));
 
             $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
+            var mycolor = colorIndex[index]
+            console.log(mycolor);
+//            console.log(colors[mycolor].red,colors[mycolor].green,colors[mycolor].blue);
+            
+//            $( this ).css( 'background-color', 'rgb:('+ colors[index].red+','+ colors[index].green +','+ colors[index].blue+')'); // You change the color that you clicked on here
         });
     }
     function receivedInteraction(req){
@@ -190,10 +196,10 @@ $(document).ready(function() {
         }
     }
 
+
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
     startColoring.addEventListener('click', function() { saveImage() }, false);
-//    startColoring.addEventListener('click', function() { makeGrid(20, 20) }, false);
-    //startColoring.addEventListener('click',function() {prettyGrid(20,30)}, false);
+    console.log("Will build grid");
 });
