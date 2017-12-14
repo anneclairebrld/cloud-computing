@@ -1,11 +1,20 @@
 package app;
 
 import database.DatabaseController;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+/*Imports for Websockets*/
+import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+/*End of Websockets imports*/
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -49,6 +58,15 @@ public class Server {
     public @ResponseBody List<BufferedImage> getOthersWork(){
         System.out.println("Requesting images of other peoples work");
         return databaseController.getAllImages();
+    }
+
+    @MessageMapping("/interact")
+    @SendTo("/topic/game")
+    public Interaction interact(String req) throws Exception{
+        Interaction action = new Interaction(req);
+        System.out.println("row: " + action.getRow() + " col: " + action.getCol() + " color: " + action.getColor());
+
+        return action;
     }
 }
 

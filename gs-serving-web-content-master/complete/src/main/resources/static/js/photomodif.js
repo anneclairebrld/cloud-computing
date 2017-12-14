@@ -107,11 +107,45 @@ $(document).ready(function() {
                 if(res){
                     console.log("SUCCESS");
                     console.log(res.indexes);
+                    connect();
                 }else{
                     console.log("FAIL : " + res);
                 }
             }
         });
+    }
+
+    var stompClient = null;
+
+    function setConnected(connected) {
+        $("#interaction").prop("disabled", connected);
+        $("#disconnect").prop("disabled", !connected);
+        if (connected) {
+            $("#interaction").show();
+        }
+        else {
+            $("#conversation").hide();
+        }
+        $("#game").html("");
+    }
+
+    function connect() {
+        console.log("Interaction will start :)");
+        var socket = new SockJS('/websocket');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (res) {
+            stompClient.subscribe('/topic/game', receivedInteraction);
+            prettyGrid(20,30,stompClient);
+            //stompClient.send("/app/interact", {}, "HIIIII");
+        });
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
     }
 
     function generateGrid( rows, cols ) {
@@ -126,7 +160,7 @@ $(document).ready(function() {
         return grid;
     }
 
-    function prettyGrid(dimX,dimY){
+    function prettyGrid(dimX,dimY, socket){
 
         $( "#tableContainer" ).append( generateGrid( dimX, dimY) );
 
@@ -134,8 +168,24 @@ $(document).ready(function() {
             var index = $( "td" ).index( this );
             var row = Math.floor( ( index ) / dimX) + 1;
             var col = ( index % dimY ) + 1;
+            console.log("Sending...")
+            var object  = {
+                row: row,
+                col: col,
+                color: [255, 0, 0]
+            }
+            socket.send('/app/interact', {}, JSON.stringify(object));
+
             $( this ).css( 'background-color', 'red' ); // You change the color that you clicked on here
         });
+    }
+    function receivedInteraction(req){
+        if (req.body) {
+            var interaction = JSON.parse(req.body)
+            console.log("got message with row and col " + interaction.row + " " + interaction.col);
+        } else {
+            alert("got empty message");
+        }
     }
 
     easy.addEventListener('click', function() { pixelate("e") }, false);
@@ -143,5 +193,5 @@ $(document).ready(function() {
     hard.addEventListener('click', function() { pixelate("h") }, false);
     startColoring.addEventListener('click', function() { saveImage() }, false);
 //    startColoring.addEventListener('click', function() { makeGrid(20, 20) }, false);
-    startColoring.addEventListener('click',function() {prettyGrid(20,30)}, false);
+    //startColoring.addEventListener('click',function() {prettyGrid(20,30)}, false);
 });
