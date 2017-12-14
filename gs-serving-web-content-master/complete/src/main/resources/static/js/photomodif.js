@@ -107,9 +107,7 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-//                    console.log(res);
-//                    console.log(res);
-                    prettyGrid(res.xNum,res.yNum,res.indexes);
+                    prettyGrid(res.yNum,res.xNum,res.indexes);
                     //console.log(typeof res);
 //                    return(res)
                 }else{
@@ -119,13 +117,15 @@ $(document).ready(function() {
         });
     }
 
-    function generateGrid( rows, cols,colorIndex ) {
+    function generateGrid( rows, cols, colorIndex ) {
         var grid = "<table>";
+
         console.log("Started making the table");
         for ( row = 1; row <= rows; row++ ) {
             grid += "<tr>";
             for ( col = 1; col <= cols; col++ ) {
-                grid += "<td>"+colorIndex[col*cols+row]+"</td>";
+                var getElem = (col-1)+(cols * (row-1));
+                grid += "<td>"+colorIndex[getElem]+"</td>";
             }
             grid += "</tr>";
         }
@@ -133,6 +133,7 @@ $(document).ready(function() {
     }
 
     function prettyGrid(dimX,dimY,colorIndex){
+        console.log("In prettyGrid colorindex: ", colorIndex)
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
 
         $( "td" ).click(function() {
