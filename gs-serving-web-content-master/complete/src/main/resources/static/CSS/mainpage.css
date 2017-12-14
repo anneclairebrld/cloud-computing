@@ -23,13 +23,13 @@ body{
 
 /*.row.content {height: 50%}*/
 
-@media screen and (max-width: 767px) {
+/*@media screen and (max-width: 767px) {
       .sidenav {
         height: auto;
         padding: 15px;
       }
       .row.content {height:auto;}
-    }
+    }*/
 
 h1,p {
 	text-align: center;
@@ -225,10 +225,12 @@ body {
 .grid { margin:1em auto; border-collapse:collapse }
 .grid td {
     cursor:pointer;
-    width:30px; height:30px;
+    width:30px;
+    height:30px;
     border:1px solid #ccc;
     text-align:center;
-    font-family:sans-serif; font-size:13px
+    font-family:sans-serif;
+    /*font-size:13px*/
 }
 /*.grid td.clicked {
     font-weight:bold;

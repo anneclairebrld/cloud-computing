@@ -82,6 +82,7 @@ $(document).ready(function() {
             success: function(res){
                 if(res.status === "success"){
                     console.log("SUCCESS save");
+                    console.log(res);
                     getImage();
 //                    return pixelatedImageData;
                 }else{
@@ -107,8 +108,8 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    connect(res, res.xNum, res.yNum);
-                    prettyGrid(res.xNum, res.yNum, res.indexes, res.colors, stompClient);
+                    connect(res);
+                    prettyGrid(res.pixelHeight,res.pixelWidth,res.yNum, res.xNum, res.indexes, res.colors, stompClient);
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -155,16 +156,18 @@ $(document).ready(function() {
             grid += "<tr>";
             for ( col = 1; col <= cols; col++ ) {
                 var getElem = (col-1)+(cols * (row-1));
-                grid += "<td>"+(colorIndex[getElem]-1)+"</td>";
+                grid += "<td>"+(colorIndex[getElem])+"</td>";
             }
             grid += "</tr>";
         }
         return grid;
     }
 
-    function prettyGrid(dimX,dimY,colorIndex,colors, socket){
+    function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, socket){
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
-
+//        console.log(pixelH,pixelW);
+        $('td').css('height', pixelH);
+        $('td').css('width', pixelW);
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
             var row = Math.floor( ( index ) / dimX) + 1;
