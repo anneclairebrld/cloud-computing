@@ -106,7 +106,7 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    console.log(res);
+                    console.log(res.indexes);
                 }else{
                     console.log("FAIL : " + res);
                 }

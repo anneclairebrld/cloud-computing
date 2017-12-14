@@ -61,17 +61,17 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration><mainClass>app.Application</mainClass></configuration>
             </plugin>
-            </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <configuration>
                 <version>1.3.6</version>
+                <configuration>
                     <repository>eu.gcr.io/tap-estry-186513/${docker.image.prefix}</repository>
                     <buildArgs>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                </configuration>
                     </buildArgs>
+                </configuration>
+
                 <executions>
                     <execution>
                         <id>default</id>
@@ -82,6 +82,7 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
