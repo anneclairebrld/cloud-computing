@@ -11,5 +11,6 @@ spec:
     targetPort: 8080
   selector:
     app: tap-estry-pod
-  sessionAffinity: None
+  sessionAffinity: ClientAPI
   type: LoadBalancer
+

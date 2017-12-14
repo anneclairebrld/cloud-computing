@@ -81,8 +81,9 @@ $(document).ready(function() {
             },
             success: function(res){
                 if(res.status === "success"){
-                    console.log("SUCCESS");
+                    console.log("SUCCESS save");
                     getImage();
+//                    return pixelatedImageData;
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -150,10 +151,13 @@ $(document).ready(function() {
 
     function generateGrid( rows, cols ) {
         var grid = "<table>";
+
+        console.log("Started making the table");
         for ( row = 1; row <= rows; row++ ) {
             grid += "<tr>";
             for ( col = 1; col <= cols; col++ ) {
-                grid += "<td></td>";
+                var getElem = (col-1)+(cols * (row-1));
+                grid += "<td>"+colorIndex[getElem]+"</td>";
             }
             grid += "</tr>";
         }
@@ -161,8 +165,6 @@ $(document).ready(function() {
     }
 
     function prettyGrid(dimX,dimY, socket){
-
-        $( "#tableContainer" ).append( generateGrid( dimX, dimY) );
 
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
