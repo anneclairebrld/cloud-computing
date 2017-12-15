@@ -33,7 +33,7 @@ public class Server {
         return;
     }
 
-    @RequestMapping(value = "/peoplesimages",method = RequestMethod.GET)
+    @RequestMapping("/peoplesimages")
     public void startOthersWork(){return;}
 
     //saving the image on the storage

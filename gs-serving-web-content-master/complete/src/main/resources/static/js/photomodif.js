@@ -74,7 +74,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             type: 'post',
-            timeout: 10000,
+            timeout: 50000,
             async: true,
             error: function(error){
                 console.log("Error: " + error);
@@ -100,7 +100,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             type: 'post',
-            timeout: 10000,
+            timeout: 50000,
             async: true,
             error: function(error){
                 console.log("Error: " + error);
