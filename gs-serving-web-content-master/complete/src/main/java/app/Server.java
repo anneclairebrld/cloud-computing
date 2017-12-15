@@ -33,6 +33,9 @@ public class Server {
         return;
     }
 
+    @RequestMapping(value = "/peoplesimages",method = RequestMethod.GET)
+    public void startOthersWork(){return;}
+
     //saving the image on the storage
     @RequestMapping(value = "images", method = RequestMethod.POST)
     public @ResponseBody Response saveImage(@RequestBody Picture image64) throws IOException {
@@ -56,7 +59,7 @@ public class Server {
 
 
     //this is for the otherswork page
-    @RequestMapping(value = "/otherswork", method = RequestMethod.GET)
+    @RequestMapping(value = "otherswork", method = RequestMethod.GET)
     public @ResponseBody Map<BufferedImage, String> getOthersWork(){
         System.out.println("Requesting images of other peoples work");
         return databaseController.getAllImages();
