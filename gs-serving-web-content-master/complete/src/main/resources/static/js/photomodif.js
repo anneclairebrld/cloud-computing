@@ -110,6 +110,31 @@ $(document).ready(function() {
                     console.log("SUCCESS");
                     connect(res);
                     prettyGrid(res.pixelHeight,res.pixelWidth,res.yNum, res.xNum, res.indexes, res.colors, stompClient);
+                    getOthersWork();
+                }else{
+                    console.log("FAIL : " + res);
+                }
+            }
+        });
+    }
+
+    function getOthersWork(){
+
+        $.ajax({
+            url:'/otherswork',
+            data:'data',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'get',
+            //timeout: 10000,
+            async: true,
+            error: function(error){
+                console.log("Error: " + error);
+            },
+            success: function(res){
+                if(res){
+                    console.log("SUCCESS");
+                    console.log(JSON.parse(res));
                 }else{
                     console.log("FAIL : " + res);
                 }

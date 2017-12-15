@@ -2,7 +2,9 @@ package database;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //This class controls MySQLConnection and StorageConnection
 public class DatabaseController {
@@ -101,15 +103,16 @@ public class DatabaseController {
     }
 
     //gets all images saved in the bucket storage
-    public List<BufferedImage> getAllImages(){
+    public Map<BufferedImage, String> getAllImages(){
         String result = mySQLConnection.getAll("IMAGE_LOC", MySQLTableStrgName);
         String[] result_array =result.split(",");
-        List<BufferedImage> images = new ArrayList<BufferedImage>();
+        Map<BufferedImage, String> images = new HashMap<BufferedImage, String>();
         storageConnection.connectToBucket(strgBucketOriginalName);
 
         for(int i = 0 ; i< result_array.length ; i++){
-            images.add(storageConnection.getImage(result_array[i]));
+            images.put(storageConnection.getImage(result_array[i]), result_array[i]);
         }
+        System.out.println("Image 0 Unique ID: " + result_array[0]);
 
         return images;
     }

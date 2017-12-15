@@ -30,10 +30,10 @@
 							<i class="fa fa-cloud-upload"></i> Upload Image
 						</label>
 
-						<input name="myImage" class="myImage" id="myImage" type="file" accept="image/*" onclick="toggleVisibility();" style="display:none;"></input>
+						<input name="myImage" class="myImage" id="myImage" type="file" accept="image/*" onclick="toggleVisibility(1);" style="display:none;"></input>
 					</form>
-
-					<a href="peoplesimages.html"><button class="otherswork">See others work</button></a>
+					<!--<a href="peoplesimages.html"><button class="otherswork">See others work</button></a>-->
+					<button class="otherswork" onclick="toggleVisibility(2);"> Join Others Work</button>
 				</div>
 
 			</div>
@@ -55,6 +55,23 @@
 				<input id="medium" type="button" value="Medium"></input>
 				<input id="hard" type="button" value="Hard"></input>
 				<input id="startColoring" type="button" value="Start" onclick="whiteCanvas();"></input>
+				<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+				<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+				<script src="js/photomodif.js"></script>
+
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</div>
+</div>
+
+
+<div id="coloring2" style="display: none">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8 inner-padding" align="center">
+				<p>DISPLAY IMAGES FROM DATABASE HERE</p>
 				<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 				<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 				<script src="js/photomodif.js"></script>

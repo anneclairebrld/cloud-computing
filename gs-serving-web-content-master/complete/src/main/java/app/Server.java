@@ -19,6 +19,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class Server {
@@ -56,7 +57,7 @@ public class Server {
 
     //this is for the otherswork page
     @RequestMapping(value = "/otherswork", method = RequestMethod.GET)
-    public @ResponseBody List<BufferedImage> getOthersWork(){
+    public @ResponseBody Map<BufferedImage, String> getOthersWork(){
         System.out.println("Requesting images of other peoples work");
         return databaseController.getAllImages();
     }
