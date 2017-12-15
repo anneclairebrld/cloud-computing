@@ -20,7 +20,6 @@ $(document).ready(function() {
     document.getElementById('myImage').onchange = function(e) {
         // Get the first file in the FileList object
         var imageFile = this.files[0];
-        //console.log(imageFile.type);
         // get a local URL representation of the image blob
         var url = window.URL.createObjectURL(imageFile);
         // Now use your newly created URL!
@@ -134,7 +133,7 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    console.log(JSON.parse(res));
+                    console.log(res)
                 }else{
                     console.log("FAIL : " + res);
                 }
