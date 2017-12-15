@@ -65,14 +65,14 @@ public class StorageConnection {
     }
 
 
-    public BufferedImage getImage(String imageName) {
+    public byte[] getImage(String imageName) {
         //get data from storage
         BlobId blobId = BlobId.of(bucketName, imageName);
         byte[] content = storage.readAllBytes(blobId);
 
         //get correct format
-        BufferedImage image_out = bytes_to_bufferedImage(content);
-        return image_out;
+        //BufferedImage image_out = bytes_to_bufferedImage(content);
+        return content;
     }
 
     public boolean deleteBlob(String blobName) {

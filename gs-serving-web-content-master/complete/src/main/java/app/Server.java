@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 /*Imports for Websockets*/
-import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 /*End of Websockets imports*/
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -60,8 +56,10 @@ public class Server {
 
     //this is for the otherswork page
     @RequestMapping(value = "otherswork", method = RequestMethod.GET)
-    public @ResponseBody Map<BufferedImage, String> getOthersWork(){
+    public @ResponseBody Map<byte[], String> getOthersWork(){
         System.out.println("Requesting images of other peoples work");
+        List<String> ids = new ArrayList<String>();
+        List<byte[]> bufferedImgs = new ArrayList<byte[]>();
         return databaseController.getAllImages();
     }
 

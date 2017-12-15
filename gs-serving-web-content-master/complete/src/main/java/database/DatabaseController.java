@@ -35,7 +35,7 @@ public class DatabaseController {
         storageConnection.postImage(image, strgImageLocation);
     }
 
-    public BufferedImage getImage(String name) {
+    public byte[] getImage(String name) {
         if(name.equals("mine")){
             name = strgImageLocation;
         }
@@ -103,16 +103,15 @@ public class DatabaseController {
     }
 
     //gets all images saved in the bucket storage
-    public Map<BufferedImage, String> getAllImages(){
+    public Map<byte[], String> getAllImages(){
         String result = mySQLConnection.getAll("IMAGE_LOC", MySQLTableStrgName);
         String[] result_array =result.split(",");
-        Map<BufferedImage, String> images = new HashMap<BufferedImage, String>();
+        Map<byte[], String> images = new HashMap<byte[], String>();
         storageConnection.connectToBucket(strgBucketOriginalName);
 
         for(int i = 0 ; i< result_array.length ; i++){
             images.put(storageConnection.getImage(result_array[i]), result_array[i]);
         }
-        System.out.println("Image 0 Unique ID: " + result_array[0]);
 
         return images;
     }
