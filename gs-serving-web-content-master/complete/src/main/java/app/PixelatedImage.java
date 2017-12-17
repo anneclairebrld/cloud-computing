@@ -24,14 +24,6 @@ public class PixelatedImage {
        this.image = image;
    }
 
-   public PixelatedImage(byte[] image) throws IOException {
-       InputStream in = new ByteArrayInputStream(image);
-       BufferedImage bufferedImage = ImageIO.read(in);
-       this.image = bufferedImage;
-    }
-
-   public PixelatedImage(){}
-
    public void setImage(BufferedImage image){
        this.image = image;
     }
