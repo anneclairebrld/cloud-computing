@@ -63,6 +63,16 @@ public class Server {
         return databaseController.getAllImages();
     }
 
+    @RequestMapping(value = "getcolors", method = RequestMethod.POST)
+    public @ResponseBody List<Integer> getColors(@RequestBody String loc){
+        System.out.println("Requesting color of images of other peoples work from id: " + loc);
+        //Integer id = new Integer(databaseController.getImageID(loc));
+        //Integer id = new Integer(Integer.parseInt(idSting));
+        System.out.println("Image at loc " + loc + " has " + databaseController.getColours(loc).size() + " colors.");
+        return databaseController.getColours(loc);
+    }
+    //End of OthersWork Page
+
     @MessageMapping("/interact")
     @SendTo("/topic/game")
     public Interaction interact(String req) throws Exception{

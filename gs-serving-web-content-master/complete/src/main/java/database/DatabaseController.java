@@ -74,12 +74,30 @@ public class DatabaseController {
         return mySQLConnection.get(info, MySQLTableStrgName, "ID");
     }
 
+    public  String getImageID(String loc) {
+        String[] info = {loc, "ID"};
+        System.out.println("location was: " + loc + " and ID is: " + mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC"));
+        return mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC");
+    }
     //there are 20 colours
-    public List<Integer> getColours(Integer image_id) {
+   /* public List<Integer> getColours(Integer image_id) {
         List<Integer> colours = new ArrayList<Integer>();
         for(int i = 0; i < 20; i++){
             String[] info = {image_id.toString(), "COLOUR" + (i+1)};
             Integer result =  Integer.parseInt(mySQLConnection.get(info, "Storage_Details", "ID"));
+            if (result != 0) {
+                colours.add(result);
+            }
+        }
+
+        return colours;
+    }*/
+
+    public List<Integer> getColours(String loc) {
+        List<Integer> colours = new ArrayList<Integer>();
+        for(int i = 0; i < 20; i++){
+            String[] info = {loc, "COLOUR" + (i+1)};
+            Integer result =  Integer.parseInt(mySQLConnection.get(info, "Storage_Details", "IMAGE_LOC"));
             if (result != 0) {
                 colours.add(result);
             }
