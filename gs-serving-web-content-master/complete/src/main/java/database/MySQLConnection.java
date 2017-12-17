@@ -96,7 +96,7 @@ public class MySQLConnection{
     //ex: select imageloc from tablename where id = image_id
     public String get(String[] info, String tableName, String whatIknow){
         String query = "select " + info[1] + " from ." + tableName + " where " + whatIknow + " = " + info[0];
-        System.out.println(query);
+        //System.out.println(query);
         ResultSet resultSet;
         resultSet = execute_query(query);
         String response = "";
@@ -106,6 +106,7 @@ public class MySQLConnection{
             }
             close();
         }catch (Exception e){
+            System.out.println("Met an exception");
             e.printStackTrace();
         }
         return response;

@@ -1,6 +1,9 @@
 package app;
 
+import com.google.gson.Gson;
 import database.DatabaseController;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONObject;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -9,15 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 /*Imports for Websockets*/
-import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 /*End of Websockets imports*/
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -60,10 +59,28 @@ public class Server {
 
     //this is for the otherswork page
     @RequestMapping(value = "otherswork", method = RequestMethod.GET)
-    public @ResponseBody Map<BufferedImage, String> getOthersWork(){
+    public @ResponseBody Map<byte[], String> getOthersWork(){
         System.out.println("Requesting images of other peoples work");
         return databaseController.getAllImages();
     }
+
+    @RequestMapping(value = "getinfo", method = RequestMethod.POST)
+    public @ResponseBody PixelatedImage getInfo(@RequestBody String loc) throws IOException {
+        System.out.println("Requesting info of images of other peoples work: " + loc);
+        loc = loc.replaceAll("\"", "");
+        System.out.println("Requesting info of images of other peoples work: " + loc);
+        PixelatedImage image = new PixelatedImage(databaseController.getBufferedImage(loc));
+        image.setColorsFromInts(databaseController.getColours(loc));
+        Integer[] pixelSize = databaseController.getPixelSize(loc);
+        Integer[] imageSize = databaseController.getImageSize(loc);
+        image.setPixelWidth(pixelSize[0]);
+        image.setPixelHeight(pixelSize[1]);
+        image.setxNum(imageSize[0]);
+        image.setyNum(imageSize[1]);
+        image.setIndexes();
+        return image;
+    }
+    //End of OthersWork Page
 
     @MessageMapping("/interact")
     @SendTo("/topic/game")

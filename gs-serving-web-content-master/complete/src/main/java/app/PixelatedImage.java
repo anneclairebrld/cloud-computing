@@ -1,7 +1,11 @@
 package app;
+import javax.imageio.ImageIO;
 import java.awt.*;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +23,12 @@ public class PixelatedImage {
    public PixelatedImage(BufferedImage image){
        this.image = image;
    }
+
+   public PixelatedImage(byte[] image) throws IOException {
+       InputStream in = new ByteArrayInputStream(image);
+       BufferedImage bufferedImage = ImageIO.read(in);
+       this.image = bufferedImage;
+    }
 
    public PixelatedImage(){}
 
@@ -66,8 +76,20 @@ public class PixelatedImage {
         this.colors = colors;
     }
 
+    public void setColorsFromInts(List<Integer> colors) {
+        System.out.println("setting colors: " + colors);
+        List<Color> result = new ArrayList<Color>();
+        for (int i = 0; i< colors.size(); i++){
+            Color c = new Color(colors.get(i));
+            result.add(c);
+        }
+        this.colors = result;
+    }
+
     public void setIndexes(){
         this.indexes = new ArrayList<Integer>();
+        System.out.println("image is: " + image);
+        System.out.println("image has height and width: " + image.getHeight() + " " + image.getWidth());
         for(int y = 0; y < image.getHeight(); y+=pixelHeight){
             for(int x = 0; x < image.getWidth(); x+=pixelWidth){
                 for(int c = 1; c<=colors.size(); c++){
