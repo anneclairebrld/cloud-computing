@@ -1,6 +1,9 @@
 package app;
 
+import com.google.gson.Gson;
 import database.DatabaseController;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONObject;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -58,18 +61,23 @@ public class Server {
     @RequestMapping(value = "otherswork", method = RequestMethod.GET)
     public @ResponseBody Map<byte[], String> getOthersWork(){
         System.out.println("Requesting images of other peoples work");
-        List<String> ids = new ArrayList<String>();
-        List<byte[]> bufferedImgs = new ArrayList<byte[]>();
         return databaseController.getAllImages();
     }
 
-    @RequestMapping(value = "getcolors", method = RequestMethod.POST)
-    public @ResponseBody List<Integer> getColors(@RequestBody String loc){
-        System.out.println("Requesting color of images of other peoples work from id: " + loc);
-        //Integer id = new Integer(databaseController.getImageID(loc));
-        //Integer id = new Integer(Integer.parseInt(idSting));
-        System.out.println("Image at loc " + loc + " has " + databaseController.getColours(loc).size() + " colors.");
-        return databaseController.getColours(loc);
+    @RequestMapping(value = "getinfo", method = RequestMethod.POST)
+    public @ResponseBody PixelatedImage getInfo(@RequestBody String loc) throws IOException {
+        System.out.println("Requesting info of images of other peoples work:" + loc);
+
+        PixelatedImage image = new PixelatedImage();
+        image.setColorsFromInts(databaseController.getColours(loc));
+        Integer[] pixelSize = databaseController.getPixelSize(loc);
+        Integer[] imageSize = databaseController.getImageSize(loc);
+        image.setPixelWidth(pixelSize[0]);
+        image.setPixelHeight(pixelSize[1]);
+        image.setxNum(imageSize[0]);
+        image.setyNum(imageSize[1]);
+        //image.setIndexes();
+        return image;
     }
     //End of OthersWork Page
 
