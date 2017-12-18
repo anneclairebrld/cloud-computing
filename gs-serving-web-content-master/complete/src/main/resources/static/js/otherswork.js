@@ -62,20 +62,19 @@ $(document).ready(function() {
     }
 
     function addToGrid(imageInfo){
-        var div = document.createElement("div");
-        div.style.width = "300px";
-        div.style.height = "200px";
-        div.style.background = "red";
-        div.style.color = "white";
-//        div.style.borderColor = "white";
-//        div.style.borderWidth = "medium";
-        div.innerHTML = "Hello";
-//        displayPic(imageInfo);
         var dimX = imageInfo.yNum;
         var dimY = imageInfo.xNum;
         var colorIndex = imageInfo.indexes;
         var colors = imageInfo.colors;
-        document.getElementById("pictureDisplay").append(generateGrid( dimX, dimY,colorIndex,colors, imageInfo.pixelHeight,imageInfo.pixelWidth));
+        var pixelH = imageInfo.pixelHeight;
+        var pixelW = imageInfo.pixelWidth;
+        document.getElementById("pictureDisplay").append(generateGrid( dimX, dimY,colorIndex,colors, pixelH,pixelW));
+
+        $( "table" ).click(function() {
+            var index = $( "table" ).index( this );
+            console.log("I clicked on picture " + index);
+
+        });
     }
 
     function generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW) {
@@ -95,7 +94,6 @@ $(document).ready(function() {
                     td.style.background = ('rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
 //                    td.innerHTML = colorIndex[getElem];
                     tr.append(td);
-
                 }
                 grid.append(tr);
             }
