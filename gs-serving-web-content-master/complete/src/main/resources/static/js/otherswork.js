@@ -1,7 +1,12 @@
 //    var imageFile = document.getElementById('myImage').innerHTML;
 $(document).ready(function() {
-    console.log("get images from database");
-    getImages();
+    var divInHtml = document.getElementsByTagName("DIV")[0];
+    var allImages;
+    if (divInHtml.id === "otherswork"){
+        console.log("get images from database");
+        getImages();
+    }
+
     function getImages(){
 
         $.ajax({
@@ -17,6 +22,7 @@ $(document).ready(function() {
             },
             success: function(res){
                 if(res){
+                    allImages = res;
                     console.log("SUCCESS");
                     console.log(Object.keys(res));
                     Object.keys(res).forEach( function eachKey(key)
@@ -78,11 +84,19 @@ $(document).ready(function() {
         select.appendChild(selectButton);
         document.getElementById("pictureDisplay").appendChild(select);
 
-//        $( "button" ).click(function() {
-//            var index = $( "table" ).index( this );
-//            console.log("I clicked on picture " + index);
-//
-//        });
+        console.log("I want all image data to be global")
+        $( "button" ).click(function() {
+            var index = $( "button" ).index( this );
+            console.log("I clicked on picture " + index); // This is printed for every button damn I have to change that
+            /* SO I left off here what I should do is add ifs when the functions are doing specific stuff, and find the
+            image I want based on the button index and display it similarly to photomodif
+
+
+            */
+            console.log(Object.keys(allImages));
+
+
+        });
     }
 
     function generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW) {
@@ -110,3 +124,4 @@ $(document).ready(function() {
             return grid;
     }
 });
+

@@ -229,5 +229,8 @@ $(document).ready(function() {
     medium.addEventListener('click', function() { pixelate("m") }, false);
     hard.addEventListener('click', function() { pixelate("h") }, false);
     startColoring.addEventListener('click', function() { saveImage() }, false);
-    console.log("Will build grid");
 });
+//    so this is how I call a function from another js file, bust it doesn't work because of other stuff
+//    function printWelcome(){
+//        console.log("Please work so I can not freak out")
+//    }
