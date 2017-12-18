@@ -69,12 +69,20 @@ $(document).ready(function() {
         var pixelH = imageInfo.pixelHeight;
         var pixelW = imageInfo.pixelWidth;
         document.getElementById("pictureDisplay").append(generateGrid( dimX, dimY,colorIndex,colors, pixelH,pixelW));
+        var select = document.createElement('a');
+        var selectButton = document.createElement("button");
+        var createAText = document.createTextNode("Select image");
+//        select.setAttribute('href', "mainpage.html#startInteract");
+        select.setAttribute('href', "colorPage.html");
+        selectButton.appendChild(createAText);
+        select.appendChild(selectButton);
+        document.getElementById("pictureDisplay").appendChild(select);
 
-        $( "table" ).click(function() {
-            var index = $( "table" ).index( this );
-            console.log("I clicked on picture " + index);
-
-        });
+//        $( "button" ).click(function() {
+//            var index = $( "table" ).index( this );
+//            console.log("I clicked on picture " + index);
+//
+//        });
     }
 
     function generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW) {

@@ -35,6 +35,9 @@ public class Server {
     @RequestMapping("/peoplesimages")
     public void startOthersWork(){return;}
 
+    @RequestMapping("/colorPage")
+    public void resumeColoring(){return;}
+
     //saving the image on the storage
     @RequestMapping(value = "images", method = RequestMethod.POST)
     public @ResponseBody Response saveImage(@RequestBody Picture image64) throws IOException {
