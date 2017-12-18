@@ -89,8 +89,10 @@ $(document).ready(function() {
                     var getElem = (col-1)+(cols * (row-1));
                     var mycolor = colorIndex[getElem]-1;
                     var colorarray = colors[mycolor]; // gets the color array
-                    td.width = pixelH *0.8+"px";
-                    td.height = pixelW * 0.8+"px";
+                    //td.width = pixelH *0.8+"px";
+                    //td.height = pixelW * 0.8+"px";
+                    td.style.width = 250/cols+"px";
+                    td.style.height = 200/rows+"px";
                     td.style.background = ('rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
 //                    td.innerHTML = colorIndex[getElem];
                     tr.append(td);
