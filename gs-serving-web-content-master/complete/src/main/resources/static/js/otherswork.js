@@ -48,13 +48,57 @@ $(document).ready(function() {
             },
             success: function(res){
                 if(res){
-                    console.log("SUCCESS");
+                    console.log("Otherswork - SUCCESS");
                     console.log(res);
+                    addToGrid(res);
 
                 }else{
-                    console.log("FAIL : " + res);
+                    console.log("Otherswork - FAIL : " + res);
                 }
             }
         });
+
+
+    }
+
+    function addToGrid(imageInfo){
+        var div = document.createElement("div");
+        div.style.width = "300px";
+        div.style.height = "200px";
+        div.style.background = "red";
+        div.style.color = "white";
+//        div.style.borderColor = "white";
+//        div.style.borderWidth = "medium";
+        div.innerHTML = "Hello";
+//        displayPic(imageInfo);
+        var dimX = imageInfo.yNum;
+        var dimY = imageInfo.xNum;
+        var colorIndex = imageInfo.indexes;
+        var colors = imageInfo.colors;
+        document.getElementById("pictureDisplay").append(generateGrid( dimX, dimY,colorIndex,colors, imageInfo.pixelHeight,imageInfo.pixelWidth));
+    }
+
+    function generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW) {
+            console.log("Adding new picture to otherswork");
+            var grid = document.createElement("table");
+//            grid.style.width = cols + "px";
+//            grid.style.height = rows + "px";
+            for ( row = 1; row <= rows; row++ ) {
+                var tr = document.createElement("tr");
+                for ( col = 1; col <= cols; col++ ) {
+                    var td = document.createElement("td");
+                    var getElem = (col-1)+(cols * (row-1));
+                    var mycolor = colorIndex[getElem]-1;
+                    var colorarray = colors[mycolor]; // gets the color array
+                    td.width = pixelH *0.8+"px";
+                    td.height = pixelW * 0.8+"px";
+                    td.style.background = ('rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
+//                    td.innerHTML = colorIndex[getElem];
+                    tr.append(td);
+
+                }
+                grid.append(tr);
+            }
+            return grid;
     }
 });

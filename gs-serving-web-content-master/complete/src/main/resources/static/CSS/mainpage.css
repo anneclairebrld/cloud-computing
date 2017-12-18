@@ -95,14 +95,6 @@ input[type="file"] {
     display: block;
 }
 
-/*div.box{
-	width:500px;
-	height:250px;
-	background-color: rgba(1,0,0,0.7);
-	top: 25%;
-	left: 30%;
-}
-*/
 div.coloring{
     position:absolute;
 	top: 25%;
@@ -124,15 +116,6 @@ div.buttons{
 	font-size: 16px;
 }
 
-/*label{
-	text-align: center;
-	position:inherit;
-	background-color: #ff8000;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	font-size: 16px;
-}*/
 .custom-file-upload {
 	text-align: center;
 	position:inherit;
@@ -232,7 +215,3 @@ body {
     font-family:sans-serif;
     /*font-size:13px*/
 }
-/*.grid td.clicked {
-    font-weight:bold;
-    color:red;
-}*/

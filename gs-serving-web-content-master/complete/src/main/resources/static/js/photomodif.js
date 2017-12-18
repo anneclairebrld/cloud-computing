@@ -189,7 +189,6 @@ $(document).ready(function() {
 
     function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, socket){
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
-//        console.log(pixelH,pixelW);
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
         $( "td" ).click(function() {
