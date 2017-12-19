@@ -1,7 +1,12 @@
 //    var imageFile = document.getElementById('myImage').innerHTML;
 $(document).ready(function() {
-    console.log("get images from database");
-    getImages();
+    var divInHtml = document.getElementsByTagName("DIV")[0];
+    var allImages;
+    if (divInHtml.id === "otherswork"){
+        console.log("get images from database");
+        getImages();
+    }
+
     function getImages(){
 
         $.ajax({
@@ -17,6 +22,7 @@ $(document).ready(function() {
             },
             success: function(res){
                 if(res){
+                    allImages = res;
                     console.log("SUCCESS");
                     console.log(Object.keys(res));
                     Object.keys(res).forEach( function eachKey(key)
@@ -104,3 +110,4 @@ $(document).ready(function() {
         console.log("requested grid generation for image with id: " + id);
     }
 });
+
