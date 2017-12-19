@@ -198,7 +198,7 @@ $(document).ready(function() {
             var col = ( index % dimY ) + 1;
             console.log("Sending...")
             var mycolor = colorIndex[index]-1;
-            console.log("this color",mycolor); // gets the index of the color in the color array
+            console.log("this color index " + mycolor); // gets the index of the color in the color array
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
                 dimY: dimY,
