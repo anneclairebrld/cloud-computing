@@ -33,7 +33,6 @@ $(document).ready(function() {
     }
 
     function getInfo(id){
-        console.log("requested color of id: " + id);
 
         $.ajax({
             url:'/getinfo',
@@ -50,7 +49,7 @@ $(document).ready(function() {
                 if(res){
                     console.log("Otherswork - SUCCESS");
                     console.log(res);
-                    addToGrid(res);
+                    addToGrid(res, id);
 
                 }else{
                     console.log("Otherswork - FAIL : " + res);
@@ -61,23 +60,18 @@ $(document).ready(function() {
 
     }
 
-    function addToGrid(imageInfo){
+    //var i = 1;
+    function addToGrid(imageInfo, id){
         var dimX = imageInfo.yNum;
         var dimY = imageInfo.xNum;
         var colorIndex = imageInfo.indexes;
         var colors = imageInfo.colors;
         var pixelH = imageInfo.pixelHeight;
         var pixelW = imageInfo.pixelWidth;
-        document.getElementById("pictureDisplay").append(generateGrid( dimX, dimY,colorIndex,colors, pixelH,pixelW));
-
-        $( "table" ).click(function() {
-            var index = $( "table" ).index( this );
-            console.log("I clicked on picture " + index);
-
-        });
+        generateMiniGrid(dimX, dimY,colorIndex,colors, pixelH,pixelW, id)
     }
 
-    function generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW) {
+    function generateMiniGrid(rows, cols, colorIndex,colors, pixelH,pixelW, id) {
             console.log("Adding new picture to otherswork");
             var grid = document.createElement("table");
 //            grid.style.width = cols + "px";
@@ -99,6 +93,14 @@ $(document).ready(function() {
                 }
                 grid.append(tr);
             }
-            return grid;
+            document.getElementById("pictureDisplay").append(grid);
+            grid.onclick = function () {
+               generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW, id);
+            };
+            //return grid;
+    }
+
+    function generateGrid(dimX, dimY, colorIndex, colors, pixelH, pixelW, id) {
+        console.log("requested grid generation for image with id: " + id);
     }
 });
