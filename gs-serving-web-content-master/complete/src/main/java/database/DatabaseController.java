@@ -1,5 +1,7 @@
 package database;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +58,7 @@ public class DatabaseController {
         String[] info2 = {loc, "HEIGHT"};
         String width = mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC");
         String height = mySQLConnection.get(info2, MySQLTableStrgName, "IMAGE_LOC");
+        //System.out.println(width + " , " + height);
 
         Integer[] image_size = {Integer.parseInt(width), Integer.parseInt(height)};
         return image_size;
@@ -69,7 +72,7 @@ public class DatabaseController {
         String[] info2 = {loc, "PIXELHEIGHT"};
         String width = mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC");
         String height = mySQLConnection.get(info2, MySQLTableStrgName, "IMAGE_LOC");
-        System.out.println(width + " , " + height);
+        //System.out.println(width + " , " + height);
 
         Integer[] pixel_size = {Integer.parseInt(width), Integer.parseInt(height)};
         return pixel_size;
@@ -127,14 +130,17 @@ public class DatabaseController {
     }
 
     //gets all images saved in the bucket storage
-    public Map<byte[], String> getAllImages(){
+    public Map<String, String> getAllImages(){
         String result = mySQLConnection.getAll("IMAGE_LOC", MySQLTableStrgName);
         String[] result_array =result.split(",");
-        Map<byte[], String> images = new HashMap<byte[], String>();
+        Map<String, String> images = new HashMap<String, String>();
         storageConnection.connectToBucket(strgBucketOriginalName);
 
         for(int i = 0 ; i< result_array.length ; i++){
-            images.put(storageConnection.getImage(result_array[i]), result_array[i]);
+            Base64 codec = new Base64();
+            String imageBase64Data= codec.encodeBase64String(storageConnection.getImage(result_array[i]));
+            String imageDataURL= "data:image/png;base64," + imageBase64Data ;
+            images.put(imageDataURL, result_array[i]);
         }
 
         return images;

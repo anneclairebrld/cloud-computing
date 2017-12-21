@@ -12,21 +12,28 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body style="text-align: center; min-width: 100%;">
 <div id="otherswork" class="jumbotron vertical-center">
+
     <div class="container">
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div id="pictureDisplay" class="col-sm-8 inner-padding" align="center">
-                <h1 class="text-center" style="color:white;background-color:rgba(1,0,0,0.7);">Other's work</h1>
-                <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-                <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-                <script src="js/otherswork.js"></script>
-                <div id="pictureTable"></div>
-            </div>
-            <div id="tableContainer" style="display: none"></div>
-            <div class="col-sm-2"></div>
+        <div id="header1" style="text-align: center;" align="center">
+            <h1 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">Other's work</h1>
+            <h2 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">Select an Image to Color</h2>
         </div>
+
+        <table id="pictureDisplay" style="table-layout:fixed;text-align: center; min-width: 100%;">
+
+            <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+            <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+            <script src="js/otherswork.js"></script>
+            <div id="pictureTable"></div>
+
+        </table>
+        <div id="header2" style="display: none; text-align: center;" align="center;">
+            <h1 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">Click the boxes to color</h1>
+            <h2 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">Other people may join you at this stage...</h2>
+        </div>
+        <div id="tableContainer" style="display: none; text-align: center; align: center;"></div>
     </div>
 </div>
 </body>

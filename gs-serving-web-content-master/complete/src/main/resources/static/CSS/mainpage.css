@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 /*Styling for the first page*/
 html, body {
+    text-align: center;
     margin: 0;
     height: 100%;
     min-height: 100%;
@@ -215,3 +216,12 @@ body {
     font-family:sans-serif;
     /*font-size:13px*/
 }
+
+/*
+.vertical-center {
+    min-height: 100%;  !* Fallback for browsers do NOT support vh unit *!
+    min-height: 100vh; !* These two lines are counted as one :-)       *!
+
+    display: flex;
+    align-items: center;
+}*/

@@ -4,6 +4,7 @@ package database;
 
 import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.*;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -79,6 +80,7 @@ public class StorageConnection {
         BlobId blobId = BlobId.of(bucketName, imageName);
         byte[] content = storage.readAllBytes(blobId);
 
+        //System.out.println("content of " + imageName + " is " + imageBase64Data);
         //get correct format
         //BufferedImage image_out = bytes_to_bufferedImage(content);
         return content;

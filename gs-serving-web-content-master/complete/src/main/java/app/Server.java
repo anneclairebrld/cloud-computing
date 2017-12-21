@@ -63,7 +63,7 @@ public class Server {
 
     //this is for the otherswork page
     @RequestMapping(value = "otherswork", method = RequestMethod.GET)
-    public @ResponseBody Map<byte[], String> getOthersWork(){
+    public @ResponseBody Map<String, String> getOthersWork(){
         System.out.println("Requesting images of other peoples work");
         return databaseController.getAllImages();
     }

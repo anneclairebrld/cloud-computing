@@ -1,5 +1,5 @@
-//    var imageFile = document.getElementById('myImage').innerHTML;
 $(document).ready(function() {
+
     var divInHtml = document.getElementsByTagName("DIV")[0];
     var allImages;
     if (divInHtml.id === "otherswork"){
@@ -23,9 +23,17 @@ $(document).ready(function() {
                 if(res){
                     allImages = res;
                     console.log("SUCCESS");
+                    var i = 0;
                     Object.keys(res).forEach( function eachKey(key)
                     {
-                        getInfo(res[key]);
+                        var image = new Image();
+                        image.src = key;
+                        image.width = 250;
+                        image.height= 200;
+                        //document.body.appendChild(image);
+                        addToGrid(res[key], i, image);
+                        i++;
+                        //getInfo(res[key], image);
                     });
 
                 }else{
@@ -35,6 +43,7 @@ $(document).ready(function() {
         });
     }
 
+    //var i = 0;
     function getInfo(id){
 
         $.ajax({
@@ -48,9 +57,17 @@ $(document).ready(function() {
             error: function(error){
                 console.log("Error: " + error);
             },
-            success: function(res){
-                if(res){
-                    addToGrid(res, id);
+            success: function(imageInfo){
+                if(imageInfo){
+
+                    var dimX = imageInfo.yNum;
+                    var dimY = imageInfo.xNum;
+                    var colorIndex = imageInfo.indexes;
+                    var colors = imageInfo.colors;
+                    var pixelH = imageInfo.pixelHeight;
+                    var pixelW = imageInfo.pixelWidth;
+                    generateGrid(dimX, dimY, colorIndex,colors, pixelH,pixelW, id, stompClient);
+
                 }else{
                     console.log("Otherswork - FAIL : " + res);
                 }
@@ -60,40 +77,18 @@ $(document).ready(function() {
 
     }
 
-    function addToGrid(imageInfo, id){
-        var dimX = imageInfo.yNum;
-        var dimY = imageInfo.xNum;
-        var colorIndex = imageInfo.indexes;
-        var colors = imageInfo.colors;
-        var pixelH = imageInfo.pixelHeight;
-        var pixelW = imageInfo.pixelWidth;
-        generateMiniGrid(dimX, dimY,colorIndex,colors, pixelH,pixelW, id);
-    }
+    var newRow = document.getElementById("pictureDisplay").insertRow(0);//(newRow);
+    function addToGrid(/*imageInfo,*/ id, i, image){
 
-    function generateMiniGrid(rows, cols, colorIndex,colors, pixelH,pixelW, id) {
+        if (i != 0 && i%4 == 0){
+            newRow = document.getElementById("pictureDisplay").insertRow(i/4);
+        }
+        newRow.insertCell(i%4).appendChild(image);
+        image.onclick = function () {
+            connect(id);
+            getInfo(id);
+        };
 
-            var grid = document.createElement("table");
-
-            for ( row = 1; row <= rows; row++ ) {
-                var tr = document.createElement("tr");
-                for ( col = 1; col <= cols; col++ ) {
-                    var td = document.createElement("td");
-                    var getElem = (col-1)+(cols * (row-1));
-                    var mycolor = colorIndex[getElem]-1;
-                    var colorarray = colors[mycolor]; // gets the color array
-
-                    td.style.width = 250/cols+"px";
-                    td.style.height = 200/rows+"px";
-                    td.style.background = ('rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
-                    tr.append(td);
-                }
-                grid.append(tr);
-            }
-            document.getElementById("pictureDisplay").append(grid);
-            grid.onclick = function () {
-                connect(id);
-                generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW, id, stompClient);
-            };
     }
 
     var stompClient = null;
@@ -121,19 +116,21 @@ $(document).ready(function() {
     }
     function generateGrid(dimX, dimY, colorIndex, colors, pixelH, pixelW, id, socket) {
         document.getElementById("pictureDisplay").remove();
+        document.getElementById("header1").remove();
         document.getElementById("tableContainer").style.display = "block";
+        document.getElementById("header2").style.display = "block";
         $( "#tableContainer" ).append( indexes( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
             $(this).empty();
-            //console.log("dimX: " + dimX + "dimY: " + dimY);
+
             var row = Math.floor( ( index ) / dimY) + 1;
             var col = ( index % dimY ) + 1;
-            //console.log("row: " + row + " col: " + col + " index: " + index);
+
             var mycolor = colorIndex[index]-1;
-            //console.log("this color " + mycolor); // gets the index of the color in the color array
+
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
                 dimY: dimY,
@@ -160,7 +157,7 @@ $(document).ready(function() {
     }
 
     function indexes( rows, cols, colorIndex ) {
-        var grid = "<table>";
+        var grid = "<table style='text-align: center;align=center;'>";
 
         for ( row = 1; row <= rows; row++ ) {
             grid += "<tr>";
