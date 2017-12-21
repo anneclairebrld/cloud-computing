@@ -24,10 +24,11 @@ public class DatabaseController {
 
     public DatabaseController(){}
 
-    public void post(BufferedImage image, Integer[] pixelsize, List<Integer> colours, Integer width, Integer height) {
+    public String post(BufferedImage image, Integer[] pixelsize, List<Integer> colours, Integer width, Integer height) {
         storageConnection.connectToBucket(strgBucketOriginalName);
         strgImageLocation = storageConnection.postImage(image);
         dbImageID = mySQLConnection.post(strgImageLocation, pixelsize, colours, width, height, MySQLTableStrgName);
+        return strgImageLocation;
     }
 
     public void postModifiedImage(BufferedImage image){
@@ -55,7 +56,6 @@ public class DatabaseController {
         String[] info2 = {loc, "HEIGHT"};
         String width = mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC");
         String height = mySQLConnection.get(info2, MySQLTableStrgName, "IMAGE_LOC");
-        System.out.println(width + " , " + height);
 
         Integer[] image_size = {Integer.parseInt(width), Integer.parseInt(height)};
         return image_size;

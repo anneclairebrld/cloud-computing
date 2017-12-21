@@ -1,7 +1,6 @@
 //    var imageFile = document.getElementById('myImage').innerHTML;
 $(document).ready(function() {
 
-    // (C) Ken Fyrstenberg, Epistemex, License: CC3.0-attr
     var ctx = imageDisplay.getContext('2d'),
         img = new Image(),
         play = false;
@@ -11,18 +10,12 @@ $(document).ready(function() {
     ctx.webkitImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
 
-    // wait until image is actually available
-    //img.src =  localStorage.getItem('imageurl');
 
     img.onload = pixelate;
-    // some image, we are not struck with CORS restrictions as we
-    // do not use pixel buffer to pixelate, so any image will do
+
     document.getElementById('myImage').onchange = function(e) {
-        // Get the first file in the FileList object
         var imageFile = this.files[0];
-        // get a local URL representation of the image blob
         var url = window.URL.createObjectURL(imageFile);
-        // Now use your newly created URL!
         img.src = url;
 
     }
@@ -31,7 +24,6 @@ $(document).ready(function() {
 
     function pixelate(lev) {
 
-        // find which button was pressed
         if (lev == "e") {
             size = 0.06;
             difficulty = 10;
@@ -50,7 +42,6 @@ $(document).ready(function() {
         // draw original image to the scaled size
         ctx.drawImage(img, 0, 0, imageDisplay.width, imageDisplay.height);
         // then draw that scaled image thumb back to fill canvas
-        // As smoothing is off the result will be pixelated
 
         //ctx.drawImage(imageDisplay, 0, 0, w, h, 0, 0, imageDisplay.width, imageDisplay.height);
     }
@@ -66,7 +57,7 @@ $(document).ready(function() {
             pixelHeight: imageDisplay.height/h,
             difficulty: difficulty
         }
-        //console.log(image);
+
         $.ajax({
             url:'/images',
             data:JSON.stringify(image),
@@ -79,10 +70,10 @@ $(document).ready(function() {
                 console.log("Error: " + error);
             },
             success: function(res){
-                if(res.status === "success"){
+                if(res){
                     console.log("SUCCESS save");
                     console.log(res);
-                    getImage();
+                    getImage(res);
 //                    return pixelatedImageData;
                 }else{
                     console.log("FAIL : " + res);
@@ -91,7 +82,7 @@ $(document).ready(function() {
         });
     }
 
-    function getImage(){
+    function getImage(socketName){
 
         $.ajax({
             url:'/coloring',
@@ -107,33 +98,8 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
-                    connect(res);
-                    prettyGrid(res.pixelHeight,res.pixelWidth,res.yNum, res.xNum, res.indexes, res.colors, stompClient);
-                    getOthersWork();
-                }else{
-                    console.log("FAIL : " + res);
-                }
-            }
-        });
-    }
-
-    function getOthersWork(){
-
-        $.ajax({
-            url:'/otherswork',
-            data:'data',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            type: 'get',
-            //timeout: 10000,
-            async: true,
-            error: function(error){
-                console.log("Error: " + error);
-            },
-            success: function(res){
-                if(res){
-                    console.log("SUCCESS");
-                    console.log(res)
+                    connect(res, socketName);
+                    prettyGrid(res.pixelHeight,res.pixelWidth,res.yNum, res.xNum, res.indexes, res.colors, socketName, stompClient);
                 }else{
                     console.log("FAIL : " + res);
                 }
@@ -155,12 +121,12 @@ $(document).ready(function() {
         $("#game").html("");
     }
 
-    function connect(res, dimX, dimY) {
+    function connect(res,socketName) {
         console.log("Interaction will start :)");
         var socket = new SockJS('/websocket');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (res) {
-            stompClient.subscribe('/topic/game', receivedInteraction);
+            stompClient.subscribe('/topic/game/'+socketName, receivedInteraction);
         });
     }
 
@@ -187,7 +153,7 @@ $(document).ready(function() {
         return grid;
     }
 
-    function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, socket){
+    function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, id, socket){
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
@@ -207,7 +173,7 @@ $(document).ready(function() {
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
 
-            socket.send('/app/interact', {}, JSON.stringify(object));
+            socket.send('/app/interact/' + id, {}, JSON.stringify(object));
 
             $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
         });
@@ -218,7 +184,7 @@ $(document).ready(function() {
             var grid = document.getElementsByTagName("td");
             var index = interaction.dimY*(interaction.row - 1) + interaction.col-1;
             grid[index].style.backgroundColor = 'rgb(' + interaction.red + ',' + interaction.green + ',' + interaction.blue + ')';
-            console.log("got message with row, col and color: " + interaction.row + " " + interaction.col);
+            grid[index].innerHTML = "";
         } else {
             console.log("got empty message");
         }
@@ -230,7 +196,3 @@ $(document).ready(function() {
     hard.addEventListener('click', function() { pixelate("h") }, false);
     startColoring.addEventListener('click', function() { saveImage() }, false);
 });
-//    so this is how I call a function from another js file, bust it doesn't work because of other stuff
-//    function printWelcome(){
-//        console.log("Please work so I can not freak out")
-//    }

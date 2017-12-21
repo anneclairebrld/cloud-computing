@@ -80,8 +80,7 @@ public class PixelatedImage {
 
     public void setIndexes(){
         this.indexes = new ArrayList<Integer>();
-        System.out.println("image is: " + image);
-        System.out.println("image has height and width: " + image.getHeight() + " " + image.getWidth());
+
         for(int y = 0; y < image.getHeight(); y+=pixelHeight){
             for(int x = 0; x < image.getWidth(); x+=pixelWidth){
                 for(int c = 1; c<=colors.size(); c++){

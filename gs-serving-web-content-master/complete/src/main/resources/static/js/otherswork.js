@@ -3,7 +3,6 @@ $(document).ready(function() {
     var divInHtml = document.getElementsByTagName("DIV")[0];
     var allImages;
     if (divInHtml.id === "otherswork"){
-        console.log("get images from database");
         getImages();
     }
 
@@ -24,11 +23,9 @@ $(document).ready(function() {
                 if(res){
                     allImages = res;
                     console.log("SUCCESS");
-                    console.log(Object.keys(res));
                     Object.keys(res).forEach( function eachKey(key)
                     {
                         getInfo(res[key]);
-                        //console.log(res[key]);
                     });
 
                 }else{
@@ -53,10 +50,7 @@ $(document).ready(function() {
             },
             success: function(res){
                 if(res){
-                    console.log("Otherswork - SUCCESS");
-                    console.log(res);
                     addToGrid(res, id);
-
                 }else{
                     console.log("Otherswork - FAIL : " + res);
                 }
@@ -77,10 +71,9 @@ $(document).ready(function() {
     }
 
     function generateMiniGrid(rows, cols, colorIndex,colors, pixelH,pixelW, id) {
-            console.log("Adding new picture to otherswork");
+
             var grid = document.createElement("table");
-//            grid.style.width = cols + "px";
-//            grid.style.height = rows + "px";
+
             for ( row = 1; row <= rows; row++ ) {
                 var tr = document.createElement("tr");
                 for ( col = 1; col <= cols; col++ ) {
@@ -88,26 +81,45 @@ $(document).ready(function() {
                     var getElem = (col-1)+(cols * (row-1));
                     var mycolor = colorIndex[getElem]-1;
                     var colorarray = colors[mycolor]; // gets the color array
-                    //td.width = pixelH *0.8+"px";
-                    //td.height = pixelW * 0.8+"px";
+
                     td.style.width = 250/cols+"px";
                     td.style.height = 200/rows+"px";
                     td.style.background = ('rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
-//                    td.innerHTML = colorIndex[getElem];
                     tr.append(td);
                 }
                 grid.append(tr);
             }
             document.getElementById("pictureDisplay").append(grid);
             grid.onclick = function () {
-               generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW, id);
+                connect(id);
+                generateGrid(rows, cols, colorIndex,colors, pixelH,pixelW, id, stompClient);
             };
     }
 
-    function generateGrid(dimX, dimY, colorIndex, colors, pixelH, pixelW, id) {
-        console.log("color indexes: " + colorIndex);
-        console.log("colors: " + colors);
-        console.log("requested grid generation for image with id: " + id);
+    var stompClient = null;
+
+    function setConnected(connected) {
+        $("#interaction").prop("disabled", connected);
+        $("#disconnect").prop("disabled", !connected);
+        if (connected) {
+            $("#interaction").show();
+        }
+        else {
+            $("#conversation").hide();
+        }
+        $("#game").html("");
+    }
+
+    function connect(socketName) {
+        console.log("Interaction will start");
+        var socket = new SockJS('/websocket');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function () {
+            stompClient.subscribe('/topic/game/' + socketName, receivedInteraction);
+        });
+
+    }
+    function generateGrid(dimX, dimY, colorIndex, colors, pixelH, pixelW, id, socket) {
         document.getElementById("pictureDisplay").remove();
         document.getElementById("tableContainer").style.display = "block";
         $( "#tableContainer" ).append( indexes( dimX, dimY,colorIndex) );
@@ -115,12 +127,13 @@ $(document).ready(function() {
         $('td').css('width', pixelW);
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
-            console.log("dimX: " + dimX + "dimY: " + dimY);
+            $(this).empty();
+            //console.log("dimX: " + dimX + "dimY: " + dimY);
             var row = Math.floor( ( index ) / dimY) + 1;
             var col = ( index % dimY ) + 1;
-            console.log("row: " + row + " col: " + col + " index: " + index);
+            //console.log("row: " + row + " col: " + col + " index: " + index);
             var mycolor = colorIndex[index]-1;
-            console.log("this color " + mycolor); // gets the index of the color in the color array
+            //console.log("this color " + mycolor); // gets the index of the color in the color array
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
                 dimY: dimY,
@@ -129,16 +142,26 @@ $(document).ready(function() {
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
 
-            //socket.send('/app/interact', {}, JSON.stringify(object));
-
-            $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
+            socket.send('/app/interact/' + id, {}, JSON.stringify(object));
+            $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
         });
+    }
+
+    function receivedInteraction(req){
+        if (req.body) {
+            var interaction = JSON.parse(req.body);
+            var grid = document.getElementsByTagName("td");
+            var index = interaction.dimY*(interaction.row - 1) + interaction.col-1;
+            grid[index].style.backgroundColor = 'rgb(' + interaction.red + ',' + interaction.green + ',' + interaction.blue + ')';
+            grid[index].innerHTML = "";
+        } else {
+            console.log("got empty message");
+        }
     }
 
     function indexes( rows, cols, colorIndex ) {
         var grid = "<table>";
 
-        console.log("Started making the table");
         for ( row = 1; row <= rows; row++ ) {
             grid += "<tr>";
             for ( col = 1; col <= cols; col++ ) {
