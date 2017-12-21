@@ -14,13 +14,12 @@
 
 </head>
 
-<body>
+<body style="text-align: center; min-width: 100%;">
 
 <div id="welcome" class="jumbotron vertical-center">
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8 inner-padding" align="center" style="background-color:rgba(1,0,0,0.7);">
+
+			<div class="col-sm-8 inner-padding" style="table-layout:fixed;text-align: center; min-width: 100%; background-color:rgba(1,0,0,0.7);">
 				<h1 class="text-center" style="color:white;">Tap-estry</h1>
 				<p class="text-center"> Welcome, upload your first image and get colouring!!</p>
 
@@ -36,20 +35,19 @@
 				</div>
 
 			</div>
-			<div class="col-sm-2"></div>
-		</div>
 	</div>
 </div>
 
 <div id="coloring" style="display: none" class="jumbotron vertical-center">
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8 inner-padding" align="center">
+		<div style="text-align: center;" align="center">
+			<h2 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">Select a Level and Press Start</h2>
+			<h3 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">(It may take a few seconds to load)</h3>
+		</div>
+			<div class="col-sm-8 inner-padding" style="table-layout:fixed;text-align: center; min-width: 100%;">
 				<canvas id="imageDisplay" width="800" height="600"></canvas>
 				<br></br>
-				<!--<input id="blocks" type="range" min="1" max="50" value="0"></input>
-                   <input id="animate" type="button" value="Animate"></input>-->
+
 				<input id="easy" type="button" value="Easy"></input>
 				<input id="medium" type="button" value="Medium"></input>
 				<input id="hard" type="button" value="Hard"></input>
@@ -59,21 +57,21 @@
 				<script src="js/photomodif.js"></script>
 
 			</div>
-			<div class="col-sm-2"></div>
-		</div>
+
 	</div>
 </div>
 
 
 <div id="startInteract" style="display: none" class="jumbotron vertical-center">
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8 inner-padding" align="center">
-				<div id="tableContainer"></div>
-			</div>
-			<div class="col-sm-2"></div>
+		<div style="text-align: center;" align="center">
+			<h1 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">Click the boxes to color</h1>
+			<h2 class="text-center" style="width:100%;color:white;background-color:rgba(1,0,0,0.7);">Other people may join you at this stage...</h2>
 		</div>
+		<div class="col-sm-8 inner-padding" style="table-layout:fixed;text-align: center; min-width: 100%;">
+			<div id="tableContainer"></div>
+		</div>
+
 	</div>
 </div>
 
