@@ -24,10 +24,10 @@ $(document).ready(function() {
     function pixelate(lev) {
 
         if (lev == "e") {
-            size = 0.04;
+            size = 0.06;
             difficulty = 10;
         } else if (lev == "m") {
-            size = 0.02;
+            size = 0.04;
             difficulty = 15;
         } else {
             size = 0.01;
