@@ -149,6 +149,7 @@ $(document).ready(function() {
         $( "#tableContainer" ).append( indexes( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
+        $('td').css('cursor', 'pointer');
         $.ajax({
             url:'/getTrack',
             data:id,

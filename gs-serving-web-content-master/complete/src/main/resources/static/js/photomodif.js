@@ -184,6 +184,7 @@ $(document).ready(function() {
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
+        $('td').css('cursor', 'pointer');
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
             console.log("dimX: " + dimX + "dimY: " + dimY);
