@@ -131,26 +131,17 @@ public class DatabaseController {
 
     //gets all images saved in the bucket storage
     public Map<String, String> getAllImages(){
-        long startTime = System.nanoTime();
         String result = mySQLConnection.getAll("IMAGE_LOC", MySQLTableStrgName);
-        long endTime = System.nanoTime();
         String[] result_array =result.split(",");
         Map<String, String> images = new HashMap<String, String>();
-
-
-        long duration = (endTime - startTime);
-        System.out.println("mysql time: " + duration);
-
-        long startTime2 = System.nanoTime();
+        
         for(int i = 0 ; i< result_array.length ; i++){
             Base64 codec = new Base64();
             String imageBase64Data= codec.encodeBase64String(storageConnection.getImage(result_array[i]));
             String imageDataURL= "data:image/png;base64," + imageBase64Data ;
             images.put(imageDataURL, result_array[i]);
         }
-        long endTime2 = System.nanoTime();
-        long duration2 = (endTime2 - startTime2);
-        System.out.println("encoding to imagebase64 time: " + duration2);
+
         return images;
     }
 
