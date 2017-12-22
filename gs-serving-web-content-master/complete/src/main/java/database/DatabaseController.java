@@ -12,7 +12,7 @@ import java.util.Map;
 public class DatabaseController {
     //Connections
     private MySQLConnection mySQLConnection = new MySQLConnection("images");
-    private StorageConnection storageConnection = new StorageConnection();
+    private StorageConnection storageConnection = new StorageConnection("original_imgs");
 
     //Access names
     private String MySQLTableStrgName = "Storage_Details";
@@ -27,19 +27,19 @@ public class DatabaseController {
     public DatabaseController(){}
 
     public String post(BufferedImage image, Integer[] pixelsize, List<Integer> colours, Integer width, Integer height) {
-        storageConnection.connectToBucket(strgBucketOriginalName);
+        //storageConnection.connectToBucket(strgBucketOriginalName);
         strgImageLocation = storageConnection.postImage(image);
         dbImageID = mySQLConnection.post(strgImageLocation, pixelsize, colours, width, height, MySQLTableStrgName);
         return strgImageLocation;
     }
 
     public void postModifiedImage(BufferedImage image){
-        storageConnection.connectToBucket(strgBucketModImageName);
+        //storageConnection.connectToBucket(strgBucketModImageName);
         storageConnection.postImage(image, strgImageLocation);
     }
 
     public BufferedImage getBufferedImage(String name){
-        storageConnection.connectToBucket(strgBucketOriginalName);
+        //storageConnection.connectToBucket(strgBucketOriginalName);
         return storageConnection.getBufferedImage(name);
     }
 
@@ -48,7 +48,7 @@ public class DatabaseController {
         if(name.equals("mine")){
             name = strgImageLocation;
         }
-        storageConnection.connectToBucket(strgBucketOriginalName);
+        //storageConnection.connectToBucket(strgBucketOriginalName);
         return storageConnection.getImage(name);
     }
 
@@ -119,9 +119,9 @@ public class DatabaseController {
 
     //deletes everything that has to do with the image
     public void delete(){
-        storageConnection.connectToBucket(strgBucketOriginalName);
-        storageConnection.deleteBlob(strgImageLocation);
-        storageConnection.connectToBucket(strgBucketModImageName);
+        //storageConnection.connectToBucket(strgBucketOriginalName);
+        //storageConnection.deleteBlob(strgImageLocation);
+        //storageConnection.connectToBucket(strgBucketModImageName);
         storageConnection.deleteBlob(strgImageLocation);
         strgImageLocation = null;
 
@@ -131,18 +131,26 @@ public class DatabaseController {
 
     //gets all images saved in the bucket storage
     public Map<String, String> getAllImages(){
+        long startTime = System.nanoTime();
         String result = mySQLConnection.getAll("IMAGE_LOC", MySQLTableStrgName);
+        long endTime = System.nanoTime();
         String[] result_array =result.split(",");
         Map<String, String> images = new HashMap<String, String>();
-        storageConnection.connectToBucket(strgBucketOriginalName);
 
+
+        long duration = (endTime - startTime);
+        System.out.println("mysql time: " + duration);
+
+        long startTime2 = System.nanoTime();
         for(int i = 0 ; i< result_array.length ; i++){
             Base64 codec = new Base64();
             String imageBase64Data= codec.encodeBase64String(storageConnection.getImage(result_array[i]));
             String imageDataURL= "data:image/png;base64," + imageBase64Data ;
             images.put(imageDataURL, result_array[i]);
         }
-
+        long endTime2 = System.nanoTime();
+        long duration2 = (endTime2 - startTime2);
+        System.out.println("encoding to imagebase64 time: " + duration2);
         return images;
     }
 

@@ -24,8 +24,15 @@ public class StorageConnection {
     Bucket bucket;
 
     //Sets up connection to storage
-    public StorageConnection() {
+    public StorageConnection(String bucketName) {
         storage = StorageOptions.getDefaultInstance().getService();
+        this.bucketName = bucketName;
+        Page<Bucket> buckets = storage.list();
+        for (Bucket bucket : buckets.iterateAll()) {
+            if (bucket.getName().equals(bucketName)) {
+                this.bucket = bucket;
+            }
+        }
     }
 
     //get access to the bucket you want to be writing to
