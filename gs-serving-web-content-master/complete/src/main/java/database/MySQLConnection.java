@@ -16,9 +16,6 @@ public class MySQLConnection{
         String jdbcUrl = "jdbc:mysql://35.195.54.162:3306/" + databaseName;
         try{
             connection = DriverManager.getConnection(jdbcUrl,"root","finalyear4us3");
-            //do stuff with the certificates and all
-            //statements allow to issue SQL queries to the database & results gets them back
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,10 +33,7 @@ public class MySQLConnection{
 
         } catch (SQLException e){
             e.printStackTrace();
-        }finally{
-            close();
         }
-
     }
 
     //Executing query and returning the information
@@ -104,7 +98,6 @@ public class MySQLConnection{
             while(resultSet.next()) {
                 response = resultSet.getString(1);
             }
-            close();
         }catch (Exception e){
             System.out.println("Met an exception");
             e.printStackTrace();
@@ -124,7 +117,6 @@ public class MySQLConnection{
                 }
                 else response = response + "," + resultSet.getString(1);
             }
-            close();
         }catch (Exception e){
             e.printStackTrace();
         }
