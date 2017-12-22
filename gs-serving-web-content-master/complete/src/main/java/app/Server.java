@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class Server {
     private DatabaseController databaseController = new DatabaseController();
     private MosaicGenerator mosaicGenerator = new MosaicGenerator();
     private String loc;
+    private Map<String, List<Integer>> coloredIndexes = new HashMap<>();
     //starting up
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
@@ -49,7 +51,6 @@ public class Server {
         //get the required information from the mosaic generator and post the image
         Integer[] pixel_size = {mosaicGenerator.pixelatedImage.getPixelWidth(), mosaicGenerator.pixelatedImage.getPixelHeight()};
         loc = databaseController.post(pixelised_image, pixel_size, mosaicGenerator.pixelatedImage.getRGBs(), mosaicGenerator.pixelatedImage.getxNum(), mosaicGenerator.pixelatedImage.getyNum());
-
         return loc;
     }
 
@@ -60,6 +61,27 @@ public class Server {
         return mosaicGenerator.pixelatedImage;
     }
 
+    @RequestMapping(value = "/track", method = RequestMethod.POST)
+    public @ResponseBody Integer keepTrack (@RequestBody String data){
+        System.out.println(data);
+        JSONObject json = new JSONObject(data);
+        String id = json.getString("id");
+        Integer index = json.getInt("index");
+        //System.out.println("got here with " + id + " " + index);
+        if(coloredIndexes.containsKey(id)) coloredIndexes.get(id).add(index);
+        else{
+            coloredIndexes.put(id, new ArrayList<Integer>());
+            coloredIndexes.get(id).add(index);
+        }
+        System.out.println("indexes for id: " + coloredIndexes);
+        return 1;
+    }
+
+    @RequestMapping(value = "/getTrack", method = RequestMethod.POST)
+    public @ResponseBody List<Integer> getTrack (@RequestBody String id){
+        System.out.println("requested the tracking of: " + id);
+        return coloredIndexes.get(id);
+    }
 
     //this is for the otherswork page
     @RequestMapping(value = "otherswork", method = RequestMethod.GET)

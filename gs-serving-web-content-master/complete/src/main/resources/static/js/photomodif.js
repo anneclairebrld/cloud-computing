@@ -107,6 +107,33 @@ $(document).ready(function() {
         });
     }
 
+    function keepTrack(id, index) {
+        var data = {
+            id: String(id),
+            index: index
+        }
+        console.log("data: " + JSON.stringify(data));
+        $.ajax({
+            url:'/track',
+            data:JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'post',
+            timeout: 50000,
+            async: true,
+            error: function(error){
+                console.log("Error: " + error);
+            },
+            success: function(res){
+                if(res){
+                    console.log("success");
+                }
+                else console.log("error in track");
+            }
+
+        });
+    }
+
     var stompClient = null;
 
     function setConnected(connected) {
@@ -172,7 +199,7 @@ $(document).ready(function() {
                 col: col,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
-
+            keepTrack(id, index);
             socket.send('/app/interact/' + id, {}, JSON.stringify(object));
 
             $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here

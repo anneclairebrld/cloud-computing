@@ -77,6 +77,33 @@ $(document).ready(function() {
 
     }
 
+    function keepTrack(id, index) {
+        var data = {
+            id: String(id),
+            index: index
+        }
+        console.log("data: " + JSON.stringify(data));
+        $.ajax({
+            url:'/track',
+            data:JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'post',
+            timeout: 50000,
+            async: true,
+            error: function(error){
+                console.log("Error: " + error);
+            },
+            success: function(res){
+                if(res){
+                    console.log("success");
+                }
+                else console.log("error in track");
+            }
+
+        });
+    }
+
     var newRow = document.getElementById("pictureDisplay").insertRow(0);//(newRow);
     function addToGrid(/*imageInfo,*/ id, i, image){
 
@@ -122,6 +149,27 @@ $(document).ready(function() {
         $( "#tableContainer" ).append( indexes( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
+        $.ajax({
+            url:'/getTrack',
+            data:id,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'post',
+            timeout: 10000,
+            async: true,
+            error: function(error){
+                console.log("Error: " + error);
+            },
+            success: function(indexes){
+                for(var i in indexes){
+                    var mycolor = colorIndex[indexes[i]]-1;
+                    var colorarray = colors[mycolor]; // gets the color array
+                    var grid = document.getElementsByTagName("td");
+                    grid[indexes[i]].style.backgroundColor = 'rgb(' + colorarray.red + ',' + colorarray.green + ',' + colorarray.blue + ')';
+                    grid[indexes[i]].innerHTML = "";
+                }
+            }
+        });
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
             $(this).empty();
@@ -138,7 +186,7 @@ $(document).ready(function() {
                 col: col,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
-
+            keepTrack(id, index);
             socket.send('/app/interact/' + id, {}, JSON.stringify(object));
             $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
         });
