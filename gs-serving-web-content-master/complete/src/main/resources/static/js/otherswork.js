@@ -175,16 +175,17 @@ $(document).ready(function() {
             var index = $( "td" ).index( this );
             $(this).empty();
 
-            var row = Math.floor( ( index ) / dimY) + 1;
-            var col = ( index % dimY ) + 1;
+            //var row = Math.floor( ( index ) / dimY) + 1;
+            //var col = ( index % dimY ) + 1;
 
             var mycolor = colorIndex[index]-1;
 
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
-                dimY: dimY,
-                row: row,
-                col: col,
+                //dimY: dimY,
+                //row: row,
+                //col: col,
+                index: index,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
             keepTrack(id, index);
@@ -197,7 +198,7 @@ $(document).ready(function() {
         if (req.body) {
             var interaction = JSON.parse(req.body);
             var grid = document.getElementsByTagName("td");
-            var index = interaction.dimY*(interaction.row - 1) + interaction.col-1;
+            var index = interaction.index;//interaction.dimY*(interaction.row - 1) + interaction.col-1;
             grid[index].style.backgroundColor = 'rgb(' + interaction.red + ',' + interaction.green + ',' + interaction.blue + ')';
             grid[index].innerHTML = "";
         } else {

@@ -5,7 +5,6 @@ $(document).ready(function() {
         img = new Image(),
         play = false;
 
-    // turn off image smoothing - this will give the pixelated effect
     ctx.mozImageSmoothingEnabled = false;
     ctx.webkitImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
@@ -28,7 +27,7 @@ $(document).ready(function() {
             size = 0.06;
             difficulty = 10;
         } else if (lev == "m") {
-            size = 0.03;
+            size = 0.04;
             difficulty = 15;
         } else {
             size = 0.01;
@@ -181,6 +180,7 @@ $(document).ready(function() {
     }
 
     function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, id, socket){
+        console.log("dimX: "  + dimX + "dimY: " + dimY + "colorind: " + colorIndex);
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
@@ -188,16 +188,17 @@ $(document).ready(function() {
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
             console.log("dimX: " + dimX + "dimY: " + dimY);
-            var row = Math.floor( ( index ) / dimY) + 1;
-            var col = ( index % dimY ) + 1;
+            //var row = Math.floor( ( index ) / dimY) + 1;
+            //var col = ( index % dimY ) + 1;
             console.log("Sending...")
             var mycolor = colorIndex[index]-1;
             console.log("this color index " + mycolor); // gets the index of the color in the color array
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
-                dimY: dimY,
-                row: row,
-                col: col,
+                //dimY: dimY,
+                index: index,
+                //row: row,
+                //col: col,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
             keepTrack(id, index);
@@ -210,7 +211,7 @@ $(document).ready(function() {
         if (req.body) {
             var interaction = JSON.parse(req.body);
             var grid = document.getElementsByTagName("td");
-            var index = interaction.dimY*(interaction.row - 1) + interaction.col-1;
+            var index = interaction.index;//interaction.dimY*(interaction.row - 1) + interaction.col-1;
             grid[index].style.backgroundColor = 'rgb(' + interaction.red + ',' + interaction.green + ',' + interaction.blue + ')';
             grid[index].innerHTML = "";
         } else {
