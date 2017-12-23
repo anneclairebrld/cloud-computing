@@ -238,7 +238,7 @@ $(document).ready(function() {
 
     function colorPalette(colors){
         var elem = document.getElementById("palette").getElementsByTagName("td");
-        for ( i = 0; i <= elem.length-1; i++ ) {
+        for ( i = 0; i <= colors.length-1; i++ ) {
             elem[i].innerHTML = i+1;
             elem[i].style.backgroundColor = 'rgb('+ colors[i].red+','+ colors[i].green +','+ colors[i].blue+')';
         }

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    var selectedColor = 0;
     var divInHtml = document.getElementsByTagName("DIV")[0];
     var allImages;
     if (divInHtml.id === "otherswork"){
@@ -188,10 +188,42 @@ $(document).ready(function() {
                 index: index,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
-            keepTrack(id, index);
-            socket.send('/app/interact/' + id, {}, JSON.stringify(object));
-            $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
+             if(mycolor == selectedColor){
+                keepTrack(id, index);
+                socket.send('/app/interact/' + id, {}, JSON.stringify(object));
+                $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
+            }
         });
+
+        $( "#tableContainer" ).append( generatePalette(colors) );
+        colorPalette(colors);
+
+        $('#palette td').click(function() {
+            selectedColor = $( "#palette td" ).index( this );
+            console.log(selectedColor);
+        });
+    }
+
+    function generatePalette(colors) {
+        var grid = "<table id=palette>";
+        console.log("Started making the palette");
+        var gridSize = Math.ceil(colors.length/2);
+        for (row = 1; row <= gridSize; row++ ) {
+            grid += "<tr>";
+            grid += "<td></td>";
+            grid += "<td></td>";
+            grid += "</tr>";
+        }
+        return grid;
+    }
+
+    function colorPalette(colors){
+        var elem = document.getElementById("palette").getElementsByTagName("td");
+        for ( i = 0; i <= colors.length-1; i++ ) {
+            console.log(elem[i]);
+            elem[i].innerHTML = i+1;
+            elem[i].style.backgroundColor = 'rgb('+ colors[i].red+','+ colors[i].green +','+ colors[i].blue+')';
+        }
     }
 
     function receivedInteraction(req){
