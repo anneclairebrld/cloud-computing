@@ -194,9 +194,9 @@ $(document).ready(function() {
         });
 
         console.log("dimX: "  + dimX + "dimY: " + dimY + "colorind: " + colorIndex);
-        $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
-        $( "#tableContainer" ).css('display','inline-block');
-        $( "#coloringGrid" ).css('display','inline-block');
+        $('#tableContainer').append( generateGrid( dimX, dimY,colorIndex) );
+        $('#tableContainer').css('display','inline-block');
+        $('#coloringGrid').css('display','inline-block');
         $('#coloringGrid').css('border', '3px solid gray');
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
