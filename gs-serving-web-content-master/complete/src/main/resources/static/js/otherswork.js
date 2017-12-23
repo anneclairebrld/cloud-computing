@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var selectedColor = 0;
+    var selectedColor = 0; // Global variable keeping track of which color we select
     var divInHtml = document.getElementsByTagName("DIV")[0];
     var allImages;
     if (divInHtml.id === "otherswork"){
@@ -112,6 +112,7 @@ $(document).ready(function() {
         }
         newRow.insertCell(i%4).appendChild(image);
         image.onclick = function () {
+        // If any of the images from otherswork is selected, it loads the coloring grid
             connect(id);
             getInfo(id);
         };
@@ -176,22 +177,23 @@ $(document).ready(function() {
         });
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
-            $(this).empty();
 
             //var row = Math.floor( ( index ) / dimY) + 1;
             //var col = ( index % dimY ) + 1;
 
             var mycolor = colorIndex[index]-1;
 
-            var colorarray = colors[mycolor]; // gets the color array
-            var object  = {
-                //dimY: dimY,
-                //row: row,
-                //col: col,
-                index: index,
-                color: [colorarray.red, colorarray.green, colorarray.blue]
-            }
             if(mycolor == selectedColor){
+                $(this).empty();
+            // If the color is the same as we selected from the palette, color it otherwise do nothing
+                var colorarray = colors[mycolor]; // gets the color array
+                var object  = {
+                    //dimY: dimY,
+                    //row: row,
+                    //col: col,
+                    index: index,
+                    color: [colorarray.red, colorarray.green, colorarray.blue]
+                }
                 keepTrack(id, index);
                 socket.send('/app/interact/' + id, {}, JSON.stringify(object));
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
@@ -200,6 +202,10 @@ $(document).ready(function() {
 
         $( "#tableContainer" ).append( generatePalette(colors) );
         colorPalette(colors);
+        $('td').css('height', pixelH);
+        $('td').css('width', pixelW);
+        $('td').css('cursor', 'pointer');
+//        $('td').css('cursor', 'color:red');
 
         $('#palette td').click(function() {
             selectedColor = $( "#palette td" ).index( this );
@@ -208,6 +214,7 @@ $(document).ready(function() {
     }
 
     function generatePalette(colors) {
+    //Generate a table that has all the colors
         var grid = "<table id=palette>";
         console.log("Started making the palette");
         var gridSize = Math.ceil(colors.length/2);
@@ -221,6 +228,7 @@ $(document).ready(function() {
     }
 
     function colorPalette(colors){
+    // Adding colors and numbers to the palette
         var elem = document.getElementById("palette").getElementsByTagName("td");
         for ( i = 0; i <= colors.length-1; i++ ) {
             console.log(elem[i]);
