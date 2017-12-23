@@ -166,8 +166,11 @@ $(document).ready(function() {
                     var mycolor = colorIndex[indexes[i]]-1;
                     var colorarray = colors[mycolor]; // gets the color array
                     var grid = document.getElementsByTagName("td");
-                    grid[indexes[i]].style.backgroundColor = 'rgb(' + colorarray.red + ',' + colorarray.green + ',' + colorarray.blue + ')';
-                    grid[indexes[i]].innerHTML = "";
+
+                    if(mycolor == selectedColor){
+                        grid[indexes[i]].style.backgroundColor = 'rgb(' + colorarray.red + ',' + colorarray.green + ',' + colorarray.blue + ')';
+                        grid[indexes[i]].innerHTML = "";
+                    }
                 }
             }
         });
@@ -188,7 +191,7 @@ $(document).ready(function() {
                 index: index,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
-             if(mycolor == selectedColor){
+            if(mycolor == selectedColor){
                 keepTrack(id, index);
                 socket.send('/app/interact/' + id, {}, JSON.stringify(object));
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
