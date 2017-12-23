@@ -168,7 +168,7 @@ $(document).ready(function() {
     }
 
     function generateGrid( rows, cols, colorIndex ) {
-        var grid = "<table>";
+        var grid = "<table id=coloringGrid>";
 
         console.log("Started making the table");
         for ( row = 1; row <= rows; row++ ) {
@@ -183,8 +183,20 @@ $(document).ready(function() {
     }
 
     function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, id, socket){
+
+        $( "#tableContainer" ).append( generatePalette(colors) );
+        colorPalette(colors);
+        $( "#palette" ).css('display','inline-block');
+
+        $('#palette td').click(function() {
+            selectedColor = $( "#palette td" ).index( this );
+            console.log(selectedColor);
+        });
+
         console.log("dimX: "  + dimX + "dimY: " + dimY + "colorind: " + colorIndex);
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
+        $( "#tableContainer" ).css('display','inline-block');
+        $( "#coloringGrid" ).css('display','inline-block');
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
         $('td').css('cursor', 'pointer');
@@ -204,8 +216,6 @@ $(document).ready(function() {
                 //col: col,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
-            // I want here an if the right color selected - else do nothing
-            // Add a global variable, selected color and check that. When displaying the grid, the palette will be displayed too
 
             if(mycolor == selectedColor){
                 keepTrack(id, index);
@@ -213,13 +223,6 @@ $(document).ready(function() {
 
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
             }
-        });
-        $( "#tableContainer" ).append( generatePalette(colors) );
-        colorPalette(colors);
-
-        $('#palette td').click(function() {
-            selectedColor = $( "#palette td" ).index( this );
-            console.log(selectedColor);
         });
     }
 

@@ -145,8 +145,23 @@ $(document).ready(function() {
     function generateGrid(dimX, dimY, colorIndex, colors, pixelH, pixelW, id, socket) {
         document.getElementById("pictureDisplay").remove();
         document.getElementById("header1").remove();
-        document.getElementById("tableContainer").style.display = "block";
         document.getElementById("header2").style.display = "block";
+        document.getElementById("tableContainer").style.display = "inline-block";
+
+
+        $( "#tableContainer" ).append( generatePalette(colors) );
+        colorPalette(colors);
+        $( "#palette" ).css('display','inline-block');
+        $('td').css('height', pixelH);
+        $('td').css('width', pixelW);
+        $('td').css('cursor', 'pointer');
+
+        $('#palette td').click(function() {
+            selectedColor = $( "#palette td" ).index( this );
+            console.log(selectedColor);
+        });
+
+
         $( "#tableContainer" ).append( indexes( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
@@ -200,17 +215,6 @@ $(document).ready(function() {
             }
         });
 
-        $( "#tableContainer" ).append( generatePalette(colors) );
-        colorPalette(colors);
-        $('td').css('height', pixelH);
-        $('td').css('width', pixelW);
-        $('td').css('cursor', 'pointer');
-//        $('td').css('cursor', 'color:red');
-
-        $('#palette td').click(function() {
-            selectedColor = $( "#palette td" ).index( this );
-            console.log(selectedColor);
-        });
     }
 
     function generatePalette(colors) {
@@ -250,7 +254,7 @@ $(document).ready(function() {
     }
 
     function indexes( rows, cols, colorIndex ) {
-        var grid = "<table style='text-align: center;align=center;'>";
+        var grid = "<table style='text-align: center;align=center; display:inline-block;'>";
 
         for ( row = 1; row <= rows; row++ ) {
             grid += "<tr>";
