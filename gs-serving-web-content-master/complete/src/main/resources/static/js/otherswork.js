@@ -214,7 +214,10 @@ $(document).ready(function() {
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
             }
         });
-
+        $('#palette td').css('height', 30);
+        $('#palette td').css('width', 30);
+        $('#palette').css('border', '3px solid gray');
+        $('#palette').css('vertical-align', 'top');
     }
 
     function generatePalette(colors) {
@@ -254,7 +257,7 @@ $(document).ready(function() {
     }
 
     function indexes( rows, cols, colorIndex ) {
-        var grid = "<table style='text-align: center;align=center; display:inline-block;'>";
+        var grid = "<table style='text-align: center;align=center; display:inline-block; border: 3px solid gray;'>";
 
         for ( row = 1; row <= rows; row++ ) {
             grid += "<tr>";

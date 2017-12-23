@@ -197,6 +197,7 @@ $(document).ready(function() {
         $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
         $( "#tableContainer" ).css('display','inline-block');
         $( "#coloringGrid" ).css('display','inline-block');
+        $('#coloringGrid').css('border', '3px solid gray');
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
         $('td').css('cursor', 'pointer');
@@ -224,15 +225,30 @@ $(document).ready(function() {
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
             }
         });
+        $('#palette td').css('height', 30);
+        $('#palette td').css('width', 30);
+        $('#palette').css('border', '3px solid gray');
+        $('#palette').css('vertical-align', 'top');
     }
+
+//    function generatePalette(colors) {
+//        var grid = "<table id=palette>";
+//        console.log("Started making the palette");
+//        var gridSize = Math.ceil(colors.length/2);
+//        for (row = 1; row <= gridSize; row++ ) {
+//            grid += "<tr>";
+//            grid += "<td></td>";
+//            grid += "<td></td>";
+//            grid += "</tr>";
+//        }
+//        return grid;
+//    }
 
     function generatePalette(colors) {
         var grid = "<table id=palette>";
         console.log("Started making the palette");
-        var gridSize = Math.ceil(colors.length/2);
-        for (row = 1; row <= gridSize; row++ ) {
+        for (row = 1; row <= colors.length; row++ ) {
             grid += "<tr>";
-            grid += "<td></td>";
             grid += "<td></td>";
             grid += "</tr>";
         }
