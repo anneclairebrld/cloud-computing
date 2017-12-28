@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var selectedColor = 0; // Global variable keeping track of which color we select
+    var selectedColor = -1; // Global variable keeping track of which color we select
     var divInHtml = document.getElementsByTagName("DIV")[0];
     var allImages;
     if (divInHtml.id === "otherswork"){
@@ -18,6 +18,7 @@ $(document).ready(function() {
             async: true,
             error: function(error){
                 console.log("Error: " + error);
+//                alert("Something went wrong, please refresh the page!");
             },
             success: function(res){
                 if(res){
@@ -56,6 +57,7 @@ $(document).ready(function() {
             async: false,
             error: function(error){
                 console.log("Error: " + error);
+//                alert("Something went wrong, please refresh the page!");
             },
             success: function(imageInfo){
                 if(imageInfo){
@@ -149,19 +151,6 @@ $(document).ready(function() {
         document.getElementById("tableContainer").style.display = "inline-block";
 
 
-        $( "#tableContainer" ).append( generatePalette(colors) );
-        colorPalette(colors);
-        $( "#palette" ).css('display','inline-block');
-        $('td').css('height', pixelH);
-        $('td').css('width', pixelW);
-        $('td').css('cursor', 'pointer');
-
-        $('#palette td').click(function() {
-            selectedColor = $( "#palette td" ).index( this );
-            console.log(selectedColor);
-        });
-
-
         $( "#tableContainer" ).append( indexes( dimX, dimY,colorIndex) );
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
@@ -176,6 +165,7 @@ $(document).ready(function() {
             async: true,
             error: function(error){
                 console.log("Error: " + error);
+//                alert("Something went wrong, please refresh the page!");
             },
             success: function(indexes){
                 for(var i in indexes){
@@ -183,10 +173,10 @@ $(document).ready(function() {
                     var colorarray = colors[mycolor]; // gets the color array
                     var grid = document.getElementsByTagName("td");
 
-                    if(mycolor == selectedColor){
+//                    if(mycolor == selectedColor){
                         grid[indexes[i]].style.backgroundColor = 'rgb(' + colorarray.red + ',' + colorarray.green + ',' + colorarray.blue + ')';
                         grid[indexes[i]].innerHTML = "";
-                    }
+//                    }
                 }
             }
         });
@@ -214,10 +204,23 @@ $(document).ready(function() {
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+ ')'); // You change the color that you clicked on here
             }
         });
+
+        $( "#tableContainer" ).append( generatePalette(colors) );
+               colorPalette(colors);
+               $( "#palette" ).css('display','inline-block');
+               $('td').css('height', pixelH);
+               $('td').css('width', pixelW);
+               $('td').css('cursor', 'pointer');
+
+               $('#palette td').click(function() {
+                   selectedColor = $( "#palette td" ).index( this );
+                   console.log(selectedColor);
+               });
+
         $('#palette td').css('height', 30);
         $('#palette td').css('width', 30);
         $('#palette').css('border', '3px solid gray');
-        $('#palette').css('vertical-align', 'top');
+        $('#palette').css('vertical-align', 'right');
     }
 
     function generatePalette(colors) {
