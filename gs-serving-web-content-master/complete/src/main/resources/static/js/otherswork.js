@@ -18,7 +18,6 @@ $(document).ready(function() {
             async: true,
             error: function(error){
                 console.log("Error: " + error);
-                alert("Something went wrong, please refresh the page!");
             },
             success: function(res){
                 if(res){
@@ -57,7 +56,6 @@ $(document).ready(function() {
             async: false,
             error: function(error){
                 console.log("Error: " + error);
-                alert("Something went wrong, please refresh the page!");
             },
             success: function(imageInfo){
                 if(imageInfo){
@@ -178,7 +176,6 @@ $(document).ready(function() {
             async: true,
             error: function(error){
                 console.log("Error: " + error);
-                alert("Something went wrong, please refresh the page!");
             },
             success: function(indexes){
                 for(var i in indexes){
