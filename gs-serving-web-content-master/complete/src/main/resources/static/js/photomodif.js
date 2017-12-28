@@ -5,6 +5,8 @@ $(document).ready(function() {
         img = new Image(),
         play = false;
 
+    var selectedColor = 0;
+
     ctx.mozImageSmoothingEnabled = false;
     ctx.webkitImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
@@ -97,6 +99,7 @@ $(document).ready(function() {
             success: function(res){
                 if(res){
                     console.log("SUCCESS");
+                    console.log(res);
                     connect(res, socketName);
                     prettyGrid(res.pixelHeight,res.pixelWidth,res.yNum, res.xNum, res.indexes, res.colors, socketName, stompClient);
                 }else{
@@ -165,7 +168,7 @@ $(document).ready(function() {
     }
 
     function generateGrid( rows, cols, colorIndex ) {
-        var grid = "<table>";
+        var grid = "<table id=coloringGrid>";
 
         console.log("Started making the table");
         for ( row = 1; row <= rows; row++ ) {
@@ -180,8 +183,21 @@ $(document).ready(function() {
     }
 
     function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, id, socket){
+
+        $( "#tableContainer" ).append( generatePalette(colors) );
+        colorPalette(colors);
+        $( "#palette" ).css('display','inline-block');
+
+        $('#palette td').click(function() {
+            selectedColor = $( "#palette td" ).index( this );
+            console.log(selectedColor);
+        });
+
         console.log("dimX: "  + dimX + "dimY: " + dimY + "colorind: " + colorIndex);
-        $( "#tableContainer" ).append( generateGrid( dimX, dimY,colorIndex) );
+        $('#tableContainer').append( generateGrid( dimX, dimY,colorIndex) );
+        $('#tableContainer').css('display','inline-block');
+        $('#coloringGrid').css('display','inline-block');
+        $('#coloringGrid').css('border', '3px solid gray');
         $('td').css('height', pixelH);
         $('td').css('width', pixelW);
         $('td').css('cursor', 'pointer');
@@ -192,7 +208,7 @@ $(document).ready(function() {
             //var col = ( index % dimY ) + 1;
             console.log("Sending...")
             var mycolor = colorIndex[index]-1;
-            console.log("this color index " + mycolor); // gets the index of the color in the color array
+//            console.log("this color index " + mycolor); // gets the index of the color in the color array
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
                 //dimY: dimY,
@@ -201,12 +217,53 @@ $(document).ready(function() {
                 //col: col,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
-            keepTrack(id, index);
-            socket.send('/app/interact/' + id, {}, JSON.stringify(object));
 
-            $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
+            if(mycolor == selectedColor){
+                keepTrack(id, index);
+                socket.send('/app/interact/' + id, {}, JSON.stringify(object));
+
+                $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
+            }
         });
+        $('#palette td').css('height', 30);
+        $('#palette td').css('width', 30);
+        $('#palette').css('border', '3px solid gray');
+        $('#palette').css('vertical-align', 'top');
     }
+
+//    function generatePalette(colors) {
+//        var grid = "<table id=palette>";
+//        console.log("Started making the palette");
+//        var gridSize = Math.ceil(colors.length/2);
+//        for (row = 1; row <= gridSize; row++ ) {
+//            grid += "<tr>";
+//            grid += "<td></td>";
+//            grid += "<td></td>";
+//            grid += "</tr>";
+//        }
+//        return grid;
+//    }
+
+    function generatePalette(colors) {
+        var grid = "<table id=palette>";
+        console.log("Started making the palette");
+        for (row = 1; row <= colors.length; row++ ) {
+            grid += "<tr>";
+            grid += "<td></td>";
+            grid += "</tr>";
+        }
+        return grid;
+    }
+
+    function colorPalette(colors){
+        var elem = document.getElementById("palette").getElementsByTagName("td");
+        for ( i = 0; i <= colors.length-1; i++ ) {
+            elem[i].innerHTML = i+1;
+            elem[i].style.backgroundColor = 'rgb('+ colors[i].red+','+ colors[i].green +','+ colors[i].blue+')';
+        }
+    }
+
+
     function receivedInteraction(req){
         if (req.body) {
             var interaction = JSON.parse(req.body);
