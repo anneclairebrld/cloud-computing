@@ -5,7 +5,7 @@ $(document).ready(function() {
         img = new Image(),
         play = false;
 
-    var selectedColor = 0;
+    var selectedColor = -1;
 
     ctx.mozImageSmoothingEnabled = false;
     ctx.webkitImageSmoothingEnabled = false;
@@ -184,15 +184,6 @@ $(document).ready(function() {
 
     function prettyGrid(pixelH,pixelW,dimX,dimY,colorIndex,colors, id, socket){
 
-        $( "#tableContainer" ).append( generatePalette(colors) );
-        colorPalette(colors);
-        $( "#palette" ).css('display','inline-block');
-
-        $('#palette td').click(function() {
-            selectedColor = $( "#palette td" ).index( this );
-            console.log(selectedColor);
-        });
-
         console.log("dimX: "  + dimX + "dimY: " + dimY + "colorind: " + colorIndex);
         $('#tableContainer').append( generateGrid( dimX, dimY,colorIndex) );
         $('#tableContainer').css('display','inline-block');
@@ -225,10 +216,20 @@ $(document).ready(function() {
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
             }
         });
+
+        $( "#tableContainer" ).append( generatePalette(colors) );
+        colorPalette(colors);
+        $( "#palette" ).css('display','inline-block');
+
+        $('#palette td').click(function() {
+            selectedColor = $( "#palette td" ).index( this );
+            console.log(selectedColor);
+        });
+
         $('#palette td').css('height', 30);
         $('#palette td').css('width', 30);
         $('#palette').css('border', '3px solid gray');
-        $('#palette').css('vertical-align', 'top');
+        $('#palette').css('vertical-align', 'right');
     }
 
 //    function generatePalette(colors) {
