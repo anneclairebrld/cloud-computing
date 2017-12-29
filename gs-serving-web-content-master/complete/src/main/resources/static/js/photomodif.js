@@ -229,34 +229,23 @@ $(document).ready(function() {
             console.log(selectedColor);
         });
 
-        $('#palette td').css('height', 30);
-        $('#palette td').css('width', 30);
+        $('#palette td').css('height', 50);
+        $('#palette td').css('width', 50);
         $('#palette td').css('cursor', 'pointer');
         $('#palette').css('border', '3px solid gray');
-        $('#palette').css('vertical-align', 'right');
+        $('#palette').css('vertical-align', 'middle');
     }
-
-//    function generatePalette(colors) {
-//        var grid = "<table id=palette>";
-//        console.log("Started making the palette");
-//        var gridSize = Math.ceil(colors.length/2);
-//        for (row = 1; row <= gridSize; row++ ) {
-//            grid += "<tr>";
-//            grid += "<td></td>";
-//            grid += "<td></td>";
-//            grid += "</tr>";
-//        }
-//        return grid;
-//    }
 
     function generatePalette(colors) {
         var grid = "<table id=palette>";
         console.log("Started making the palette");
+        grid += "<tr>";
         for (row = 1; row <= colors.length; row++ ) {
-            grid += "<tr>";
+//            grid += "<tr>";
             grid += "<td></td>";
-            grid += "</tr>";
+//            grid += "</tr>";
         }
+        grid += "</tr>";
         return grid;
     }
 
