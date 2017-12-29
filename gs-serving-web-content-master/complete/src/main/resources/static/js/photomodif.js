@@ -227,6 +227,8 @@ $(document).ready(function() {
 
         $('#palette td').click(function() {
             selectedColor = $( "#palette td" ).index( this );
+            $( '#palette td' ).css('border', '1px')
+            $( this ).css('border', '4px solid black');
             console.log(selectedColor);
         });
 
