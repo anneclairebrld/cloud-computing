@@ -5,9 +5,10 @@ $(document).ready(function() {
     if (divInHtml.id === "otherswork"){
         getImages();
     }
-
+//    $('#loading').hide();
+    $('#loading-image').hide();
     function getImages(){
-
+        $('#loading').show();
         $.ajax({
             url:'/otherswork',
             data:'data',
@@ -40,13 +41,16 @@ $(document).ready(function() {
                 }else{
                     console.log("FAIL : " + res);
                 }
+            },
+            complete: function(){
+                $('#loading').hide();
             }
         });
     }
 
     //var i = 0;
     function getInfo(id){
-
+        $('#loading-image').show();
         $.ajax({
             url:'/getinfo',
             data:JSON.stringify(id),
@@ -73,6 +77,9 @@ $(document).ready(function() {
                 }else{
                     console.log("Otherswork - FAIL : " + res);
                 }
+            },
+            complete: function(){
+                $('#loading-image').hide();
             }
         });
 

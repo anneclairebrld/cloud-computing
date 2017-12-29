@@ -84,7 +84,7 @@ $(document).ready(function() {
     }
 
     function getImage(socketName){
-
+        $('#loading').show();
         $.ajax({
             url:'/coloring',
             data:'ask',
@@ -105,6 +105,9 @@ $(document).ready(function() {
                 }else{
                     console.log("FAIL : " + res);
                 }
+            },
+            complete: function(){
+                    $('#loading').hide();
             }
         });
     }
@@ -228,6 +231,7 @@ $(document).ready(function() {
 
         $('#palette td').css('height', 30);
         $('#palette td').css('width', 30);
+        $('#palette td').css('cursor', 'pointer');
         $('#palette').css('border', '3px solid gray');
         $('#palette').css('vertical-align', 'right');
     }
