@@ -219,21 +219,27 @@ $(document).ready(function() {
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
             }
         });
+        $( "#tableContainer" ).append("<div id = pal ></div>")
+        $( "#pal" ).append( generatePalette(colors) );
 
-        $( "#tableContainer" ).append( generatePalette(colors) );
         colorPalette(colors);
-        $( "#palette" ).css('display','inline-block');
+//        $( "#palette" ).css('display','inline-block');
 
         $('#palette td').click(function() {
             selectedColor = $( "#palette td" ).index( this );
             console.log(selectedColor);
         });
 
-        $('#palette td').css('height', 50);
-        $('#palette td').css('width', 50);
-        $('#palette td').css('cursor', 'pointer');
+        $('#pal').css('text-align', 'center');
+        $('#pal').css('align', 'center');
+
+        $('#palette td').css('height', 30);
+        $('#palette td').css('width', 30);
+        $('td').css('cursor', 'pointer');
         $('#palette').css('border', '3px solid gray');
-        $('#palette').css('vertical-align', 'middle');
+        $('#palette').css('align', 'center');
+        $('#palette').css('position', 'fixed');
+        $('#palette').css('bottom', 0);
     }
 
     function generatePalette(colors) {
