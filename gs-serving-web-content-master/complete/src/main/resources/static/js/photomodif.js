@@ -1,4 +1,3 @@
-//    var imageFile = document.getElementById('myImage').innerHTML;
 $(document).ready(function() {
 
     var ctx = imageDisplay.getContext('2d'),
@@ -48,7 +47,7 @@ $(document).ready(function() {
 
     var links = $('input');
     links.css('font-size', '20px');
-    
+
     links.click(function() {
       links.css('background-color', 'white');
       $(this).css('background-color', 'orange');
@@ -204,12 +203,9 @@ $(document).ready(function() {
         $('td').css('cursor', 'pointer');
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
-            console.log("dimX: " + dimX + "dimY: " + dimY);
-            //var row = Math.floor( ( index ) / dimY) + 1;
-            //var col = ( index % dimY ) + 1;
+//            console.log("dimX: " + dimX + "dimY: " + dimY);
             console.log("Sending...")
             var mycolor = colorIndex[index]-1;
-//            console.log("this color index " + mycolor); // gets the index of the color in the color array
             var colorarray = colors[mycolor]; // gets the color array
             var object  = {
                 //dimY: dimY,
@@ -218,11 +214,9 @@ $(document).ready(function() {
                 //col: col,
                 color: [colorarray.red, colorarray.green, colorarray.blue]
             }
-
             if(mycolor == selectedColor){
                 keepTrack(id, index);
                 socket.send('/app/interact/' + id, {}, JSON.stringify(object));
-
                 $( this ).css( 'background-color', 'rgb('+ colorarray.red+','+ colorarray.green +','+ colorarray.blue+')'); // You change the color that you clicked on here
             }
         });
@@ -230,8 +224,6 @@ $(document).ready(function() {
         $( "#pal" ).append( generatePalette(colors) );
 
         colorPalette(colors);
-//        $( "#palette" ).css('display','inline-block');
-
         $('#palette td').click(function() {
             selectedColor = $( "#palette td" ).index( this );
             $( '#palette td' ).css('border', '1px')
@@ -256,9 +248,7 @@ $(document).ready(function() {
         console.log("Started making the palette");
         grid += "<tr>";
         for (row = 1; row <= colors.length; row++ ) {
-//            grid += "<tr>";
             grid += "<td></td>";
-//            grid += "</tr>";
         }
         grid += "</tr>";
         return grid;
@@ -272,7 +262,6 @@ $(document).ready(function() {
         }
     }
 
-
     function receivedInteraction(req){
         if (req.body) {
             var interaction = JSON.parse(req.body);
@@ -284,7 +273,6 @@ $(document).ready(function() {
             console.log("got empty message");
         }
     }
-
 
     easy.addEventListener('click', function() { pixelate("e") }, false);
     medium.addEventListener('click', function() { pixelate("m") }, false);

@@ -5,7 +5,6 @@ $(document).ready(function() {
     if (divInHtml.id === "otherswork"){
         getImages();
     }
-//    $('#loading').hide();
     $('#loading-image').hide();
     function getImages(){
         $('#loading').show();
@@ -32,10 +31,8 @@ $(document).ready(function() {
                         image.src = key;
                         image.width = 250;
                         image.height= 200;
-                        //document.body.appendChild(image);
                         addToGrid(res[key], i, image);
                         i++;
-                        //getInfo(res[key], image);
                     });
 
                 }else{
@@ -48,9 +45,7 @@ $(document).ready(function() {
         });
     }
 
-    //var i = 0;
     function getInfo(id){
-//        $('#loading-image').show();
         $.ajax({
             url:'/getinfo',
             data:JSON.stringify(id),
@@ -189,10 +184,6 @@ $(document).ready(function() {
         });
         $( "td" ).click(function() {
             var index = $( "td" ).index( this );
-
-            //var row = Math.floor( ( index ) / dimY) + 1;
-            //var col = ( index % dimY ) + 1;
-
             var mycolor = colorIndex[index]-1;
 
             if(mycolor == selectedColor){
@@ -214,9 +205,8 @@ $(document).ready(function() {
         $( "#tableContainer" ).append("<div id = pal ></div>")
         $( "#pal" ).append( generatePalette(colors) );
         colorPalette(colors);
-//      $( "#palette" ).css('display','inline-block');
-        $('td').css('height', pixelH);
-        $('td').css('width', pixelW);
+//        $('td').css('height', pixelH);
+//        $('td').css('width', pixelW);
         $('td').css('cursor', 'pointer');
 
         $('#palette td').click(function() {
@@ -242,9 +232,7 @@ $(document).ready(function() {
         console.log("Started making the palette");
         grid += "<tr>";
         for (row = 1; row <= colors.length; row++ ) {
-//            grid += "<tr>";
             grid += "<td></td>";
-//            grid += "</tr>";
         }
         grid += "</tr>";
         return grid;
