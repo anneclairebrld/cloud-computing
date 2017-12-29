@@ -11,7 +11,6 @@ $(document).ready(function() {
     ctx.webkitImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
 
-
     img.onload = pixelate;
 
     document.getElementById('myImage').onchange = function(e) {
@@ -46,6 +45,14 @@ $(document).ready(function() {
 
         //ctx.drawImage(imageDisplay, 0, 0, w, h, 0, 0, imageDisplay.width, imageDisplay.height);
     }
+
+    var links = $('input');
+    links.css('font-size', '20px');
+    
+    links.click(function() {
+      links.css('background-color', 'white');
+      $(this).css('background-color', 'orange');
+    });
 
     function saveImage() {
         var imageData = imageDisplay.toDataURL();
