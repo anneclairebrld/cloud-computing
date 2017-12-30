@@ -67,7 +67,7 @@ public class Server {
             coloredIndexes.put(id, new ArrayList<Integer>());
             coloredIndexes.get(id).add(index);
         }
-        System.out.println("indexes for id: " + coloredIndexes);
+        //System.out.println("indexes for id: " + coloredIndexes);
         return 1;
     }
 
