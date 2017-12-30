@@ -1,20 +1,15 @@
 package app;
 
-import com.google.gson.Gson;
 import database.DatabaseController;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-/*Imports for Websockets*/
-/*End of Websockets imports*/
+
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -30,7 +25,7 @@ public class Server {
     private MosaicGenerator mosaicGenerator = new MosaicGenerator();
     private String loc;
     private Map<String, List<Integer>> coloredIndexes = new HashMap<>();
-    //starting up
+
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public void start() {
         return;
@@ -54,7 +49,6 @@ public class Server {
         return loc;
     }
 
-    //why is this a method post ? --> should be get
     @RequestMapping(value = "coloring", method = RequestMethod.POST)
     public @ResponseBody PixelatedImage getImage(){
         System.out.println("Image requested from FrontEnd :)");
@@ -111,7 +105,6 @@ public class Server {
     @SendTo("/topic/game/{loc}")
     public Interaction interact(String req) throws Exception{
         Interaction action = new Interaction(req);
-        //System.out.println("row: " + action.getRow() + " col: " + action.getCol() + " color: " + action.getColor());
         return action;
     }
 }
