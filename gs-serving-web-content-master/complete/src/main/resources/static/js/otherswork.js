@@ -14,7 +14,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             type: 'get',
-            timeout: 50000,
+            timeout: 500000,
             async: true,
             error: function(error){
                 console.log("Error: " + error);
