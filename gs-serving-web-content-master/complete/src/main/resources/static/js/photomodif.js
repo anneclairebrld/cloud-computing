@@ -74,6 +74,7 @@ $(document).ready(function() {
             timeout: 50000,
             async: true,
             error: function(error){
+                alert("Ooops, something went wrong! Try another image with more colors or check your Internet connection!");
                 console.log("Error: " + error);
             },
             success: function(res){
@@ -100,6 +101,7 @@ $(document).ready(function() {
             timeout: 50000,
             async: true,
             error: function(error){
+                console.log("Problem occurred when getting the image.")
                 console.log("Error: " + error);
             },
             success: function(res){
