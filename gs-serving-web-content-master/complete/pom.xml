@@ -128,8 +128,8 @@
                         <id>default</id>
                         <phase>install</phase>
                         <goals>
-                            <!--<goal>build</goal>-->
-                           <!--<goal>push</goal>    &lt;!&ndash;  we will be able to change the push to google container direclty i hope&ndash;&gt;-->
+                           <goal>build</goal>
+                           <goal>push</goal>    <!--&lt;!&ndash;  we will be able to change the push to google container direclty i hope&ndash;&gt;-->
                         </goals>
                     </execution>
                 </executions>
