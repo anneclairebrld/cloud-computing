@@ -54,7 +54,7 @@ $(document).ready(function() {
     });
 
     function saveImage() {
-        var imageData = imageDisplay.toDataURL();
+        var imageData = imageDisplay.toDataURL(); // This is where we get the image (data from the canvas)
         var image = {
             imageData: imageData,
 
