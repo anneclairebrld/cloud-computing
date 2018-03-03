@@ -44,10 +44,10 @@ $(document).ready(function(){
 
 });
 
-function toggleVisibility() {
+function toggleVisibility(k) {
     var welcome  = document.getElementById("welcome");
     var coloring = document.getElementById("coloring");
-    welcome.style.display = "none";
+	welcome.style.display = "none";
     coloring.style.display=  "block";
 }
 

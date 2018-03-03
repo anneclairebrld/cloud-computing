@@ -44,6 +44,17 @@
         </dependency>
 
         <!--DEPENDENCIES FOR WEBSOCKETS-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -117,8 +128,8 @@
                         <id>default</id>
                         <phase>install</phase>
                         <goals>
-                            <!--<goal>build</goal>-->
-                           <!--<goal>push</goal>    &lt;!&ndash;  we will be able to change the push to google container direclty i hope&ndash;&gt;-->
+                           <goal>build</goal>
+                           <goal>push</goal>    <!--&lt;!&ndash;  we will be able to change the push to google container direclty i hope&ndash;&gt;-->
                         </goals>
                     </execution>
                 </executions>

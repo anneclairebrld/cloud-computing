@@ -4,6 +4,7 @@ package database;
 
 import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.*;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -23,8 +24,15 @@ public class StorageConnection {
     Bucket bucket;
 
     //Sets up connection to storage
-    public StorageConnection() {
+    public StorageConnection(String bucketName) {
         storage = StorageOptions.getDefaultInstance().getService();
+        this.bucketName = bucketName;
+        Page<Bucket> buckets = storage.list();
+        for (Bucket bucket : buckets.iterateAll()) {
+            if (bucket.getName().equals(bucketName)) {
+                this.bucket = bucket;
+            }
+        }
     }
 
     //get access to the bucket you want to be writing to
@@ -64,8 +72,7 @@ public class StorageConnection {
         Blob blob = storage.create(blobInfo, bytes);
     }
 
-
-    public BufferedImage getImage(String imageName) {
+    public BufferedImage getBufferedImage(String imageName) {
         //get data from storage
         BlobId blobId = BlobId.of(bucketName, imageName);
         byte[] content = storage.readAllBytes(blobId);
@@ -73,6 +80,17 @@ public class StorageConnection {
         //get correct format
         BufferedImage image_out = bytes_to_bufferedImage(content);
         return image_out;
+    }
+
+    public byte[] getImage(String imageName) {
+        //get data from storage
+        BlobId blobId = BlobId.of(bucketName, imageName);
+        byte[] content = storage.readAllBytes(blobId);
+
+        //System.out.println("content of " + imageName + " is " + imageBase64Data);
+        //get correct format
+        //BufferedImage image_out = bytes_to_bufferedImage(content);
+        return content;
     }
 
     public boolean deleteBlob(String blobName) {

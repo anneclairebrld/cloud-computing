@@ -1,14 +1,18 @@
 package database;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //This class controls MySQLConnection and StorageConnection
 public class DatabaseController {
     //Connections
     private MySQLConnection mySQLConnection = new MySQLConnection("images");
-    private StorageConnection storageConnection = new StorageConnection();
+    private StorageConnection storageConnection = new StorageConnection("original_imgs");
 
     //Access names
     private String MySQLTableStrgName = "Storage_Details";
@@ -22,32 +26,39 @@ public class DatabaseController {
 
     public DatabaseController(){}
 
-    public void post(BufferedImage image, Integer[] pixelsize, List<Integer> colours, Integer width, Integer height) {
-        storageConnection.connectToBucket(strgBucketOriginalName);
+    public String post(BufferedImage image, Integer[] pixelsize, List<Integer> colours, Integer width, Integer height) {
+        //storageConnection.connectToBucket(strgBucketOriginalName);
         strgImageLocation = storageConnection.postImage(image);
         dbImageID = mySQLConnection.post(strgImageLocation, pixelsize, colours, width, height, MySQLTableStrgName);
+        return strgImageLocation;
     }
 
     public void postModifiedImage(BufferedImage image){
-        storageConnection.connectToBucket(strgBucketModImageName);
+        //storageConnection.connectToBucket(strgBucketModImageName);
         storageConnection.postImage(image, strgImageLocation);
     }
 
-    public BufferedImage getImage(String name) {
+    public BufferedImage getBufferedImage(String name){
+        //storageConnection.connectToBucket(strgBucketOriginalName);
+        return storageConnection.getBufferedImage(name);
+    }
+
+
+    public byte[] getImage(String name) {
         if(name.equals("mine")){
             name = strgImageLocation;
         }
-        storageConnection.connectToBucket(strgBucketOriginalName);
+        //storageConnection.connectToBucket(strgBucketOriginalName);
         return storageConnection.getImage(name);
     }
 
     //get the width and height from the db
-    public Integer[] getImageSize(Integer image_id){
-        String[] info = {image_id.toString(), "WIDTH"};
-        String[] info2 = {image_id.toString(), "HEIGHT"};
-        String width = mySQLConnection.get(info, MySQLTableStrgName, "ID");
-        String height = mySQLConnection.get(info2, MySQLTableStrgName, "ID");
-        System.out.println(width + " , " + height);
+    public Integer[] getImageSize(String loc){
+        String[] info = {loc, "WIDTH"};
+        String[] info2 = {loc, "HEIGHT"};
+        String width = mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC");
+        String height = mySQLConnection.get(info2, MySQLTableStrgName, "IMAGE_LOC");
+        //System.out.println(width + " , " + height);
 
         Integer[] image_size = {Integer.parseInt(width), Integer.parseInt(height)};
         return image_size;
@@ -56,12 +67,12 @@ public class DatabaseController {
 
 
     //get the width and height from the db
-    public Integer[] getPixelSize(Integer image_id){
-        String[] info = {image_id.toString(), "PIXELWIDTH"};
-        String[] info2 = {image_id.toString(), "PIXELHEIGHT"};
-        String width = mySQLConnection.get(info, MySQLTableStrgName, "ID");
-        String height = mySQLConnection.get(info2, MySQLTableStrgName, "ID");
-        System.out.println(width + " , " + height);
+    public Integer[] getPixelSize(String loc){
+        String[] info = {loc, "PIXELWIDTH"};
+        String[] info2 = {loc, "PIXELHEIGHT"};
+        String width = mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC");
+        String height = mySQLConnection.get(info2, MySQLTableStrgName, "IMAGE_LOC");
+        //System.out.println(width + " , " + height);
 
         Integer[] pixel_size = {Integer.parseInt(width), Integer.parseInt(height)};
         return pixel_size;
@@ -72,12 +83,30 @@ public class DatabaseController {
         return mySQLConnection.get(info, MySQLTableStrgName, "ID");
     }
 
+    public  String getImageID(String loc) {
+        String[] info = {loc, "ID"};
+        System.out.println("location was: " + loc + " and ID is: " + mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC"));
+        return mySQLConnection.get(info, MySQLTableStrgName, "IMAGE_LOC");
+    }
     //there are 20 colours
-    public List<Integer> getColours(Integer image_id) {
+   /* public List<Integer> getColours(Integer image_id) {
         List<Integer> colours = new ArrayList<Integer>();
         for(int i = 0; i < 20; i++){
             String[] info = {image_id.toString(), "COLOUR" + (i+1)};
             Integer result =  Integer.parseInt(mySQLConnection.get(info, "Storage_Details", "ID"));
+            if (result != 0) {
+                colours.add(result);
+            }
+        }
+
+        return colours;
+    }*/
+
+    public List<Integer> getColours(String loc) {
+        List<Integer> colours = new ArrayList<Integer>();
+        for(int i = 0; i < 20; i++){
+            String[] info = {loc, "COLOUR" + (i+1)};
+            Integer result =  Integer.parseInt(mySQLConnection.get(info, "Storage_Details", "IMAGE_LOC"));
             if (result != 0) {
                 colours.add(result);
             }
@@ -90,9 +119,9 @@ public class DatabaseController {
 
     //deletes everything that has to do with the image
     public void delete(){
-        storageConnection.connectToBucket(strgBucketOriginalName);
-        storageConnection.deleteBlob(strgImageLocation);
-        storageConnection.connectToBucket(strgBucketModImageName);
+        //storageConnection.connectToBucket(strgBucketOriginalName);
+        //storageConnection.deleteBlob(strgImageLocation);
+        //storageConnection.connectToBucket(strgBucketModImageName);
         storageConnection.deleteBlob(strgImageLocation);
         strgImageLocation = null;
 
@@ -101,14 +130,16 @@ public class DatabaseController {
     }
 
     //gets all images saved in the bucket storage
-    public List<BufferedImage> getAllImages(){
+    public Map<String, String> getAllImages(){
         String result = mySQLConnection.getAll("IMAGE_LOC", MySQLTableStrgName);
         String[] result_array =result.split(",");
-        List<BufferedImage> images = new ArrayList<BufferedImage>();
-        storageConnection.connectToBucket(strgBucketOriginalName);
-
+        Map<String, String> images = new HashMap<String, String>();
+        
         for(int i = 0 ; i< result_array.length ; i++){
-            images.add(storageConnection.getImage(result_array[i]));
+            Base64 codec = new Base64();
+            String imageBase64Data= codec.encodeBase64String(storageConnection.getImage(result_array[i]));
+            String imageDataURL= "data:image/png;base64," + imageBase64Data ;
+            images.put(imageDataURL, result_array[i]);
         }
 
         return images;
