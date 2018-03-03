@@ -1,6 +1,6 @@
 # Cloud Computing
 
-4th year project.
+Colouring by pixels with friends web application. Used the google cloud platform (kubernetes, sql db, websockets, etc).
 
 ## Running the server
 
